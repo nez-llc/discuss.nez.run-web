@@ -23,7 +23,8 @@ class ApiClient {
     const data = await response.json()
 
     return {
-      data
+      code: response.status,
+      data,
     }
   }
 }

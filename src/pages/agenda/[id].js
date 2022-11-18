@@ -13,19 +13,19 @@ const Title = styled.h2`
   margin-bottom: 8px;
 `
 
-const QuestionPage = ({ question }) => {
+const QuestionPage = ({ agenda }) => {
   return (
     <div>
       <Pane>
-        <Title>{question.title}</Title>
-        <Markdown>{question.summary}</Markdown>
+        <Title>{agenda.title}</Title>
+        <Markdown>{agenda.summary}</Markdown>
         <hr />
-        <Markdown>{question.desc}</Markdown>
-        <Tags tags={question.tags} />
+        <Markdown>{agenda.desc}</Markdown>
+        <Tags tags={agenda.tags} />
       </Pane>
 
       <Pane>
-        <VoteBar votes={question.votes} />
+        <VoteBar votes={agenda.votes} />
       </Pane>
 
       <div
@@ -49,7 +49,7 @@ const QuestionPage = ({ question }) => {
       <Pane>
         <Pane.Title>의견</Pane.Title>
         <CommentList />
-        <CommentForm />
+        <CommentForm agenda={agenda} />
       </Pane>
     </div>
   )
@@ -58,16 +58,16 @@ const QuestionPage = ({ question }) => {
 export const getServerSideProps = async ({ query }) => {
   const { id } = query
 
-  const fetchQuestion = async () => {
+  const fetchAgenda = async () => {
     const response = await fetch(`${process.env.API_ENDPOINT}/api/agendas/${id}`)
     return await response.json()
   }
 
-  const question = await fetchQuestion()
+  const agenda = await fetchAgenda()
 
   return {
     props: {
-      question,
+      agenda,
     }
   }
 }
