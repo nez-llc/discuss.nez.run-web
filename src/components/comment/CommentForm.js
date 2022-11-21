@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ProfilePicture from 'components/ui/ProfilePicture'
 import styled from '@emotion/styled'
-import { client } from 'utils/api'
+import { useApi } from 'utils/api'
 
 const Wrapper = styled.div`
   display: flex;
@@ -19,6 +19,7 @@ const SubmitButton = styled.button`
 `
 
 const CommentForm = ({ agenda }) => {
+  const { client } = useApi()
   const [comment, setComment] = useState('')
 
   const onUnauthorized = () => {

@@ -26,13 +26,14 @@ const exchangeToken = async (provider, tokens) => {
     provider,
     tokens,
   })
+
   const { data } = await client.post('/api/auth/token', {
     provider,
     tokens,
   })
 
   return {
-
+    data,
   }
 }
 
