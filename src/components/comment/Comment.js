@@ -15,12 +15,14 @@ const Name = styled.h3`
 const Content = styled.div`
 `
 
-const Comment = () => (
+const Comment = ({comment}) => (
   <Wrapper>
-    <ProfilePicture />
+    <ProfilePicture
+        url={comment.writer.picture}
+    />
     <div>
-      <Name>writer</Name>
-      <p>text text text</p>
+      <Name>{comment.writer.nickname}</Name>
+      <p>{comment.content}</p>
     </div>
   </Wrapper>
 )

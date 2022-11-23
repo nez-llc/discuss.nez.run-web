@@ -48,7 +48,7 @@ const QuestionPage = ({ agenda }) => {
 
       <Pane>
         <Pane.Title>의견</Pane.Title>
-        <CommentList />
+        <CommentList agendaId={agenda.id}/>
         <CommentForm agenda={agenda} />
       </Pane>
     </div>

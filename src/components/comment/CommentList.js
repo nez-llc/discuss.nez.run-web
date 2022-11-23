@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
 import Comment from 'components/comment/Comment'
+import {useComments} from "../../data/comments";
 
 const Ul = styled.ul`
 `
@@ -8,22 +9,9 @@ const Ul = styled.ul`
 const Li = styled.li`
   margin-bottom: 24px;
 `
-
-const useComments = agendaId => {
-  const [comments, setComments] = useState([])
-
-  useEffect(() => {
-    const fetchComments = () => {
-
-    }
-    fetchComments()
-  }, [agendaId])
-
-  return comments
-}
-
 const CommentList = ({ agendaId }) => {
-  const comments = useComments(agendaId)
+  const { comments } = useComments(agendaId)
+  console.log(comments);
 
   return (
     <Ul>
@@ -35,5 +23,6 @@ const CommentList = ({ agendaId }) => {
     </Ul>
   )
 }
+
 
 export default CommentList

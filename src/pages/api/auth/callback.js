@@ -1,5 +1,5 @@
 import providers from 'auth/providers'
-import { client } from 'utils/api'
+import {client} from 'utils/api'
 
 const html = `
 <!DOCTYPE html>
@@ -48,7 +48,7 @@ export default async function handler (req, res) {
   const providerTokens = await provider.getAccessToken(req.query)
   const apiToken = await exchangeToken(providerId, providerTokens)
 
-  setCookie(res, 'auth', JSON.stringify(apiToken))
+  setCookie(res, 'auth', apiToken.data.token)
 
   res.send(html)
 }

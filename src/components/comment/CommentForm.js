@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import ProfilePicture from 'components/ui/ProfilePicture'
 import styled from '@emotion/styled'
-import { useApi } from 'utils/api'
+import {useApi} from 'utils/api'
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,20 +20,24 @@ const SubmitButton = styled.button`
 
 const CommentForm = ({ agenda }) => {
   const { client } = useApi()
-  const [comment, setComment] = useState('')
+  const [content, setContent] = useState('')
 
   const onUnauthorized = () => {
     // TODO : 조금 더 예쁜 alert 띄우기
     alert('로그인이 필요합니다.')
   }
 
+  const onSaved = () => {
+      alert('덧글이 등록되었습니다.')
+  }
+
   const saveComment = async () => {
     const { code, data } = await client.post(`/api/agendas/${agenda.id}/comments`, {
-      comment,
+      content,
     })
 
     switch (code) {
-      // case 202: onSaved(data) break
+      case 201: onSaved(data); break
       // case 400: onBadRequest(data) break
       case 401: onUnauthorized(data); break
       // case 500:
@@ -47,8 +51,8 @@ const CommentForm = ({ agenda }) => {
     <Wrapper>
       <ProfilePicture />
       <Textarea
-        value={comment}
-        onChange={e => setComment(e.target.value)}
+        value={content}
+        onChange={e => setContent(e.target.value)}
       />
       <SubmitButton onClick={saveComment}>등록</SubmitButton>
     </Wrapper>

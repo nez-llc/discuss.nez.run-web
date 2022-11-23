@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef } from 'react'
-import { useAuth } from 'auth/use-auth'
+import {useAuth} from 'auth/use-auth'
+import {useMemo} from 'react'
 
 const { API_ENDPOINT } = process.env
 
@@ -24,6 +24,13 @@ class ApiClient {
       method: 'GET',
       headers: this.headers,
     })
+
+    const data = await response.json()
+
+    return {
+      code: response.status,
+      data,
+    }
   }
 
   async post (url, params) {
@@ -53,6 +60,7 @@ const useApi = () => {
     if (token) {
       client.setToken(token)
     }
+    return client
   }, [token])
 
   return {

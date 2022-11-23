@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Pane from 'components/layout/Pane'
-import { getCookie } from 'cookies-next'
 import TwitterProvider from 'auth/providers/twitter'
 import FacebookProvider from 'auth/providers/facebook'
 import GitHubProvider from 'auth/providers/github'
@@ -11,16 +10,16 @@ const signInPopup = async provider => new Promise(async resolve => {
   const popup = window.open(authorizeUrl, 'newwindow', 'width=500,height=600')
 
   const timer = setInterval(() => {
-    if (popup.closed) {
-      clearInterval(timer)
-
-      const resultString = getCookie('auth')
-      const result = JSON.parse(resultString)
-      console.log(result)
-      // exchange token
-
-      resolve(result)
-    }
+    // if (popup.closed) {
+    //   clearInterval(timer)
+    //
+    //   const resultString = getCookie('auth')
+    //   const result = JSON.parse(resultString)
+    //   console.log(result)
+    //   // exchange token
+    //
+    //   resolve(result)
+    // }
   }, 1000)
 })
 

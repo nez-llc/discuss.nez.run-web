@@ -8,9 +8,9 @@ const Wrapper = styled.div`
   background: #bbbbbb;
 `
 
-const ProfilePicture = () => (
+const ProfilePicture = ({url}) => (
   <Wrapper>
-
+    {url}
   </Wrapper>
 )
 

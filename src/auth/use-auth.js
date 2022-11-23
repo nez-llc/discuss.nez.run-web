@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import {createContext, useContext, useEffect, useState} from 'react'
 
 const UserContext = createContext({})
 
@@ -25,8 +25,7 @@ export const UserProvider = ({ children }) => {
 
     if (!cookies['auth']) return
 
-    const { data } = JSON.parse(cookies['auth'])
-    setToken(data.token)
+    setToken(cookies['auth'])
   }, [])
 
   // const refreshUser = async () => {
