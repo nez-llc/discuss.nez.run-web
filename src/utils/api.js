@@ -1,5 +1,5 @@
-import { useAuth } from 'auth/use-auth'
 import { useEffect, useMemo, useRef } from 'react'
+import { useAuth } from 'auth/use-auth'
 
 const { API_ENDPOINT } = process.env
 
@@ -45,11 +45,14 @@ class ApiClient {
 const client = new ApiClient()
 
 const useApi = () => {
-  const client = new ApiClient()
   const { token } = useAuth()
 
-  useEffect(() => {
-    client.setToken(token)
+  const client = useMemo(() => {
+    const client = new ApiClient()
+
+    if (token) {
+      client.setToken(token)
+    }
   }, [token])
 
   return {
