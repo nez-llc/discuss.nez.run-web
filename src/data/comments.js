@@ -1,21 +1,25 @@
-import {useEffect, useState} from 'react'
-import {useApi} from "../utils/api";
+import { useCallback, useEffect, useState } from 'react'
+import { useApi } from 'utils/api'
 
 const useComments = agendaId => {
   const { client } = useApi()
   const [comments, setComments] = useState([])
 
-  useEffect(() => {
-    const fetchComments = async () => {
-      const { code, data } = await client.get(`/api/agendas/${agendaId}/comments`)
+  const mutate = useCallback(async () => {
+    const { code, data } = await client.get(`/api/agendas/${agendaId}/comments`)
 
-      setComments(data)
+    switch (code) {
+      case 200: setComments(data); break
     }
-    fetchComments()
-  }, [])
+  }, [agendaId])
+
+  useEffect(() => {
+    mutate()
+  }, [agendaId])
 
   return {
     comments,
+    mutate,
   }
 }
 

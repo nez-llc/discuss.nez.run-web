@@ -4,9 +4,8 @@ import Pane from 'components/layout/Pane'
 import Markdown from 'components/ui/Markdown'
 import Tags from 'components/ui/Tags'
 import VoteBar from 'components/ui/VoteBar'
-import CommentList from 'components/comment/CommentList'
 import RelatedReferences from 'components/question/RelatedReferences'
-import CommentForm from 'components/comment/CommentForm'
+import Comments from 'components/comment/Comments'
 
 const Title = styled.h2`
   font-size: 24px;
@@ -48,8 +47,7 @@ const QuestionPage = ({ agenda }) => {
 
       <Pane>
         <Pane.Title>의견</Pane.Title>
-        <CommentList agendaId={agenda.id}/>
-        <CommentForm agenda={agenda} />
+        <Comments agendaId={agenda.id} />
       </Pane>
     </div>
   )

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
-import ProfilePicture from 'components/ui/ProfilePicture'
 import styled from '@emotion/styled'
-import {useApi} from 'utils/api'
+import ProfilePicture from 'components/ui/ProfilePicture'
+import { useApi } from 'utils/api'
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const SubmitButton = styled.button`
   
 `
 
-const CommentForm = ({ agenda }) => {
+const CommentForm = ({ agendaId }) => {
   const { client } = useApi()
   const [content, setContent] = useState('')
 
@@ -28,11 +28,12 @@ const CommentForm = ({ agenda }) => {
   }
 
   const onSaved = () => {
-      alert('덧글이 등록되었습니다.')
+    alert('덧글이 등록되었습니다.')
+    onCreated && onCreated()
   }
 
   const saveComment = async () => {
-    const { code, data } = await client.post(`/api/agendas/${agenda.id}/comments`, {
+    const { code, data } = await client.post(`/api/agendas/${agendaId}/comments`, {
       content,
     })
 
