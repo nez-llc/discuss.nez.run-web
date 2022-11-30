@@ -47,6 +47,35 @@ class ApiClient {
       data,
     }
   }
+
+  async put (url, params) {
+    const response = await fetch(`${API_ENDPOINT}${url}`, {
+      method: 'PUT',
+      body: JSON.stringify(params),
+      headers: this.headers,
+    })
+
+    const data = await response.json()
+
+    return {
+      code: response.status,
+      data,
+    }
+  }
+
+  async delete (url, params) {
+    const response = await fetch(`${API_ENDPOINT}${url}`, {
+      method: 'DELETE',
+      headers: this.headers,
+    })
+
+    const data = await response.json()
+
+    return {
+      code: response.status,
+      data,
+    }
+  }
 }
 
 const client = new ApiClient()

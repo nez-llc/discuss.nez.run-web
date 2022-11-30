@@ -20,7 +20,7 @@ const Tag = styled.span`
 
 const Tags = ({ tags }) => (
   <Ul>
-    {tags.map(tag => (
+    {tags && tags.map(tag => (
       <Li key={tag.id}>
         <Tag>{tag.name}</Tag>
       </Li>
