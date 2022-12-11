@@ -37,7 +37,6 @@ const Inner = styled.div`
 `
 
 const VoteBar = ({ voteCount }) => {
-    console.log(voteCount);
   const votes = [voteCount?.agree, voteCount?.not_sure, voteCount?.not_agree]
 
     if (votes.every(vote => vote === 0)) {

@@ -26,12 +26,12 @@ const Footer = () => (
   <Wrapper>
     <Notices>
       <NoticeItem>
-        <a href="#_">
+        <a href="/privacy">
           개인정보 취급방침
         </a>
       </NoticeItem>
       <NoticeItem>
-        <a href="#_">
+        <a href="/terms">
           이용약관
         </a>
       </NoticeItem>
