@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import styled from "@emotion/styled";
-import {useApi} from "../../utils/api";
+import {useApi} from "utils/api";
 
 const Title = styled.p`
 `

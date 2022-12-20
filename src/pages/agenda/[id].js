@@ -6,17 +6,22 @@ import Tags from 'components/ui/Tags'
 import VoteBar from 'components/ui/VoteBar'
 import RelatedReferences from 'components/question/RelatedReferences'
 import Comments from 'components/comment/Comments'
-import {useApi} from "../../utils/api";
+import {useApi} from "utils/api";
 import {useAgenda} from "./agenda";
+import {getToken} from "auth/commons";
 
 const Title = styled.h2`
   font-size: 24px;
   margin-bottom: 8px;
 `
 
-const QuestionPage = ({ agendaId }) => {
-    const { agenda, refresh } = useAgenda(agendaId)
+const QuestionPage = ({ _agenda, agendaId, token}) => {
+    const { agenda, refresh, setAgenda } = useAgenda(token, agendaId)
     const { client } = useApi()
+
+    if (!agenda) {
+        setAgenda(_agenda)
+    }
 
     const onUnauthorized = () => {
         alert('로그인이 필요합니다.');
@@ -38,9 +43,9 @@ const QuestionPage = ({ agendaId }) => {
         }
     }
 
-    const up = async () => {
+    const doUpDown = async (updown) => {
         const { code, data } = await client.post(`/api/agendas/${agendaId}/updown`, {
-            updown: 'up'
+            updown
         })
 
         switch (code) {
@@ -87,8 +92,24 @@ const QuestionPage = ({ agendaId }) => {
             }}
           >
               <button onClick={() => vote(agenda.id, 'not_sure')}>몰루</button>
-            <h3>{agenda.updown?.up}</h3>
-            <button onClick={up}>추천</button>
+            <h3>추천 : {agenda.updown?.up}</h3>
+            <h3>비추천 : {agenda.updown?.down}</h3>
+              {
+                  (agenda.my_updown === 'up') ? (
+                      <>
+                          <button onClick={() =>doUpDown('down')}>비추천으로 변경</button>
+                      </>
+                  ) : (agenda.my_updown === 'down') ? (
+                      <>
+                          <button onClick={() =>doUpDown('up')}>추천으로 변경</button>
+                      </>
+                  ) : (
+                      <>
+                          <button onClick={() =>doUpDown('up')}>추천</button>
+                          <button onClick={() =>doUpDown('down')}>비추천</button>
+                      </>
+                  )
+              }
           </div>
             <button onClick={() => vote(agenda.id, 'not_agree')}>비공감</button>
         </div>
@@ -106,10 +127,24 @@ const QuestionPage = ({ agendaId }) => {
   )
 }
 
-const getServerSideProps = ({ query }) => {
+const getServerSideProps = async (context) => {
+    const token = getToken(context);
+    const fetchAgenda = async () => {
+        const response = await fetch(`${process.env.API_ENDPOINT}/api/agendas/${context.query.id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        return await response.json()
+    }
+
+    const _agenda = await fetchAgenda();
+
   return {
     props: {
-      agendaId: query.id
+      _agenda,
+      agendaId: context.query.id,
+        token: (token ? token : '')
     }
   }
 }

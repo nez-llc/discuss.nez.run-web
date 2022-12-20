@@ -80,7 +80,7 @@ class ApiClient {
 
 const client = new ApiClient()
 
-const useApi = () => {
+const useApi = (_token) => {
   const { token } = useAuth()
 
   const client = useMemo(() => {
@@ -88,7 +88,10 @@ const useApi = () => {
 
     if (token) {
       client.setToken(token)
+    } else if (_token) {
+      client.setToken(_token)
     }
+
     return client
   }, [token])
 

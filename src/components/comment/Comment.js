@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import styled from '@emotion/styled'
 import ProfilePicture from 'components/ui/ProfilePicture'
-import {useApi} from "../../utils/api";
-import {useAuth} from "../../auth/use-auth";
+import {useApi} from "utils/api";
+import {useAuth} from "auth/use-auth";
 import * as PropTypes from "prop-types";
 
 const Wrapper = styled.div`
@@ -116,43 +116,49 @@ const Comment = ({ agendaId, comment, refresh }) => {
 
     return (
         <Wrapper>
-            <ProfilePicture
-                url={comment.writer.picture}
-            />
-            <div>
-                <Name>{comment.writer.nickname}</Name>
+            {(comment.status === '1') ?
+                <div>삭제된 덧글입니다.</div>
+         :
+            <>
+                <ProfilePicture
+                    url={comment.writer.picture}
+                />
+                <div>
+                    <Name>{comment.writer.nickname}</Name>
+                    {
+                        isEdit ?
+                            <Textarea
+                                value={content}
+                                onChange={e => setContent(e.target.value)}
+                            />
+                            :
+                            <>
+                                <p>{comment.content}</p>
+                                <p>공감 {comment.agreement}</p>
+                            </>
+                    }
+                </div>
                 {
-                    isEdit ?
-                        <Textarea
-                            value={content}
-                            onChange={e => setContent(e.target.value)}
-                        />
+                    (user.id === comment.writer.id) ?
+                        (
+                            <>
+                                {
+                                    isEdit ?
+                                        <>
+                                            <EditBtn onClick={() => {editComment(content, agendaId, comment.id)}}>수정</EditBtn>
+                                            <StartEditBtn onClick={toggleEdit}>수정 취소</StartEditBtn>
+                                        </>
+                                        :
+                                        <StartEditBtn onClick={toggleEdit}>수정</StartEditBtn>
+                                }
+                                <DeleteBtn onClick={() => {deleteComment(agendaId, comment.id)}}>삭제</DeleteBtn>
+                            </>
+                        )
                         :
-                        <>
-                            <p>{comment.content}</p>
-                            <p>공감 {comment.agreement}</p>
-                        </>
+                        <AgreeBtn onClick={() => {argeeComment(agendaId, comment.id)}}>공감</AgreeBtn>
                 }
-            </div>
-            {
-                (user.id === comment.writer.id) ?
-                    (
-                        <>
-                            {
-                                isEdit ?
-                                    <>
-                                        <EditBtn onClick={() => {editComment(content, agendaId, comment.id)}}>수정</EditBtn>
-                                        <StartEditBtn onClick={toggleEdit}>수정 취소</StartEditBtn>
-                                    </>
-                                    :
-                                    <StartEditBtn onClick={toggleEdit}>수정</StartEditBtn>
-                            }
-                            <DeleteBtn onClick={() => {deleteComment(agendaId, comment.id)}}>삭제</DeleteBtn>
-                        </>
-                    )
-                    :
-                    <AgreeBtn onClick={() => {argeeComment(agendaId, comment.id)}}>공감</AgreeBtn>
-            }
+            </>
+        }
         </Wrapper>
     )
 }

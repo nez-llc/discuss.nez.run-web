@@ -1,9 +1,9 @@
 import {useCallback, useEffect, useState} from 'react'
 import {useApi} from 'utils/api'
 
-const useAgenda = agendaId => {
-    const { client } = useApi()
-    const [agenda, setAgenda] = useState([])
+const useAgenda = (token, agendaId) => {
+    const { client } = useApi(token)
+    const [agenda, setAgenda] = useState(false)
 
     const refresh = useCallback(async () => {
         const { code, data } = await client.get(`/api/agendas/${agendaId}`)
@@ -19,7 +19,8 @@ const useAgenda = agendaId => {
 
     return {
         agenda,
-        refresh
+        refresh,
+        setAgenda,
     }
 }
 

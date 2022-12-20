@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import Link from 'next/link'
 
 const Ul = styled.ul`
   display: flex;
@@ -22,7 +23,9 @@ const Tags = ({ tags }) => (
   <Ul>
     {tags && tags.map(tag => (
       <Li key={tag.id}>
-        <Tag>{tag.name}</Tag>
+        <Link href={`/agenda?tag=${tag.name}`}>
+          <Tag>{tag.name}</Tag>
+        </Link>
       </Li>
     ))}
   </Ul>

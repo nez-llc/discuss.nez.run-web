@@ -34,6 +34,10 @@ const CommentForm = ({ agendaId, onCreated }) => {
   }
 
   const saveComment = async () => {
+    if (!content) {
+      alert('덧글을 입력해주세요.');
+      return;
+    }
     const { code, data } = await client.post(`/api/agendas/${agendaId}/comments`, {
       content,
     })

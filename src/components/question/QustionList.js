@@ -1,10 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
 import styled from '@emotion/styled'
-import { css } from '@emotion/react'
+import {css} from '@emotion/react'
 import Pagination from 'components/ui/Pagination'
 import QuestionPreview from 'components/question/QuestionPreview'
-import { useQuestions } from 'data/questions'
+import {useQuestions} from 'data/questions'
 
 const Wrapper = styled.div`
   padding: 16px 0;
@@ -30,8 +30,8 @@ const OrderSelect = () => {
   )
 }
 
-const List = ({ query }) => {
-  const { questions } = useQuestions(query)
+const List = ({ tag }) => {
+  const { questions } = useQuestions(tag)
 
   return (
     <ul
@@ -57,13 +57,13 @@ const List = ({ query }) => {
   )
 }
 
-const QuestionList = () => (
+const QuestionList = ({tag}) => (
   <Wrapper>
     <a href="/agenda/new">새로운 질문 올리기</a>
     <hr />
     <OrderSelect />
-    <List />
-    <Pagination />
+    <List tag={tag}/>
+    <Pagination tag={tag}/>
   </Wrapper>
 )
 

@@ -31,7 +31,7 @@ const Stat = ({ question }) => (
   >
     <dl>
       <dt>추천</dt>
-      <dd>{question.updown.total}</dd>
+      <dd>{question.updown?.total}</dd>
       <dt>투표</dt>
       <dd>{sum(Object.values(question.vote_count))}</dd>
       <dt>댓글</dt>

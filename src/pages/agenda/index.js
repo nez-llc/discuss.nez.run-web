@@ -1,10 +1,21 @@
-import QuestionStats from 'components/question/QuestionStats'
 import QuestionList from 'components/question/QustionList'
 
-const QuestionListPage = () => (
+const QuestionListPage = ({tag}) => (
   <div>
-    <QuestionList />
+    <QuestionList tag={tag}/>
   </div>
 )
+
+const getServerSideProps = async ({query}) => {
+    return {
+        props: {
+            tag: query.tag || ''
+        }
+    }
+}
+
+export {
+    getServerSideProps
+}
 
 export default QuestionListPage

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
-import { useApi } from 'utils/api'
+import {useCallback, useEffect, useState} from 'react'
+import {useApi} from 'utils/api'
 
 const useComments = agendaId => {
   const { client } = useApi()
@@ -11,7 +11,7 @@ const useComments = agendaId => {
     switch (code) {
       case 200: setComments(data); break
     }
-  }, [agendaId])
+  }, [agendaId, client])
 
   useEffect(() => {
     mutate()
