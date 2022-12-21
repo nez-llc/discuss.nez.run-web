@@ -41,7 +41,8 @@ export const UserProvider = ({ children }) => {
     })
 
     if (response.status !== 200) return;
-    setUser(await response.json())
+    const user = await response.json()
+    setUser(user)
   }
 
   const isLogin = !!token
@@ -59,6 +60,7 @@ export const UserProvider = ({ children }) => {
         user,
         logout,
         isLogin,
+        refreshUser
       }}
     >
       {children}

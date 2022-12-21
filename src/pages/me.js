@@ -4,19 +4,20 @@ import {useState} from "react";
 
 const Me = () => {
     const { client } = useApi()
-    const { user } = useAuth()
+    const { token, user, refreshUser } = useAuth()
     console.log('user',user)
     const [nickname, setNickname] = useState(user.nickname)
     const [picture_id, setPicture_id] = useState(user.nickname)
 
-    const onEdited = () => {
+    const onEdited = async () => {
         alert('수정되었습니다.')
+        await refreshUser(token)
     };
     const onUnauthorized = () => {
-        alert('로그인이 필요합니다.');
+        alert('로그인이 필요합니다.')
     }
     const onForbidden = () => {
-        alert('권한이 없습니다.');
+        alert('권한이 없습니다.')
     }
     const editProfile = async () => {
         const { code, data } = await client.put(`/api/members/my`, {

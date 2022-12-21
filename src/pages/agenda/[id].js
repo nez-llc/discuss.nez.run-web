@@ -6,9 +6,9 @@ import Tags from 'components/ui/Tags'
 import VoteBar from 'components/ui/VoteBar'
 import RelatedReferences from 'components/question/RelatedReferences'
 import Comments from 'components/comment/Comments'
-import {useApi} from "utils/api";
-import {useAgenda, useMyAgenda} from "./agenda";
-import {getToken} from "auth/commons";
+import {useApi} from 'utils/api';
+import {useAgenda, useMyAgenda} from './agenda';
+import {getToken} from 'auth/commons';
 
 const Title = styled.h2`
   font-size: 24px;
