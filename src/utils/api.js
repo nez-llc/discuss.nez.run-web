@@ -10,6 +10,10 @@ class ApiClient {
     }
   }
 
+  get token() {
+    return this.headers.Authorization
+  }
+
   setToken (token) {
     this.headers = {
       ...this.headers,
@@ -19,8 +23,13 @@ class ApiClient {
 
   async get(url, params) {
     const qs = new URLSearchParams()
+    if (params) {
+      for (const [key, value] of Object.entries(params)) {
+        qs.set(key, value)
+      }
+    }
 
-    const response = await fetch(`${API_ENDPOINT}${url}`, {
+    const response = await fetch(`${API_ENDPOINT}${url}${qs.toString() ? `?${qs.toString()}` : ''}`, {
       method: 'GET',
       headers: this.headers,
     })

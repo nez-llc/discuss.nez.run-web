@@ -30,8 +30,7 @@ const OrderSelect = () => {
   )
 }
 
-const List = ({ tag }) => {
-  const { questions } = useQuestions(tag)
+const List = ({ questions }) => {
 
   return (
     <ul
@@ -57,14 +56,18 @@ const List = ({ tag }) => {
   )
 }
 
-const QuestionList = ({tag}) => (
-  <Wrapper>
-    <a href="/agenda/new">새로운 질문 올리기</a>
-    <hr />
-    <OrderSelect />
-    <List tag={tag}/>
-    <Pagination tag={tag}/>
-  </Wrapper>
-)
+const QuestionList = ({tag}) => {
+    const { questions, total, per_page } = useQuestions(tag);
+
+    return (
+      <Wrapper>
+        <a href="/agenda/new">새로운 질문 올리기</a>
+        <hr />
+        <OrderSelect />
+        <List questions={questions}/>
+        <Pagination total={total} per_page={per_page}/>
+      </Wrapper>
+    )
+}
 
 export default QuestionList

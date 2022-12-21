@@ -11,7 +11,7 @@ const useComments = agendaId => {
     switch (code) {
       case 200: setComments(data); break
     }
-  }, [agendaId, client])
+  }, [agendaId, client.token])
 
   useEffect(() => {
     mutate()
