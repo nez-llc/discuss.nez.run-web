@@ -16,6 +16,9 @@ const Item = styled.li`
 `
 
 const Pagination = ({total, per_page}) => {
+    if (!per_page) {
+        per_page = 10;
+    }
     const router = useRouter();
 
     const pages = [];
