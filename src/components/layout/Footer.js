@@ -32,14 +32,14 @@ const Footer = () => (
         </Link>
       </NoticeItem>
       <NoticeItem>
-        <a href="/policy/service">
-          이용약관
-        </a>
+        <Link href="/policy/service">
+          <a>이용약관</a>
+        </Link>
       </NoticeItem>
       <NoticeItem>
-        <a href="/policy/code-of-conduct">
-          행동강령
-        </a>
+        <Link href="/policy/code-of-conduct">
+          <a>행동강령</a>
+        </Link>
       </NoticeItem>
     </Notices>
     <Copyright>Copyright. 2022</Copyright>
