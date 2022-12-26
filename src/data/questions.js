@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import {useApi} from "../utils/api";
 
-const useQuestions = (tag) => {
+const useQuestions = (tag, keyword) => {
   const { client } = useApi()
   const [questions, setQuestions] = useState([])
   const [total, setTotal] = useState(0)
@@ -15,6 +15,9 @@ const useQuestions = (tag) => {
       const param = {}
       if (tag) {
         param['tag_name'] = tag
+      }
+      if (keyword) {
+        param['keyword'] = keyword
       }
       const { code, data } = await client.get('/api/agendas/', param)
 
@@ -31,12 +34,12 @@ const useQuestions = (tag) => {
       setPer_page(data.per_page)
     }
     fetchAgendas()
-  }, [tag, client.token])
+  }, [tag, keyword, client.token])
 
   return {
     questions,
     total,
-    per_page
+    per_page,
   }
 }
 

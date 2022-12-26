@@ -56,8 +56,8 @@ const List = ({ questions }) => {
   )
 }
 
-const QuestionList = ({tag}) => {
-    const { questions, total, per_page } = useQuestions(tag);
+const QuestionList = ({tag, keyword}) => {
+    const { questions, total, per_page } = useQuestions(tag, keyword);
 
     return (
       <Wrapper>
