@@ -6,11 +6,12 @@ const Wrapper = styled.div`
   height: 32px;
   border-radius: 16px;
   background: #bbbbbb;
+  overflow: hidden;
 `
 
 const ProfilePicture = ({url}) => (
   <Wrapper>
-    {url}
+    <img src={url}/>
   </Wrapper>
 )
 

@@ -8,5 +8,13 @@ module.exports = {
     FB_CLIENT_SECRET: process.env.FB_CLIENT_SECRET,
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
     GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
+  },async rewrites() {
+    return [
+
+      {
+        source: "/profile-pictures/:path*",
+        destination: `${process.env.API_ENDPOINT}/profile-pictures/:path*`,
+      },
+    ];
   },
 }
