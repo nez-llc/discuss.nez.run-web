@@ -31,16 +31,16 @@ const Header = () => (
   <Wrapper>
     <Nav>
       <Link href="/">
-        <a><Logo /></a>
+        <Logo />
       </Link>
       <Link href="/agenda">
-        <a>질문 목록</a>
+        질문 목록
       </Link>
       <Link href="/reference">
-        <a>정책 정보</a>
+        정책 정보
       </Link>
       <Link href="/search">
-        <a>검색</a>
+        검색
       </Link>
     </Nav>
     <Tools>
