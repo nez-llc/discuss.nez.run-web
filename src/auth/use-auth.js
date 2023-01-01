@@ -11,7 +11,7 @@ export const UserProvider = ({ children }) => {
   const [token, setToken] = useState('')
   const [user, setUser] = useState({})
 
-  useEffect(async () => {
+  useEffect(() => {
     const readCookie = () => {
       const cookies = document.cookie
         .split(';')
@@ -29,7 +29,7 @@ export const UserProvider = ({ children }) => {
     if (!cookies['auth']) return
 
     setToken(cookies['auth'])
-    await refreshUser(cookies['auth']);
+    refreshUser(cookies['auth']);
   }, [])
 
   const refreshUser = async token => {
