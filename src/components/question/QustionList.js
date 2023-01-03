@@ -1,10 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
 import styled from '@emotion/styled'
-import { css } from '@emotion/react'
+import {css} from '@emotion/react'
 import Pagination from 'components/ui/Pagination'
 import QuestionPreview from 'components/question/QuestionPreview'
-import { useQuestions } from 'data/questions'
+import {useQuestions} from 'data/questions'
 
 const Wrapper = styled.div`
   padding: 16px 0;
@@ -30,8 +30,7 @@ const OrderSelect = () => {
   )
 }
 
-const List = ({ query }) => {
-  const { questions } = useQuestions(query)
+const List = ({ questions }) => {
 
   return (
     <ul
@@ -57,14 +56,18 @@ const List = ({ query }) => {
   )
 }
 
-const QuestionList = () => (
-  <Wrapper>
-    <a href="/agenda/new">새로운 질문 올리기</a>
-    <hr />
-    <OrderSelect />
-    <List />
-    <Pagination />
-  </Wrapper>
-)
+const QuestionList = ({tag, keyword}) => {
+    const { questions, total, per_page } = useQuestions(tag, keyword);
+
+    return (
+      <Wrapper>
+        <a href="/agenda/new">새로운 질문 올리기</a>
+        <hr />
+        <OrderSelect />
+        <List questions={questions}/>
+        <Pagination total={total} per_page={per_page}/>
+      </Wrapper>
+    )
+}
 
 export default QuestionList
