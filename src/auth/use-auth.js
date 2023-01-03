@@ -1,5 +1,8 @@
 import {createContext, useContext, useEffect, useState} from 'react'
 
+
+const { API_ENDPOINT } = process.env
+
 const UserContext = createContext({})
 
 export const useAuth = () => useContext(UserContext)
@@ -26,17 +29,21 @@ export const UserProvider = ({ children }) => {
     if (!cookies['auth']) return
 
     setToken(cookies['auth'])
+    refreshUser(cookies['auth']);
   }, [])
 
-  // const refreshUser = async () => {
-  //   const response = await fetch('/api/auth/user', {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   })
-  //   const user = await response.json()
-  //   setUser(user)
-  // }
+  const refreshUser = async token => {
+    const response = await fetch(`${API_ENDPOINT}/api/members/my`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    if (response.status !== 200) return;
+    const user = await response.json()
+    setUser(user)
+  }
 
   const isLogin = !!token
 
@@ -53,6 +60,7 @@ export const UserProvider = ({ children }) => {
         user,
         logout,
         isLogin,
+        refreshUser
       }}
     >
       {children}
