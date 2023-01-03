@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import Link from "next/link";
 
 
 const Wrapper = styled.div`
@@ -34,7 +35,7 @@ const ChildrenItem = styled.div`
 `
 
 const RichText = ({ item }) => {
-    // console.log(item);
+    console.log(item);
     const annotations = item.annotations;
     return (
         <span key={item.id} style={{
@@ -43,7 +44,8 @@ const RichText = ({ item }) => {
             textDecoration: (annotations.strikethrough ? 'line-through' : ''),
             color: (annotations.color)
         }}>
-            {item.text.content}
+            {item.text.link ?
+                <Link href={item.text.link}><a>{item.text.content}</a></Link> : item.text.content}
         </span>
     )
 }
