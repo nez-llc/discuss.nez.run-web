@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import { css } from '@emotion/react'
 import React from 'react'
 
 const VOTE_COLORS = ['#6092c0', '#f1ebd7', '#e7664c']
@@ -37,9 +36,12 @@ const Inner = styled.div`
   height: 100%;
 `
 
-const VoteBar = ({  }) => {
-  const votes = [123, 12,  123]
-  // const sum = votes.reduce((a, b) => a + b, 0)
+const VoteBar = ({ voteCount }) => {
+  const votes = [voteCount?.agree, voteCount?.not_sure, voteCount?.not_agree]
+
+    if (votes.every(vote => vote === 0)) {
+        votes.fill(1)
+    }
 
   return (
     <Wrapper>
