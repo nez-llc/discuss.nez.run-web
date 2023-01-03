@@ -1,50 +1,44 @@
 import React from 'react'
-import { getBlocks } from 'utils/notion-api';
+import { getBlocks, getBlocksChildren } from 'utils/notion-api';
+import styled from "@emotion/styled";
+import Blocks from 'components/policy/Blocks'
 
 
 const ServiceIndexPage = (props) => {
-    //console.log(props);
     return (
-        <div className=''>
-            {props.posts.map((post) => (
-                <div key={post.id}>
-                    <div>
-                        {post[post.type].rich_text.map(item => (
-                            <div>
-                                <p>{item.text.content}</p>
-                            </div>
-                        ))}
-                        {post.has_children === true
-                            && post.children_items.map(child => (
-                                <div>
-                                    {child[child.type].rich_text.map(item => (
-                                        <p>{item.text.content}</p>
-                                    ))}
-                                </div>
-                            ))
-                        }
-                    </div>
-                </div>
-            ))}
-        </div>
+        <Blocks blocks={props.blocks} />
     );
 }
 
 export const getStaticProps = async () => {
-    const posts = await getBlocks('960af32f83984d419bfb0bc3c92e5528');
+    const blocks = await getBlocks('960af32f83984d419bfb0bc3c92e5528');
 
-    const result = await Promise.all(
-        posts.map(async post => {
-            if(post.has_children) {
-                post.children_items = await getBlocks(post.id);
-            }
-            return post;
-        })
-    );
+    // for (const block of blocks){
+    //     if (block.has_children){
+    //         blocks.children_items = getBlocks(block.id);
+    //     }
+    // }
+    //
+    // for (const block of blocks){
+    //     if (block.has_children){
+    //         blocks.children_items = await blocks.children_items;
+    //     }
+    // }
+
+    // const result = await Promise.all(
+    //     blocks.map(async block => {
+    //         if(block.has_children) {
+    //             block.children_items = await getBlocks(block.id);
+    //         }
+    //         return block;
+    //     })
+    // );
+    await getBlocksChildren(blocks);
 
     return {
         props: {
-            posts: JSON.parse(JSON.stringify(result)),
+            // blocks: blocks,
+            blocks: blocks,
         },
         // Next.js will attempt to re-generate the page:
         // - When a request comes in
