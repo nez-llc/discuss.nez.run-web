@@ -17,7 +17,7 @@ const Account = () => {
       {isLogin ? (
         <>
           <Link href="/me">
-            <a>마이페이지</a>
+            마이페이지
           </Link>
           <button onClick={logout}>
             로그아웃
@@ -25,7 +25,7 @@ const Account = () => {
         </>
       ) : (
         <Link href="/login">
-          <a>로그인</a>
+          로그인
         </Link>
       )}
     </Wrapper>

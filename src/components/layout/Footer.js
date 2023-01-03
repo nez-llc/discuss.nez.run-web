@@ -28,17 +28,17 @@ const Footer = () => (
     <Notices>
       <NoticeItem>
         <Link href="/policy/privacy">
-          <a>개인정보 취급방침</a>
+          개인정보 취급방침
         </Link>
       </NoticeItem>
       <NoticeItem>
         <Link href="/policy/service">
-          <a>이용약관</a>
+          이용약관
         </Link>
       </NoticeItem>
       <NoticeItem>
         <Link href="/policy/code-of-conduct">
-          <a>행동강령</a>
+          행동강령
         </Link>
       </NoticeItem>
     </Notices>

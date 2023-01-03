@@ -17,47 +17,22 @@ const ReferenceIndexPage = () => {
           <ul>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h3>카테고리</h3>
-          <ul>
-            <li>
-              <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
           </ul>
@@ -67,22 +42,22 @@ const ReferenceIndexPage = () => {
           <ul>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
           </ul>
@@ -92,22 +67,47 @@ const ReferenceIndexPage = () => {
           <ul>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3>카테고리</h3>
+          <ul>
+            <li>
+              <Link href="reference/1">
+                정책이나 사례의 이름
+              </Link>
+            </li>
+            <li>
+              <Link href="reference/1">
+                정책이나 사례의 이름
+              </Link>
+            </li>
+            <li>
+              <Link href="reference/1">
+                정책이나 사례의 이름
+              </Link>
+            </li>
+            <li>
+              <Link href="reference/1">
+                정책이나 사례의 이름
               </Link>
             </li>
           </ul>
@@ -125,47 +125,22 @@ const ReferenceIndexPage = () => {
           <ul>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h3>카테고리</h3>
-          <ul>
-            <li>
-              <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
           </ul>
@@ -175,22 +150,22 @@ const ReferenceIndexPage = () => {
           <ul>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
           </ul>
@@ -200,22 +175,47 @@ const ReferenceIndexPage = () => {
           <ul>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
               </Link>
             </li>
             <li>
               <Link href="reference/1">
-                <a>정책이나 사례의 이름</a>
+                정책이나 사례의 이름
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3>카테고리</h3>
+          <ul>
+            <li>
+              <Link href="reference/1">
+                정책이나 사례의 이름
+              </Link>
+            </li>
+            <li>
+              <Link href="reference/1">
+                정책이나 사례의 이름
+              </Link>
+            </li>
+            <li>
+              <Link href="reference/1">
+                정책이나 사례의 이름
+              </Link>
+            </li>
+            <li>
+              <Link href="reference/1">
+                정책이나 사례의 이름
               </Link>
             </li>
           </ul>
