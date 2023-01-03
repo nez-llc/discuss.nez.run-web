@@ -7,52 +7,60 @@ const Wrapper = styled.div`
 `
 
 const Block = styled.div`
-  counter-reset: section;
-  p::before{
-    counter-increment: section;
-    content: counter(section) ". ";
-  }
+    margin-bottom: 10px;
+    counter-reset: section;
+    p::before{
+        counter-increment: section;
+        content: counter(section) ". ";
+    }
+  
+    p > div {
+      counter-reset: section2;
+    }
+    p > div p::before{
+        counter-increment: section2;
+        content: counter(section2, lower-alpha) ". ";
+    }
 `
 
 const NumberedListItem = styled.p`
-  margin-bottom: 3px;
-  ul {
-    counter-reset: section2;
-  }
-  ul > p::before{
-    counter-increment: section2;
-    content: counter(section2, lower-alpha) ". ";
-  }
+    margin-bottom: 3px;
+    //> div {
+    //counter-reset: section2;
+    //}
+    //div > div > p::before{
+    //counter-increment: section2;
+    //content: counter(section2, lower-alpha) ". ";
+    //}
 `
-const ChildrenItem = styled.ul`
+const ChildrenItem = styled.div`
     padding-left: 1em;
 `
 
 const RichText = ({ item }) => {
-    //console.log(item);
     const annotations = item.annotations;
     return (
-        <span key={item.id} style={{
+        <span style={{
             fontWeight: (annotations.bold ? 'bold' : ''),
             fontStyle: (annotations.italic ? 'italic' : ''),
             textDecoration: (annotations.strikethrough ? 'line-through' : ''),
             color: (annotations.color)
         }}>
-            {item && item.text.content}
+            {item.text.content}
         </span>
     )
 }
 
 const BlockHeading1 = ({ block }) => {
     return (
-        <Block>
+        <>
             <h1>
                 {block[block.type].rich_text.map(item => (
-                    <RichText  key={block.id} item={item}/>
+                    <RichText item={item}/>
                 ))}
             </h1>
             {block.has_children && <ChildrenItems children={block.children_items} /> }
-        </Block>
+        </>
     )
 }
 const BlockNumberedListItem = ({ block }) => {
@@ -61,21 +69,18 @@ const BlockNumberedListItem = ({ block }) => {
             {block[block.type].rich_text.map(item => (
                 <RichText item={item}/>
             ))}
-            <div>
-                {block.has_children && <ChildrenItems children={block.children_items} /> }
-            </div>
+            {block.has_children && <ChildrenItems children={block.children_items} /> }
         </NumberedListItem>
     )
 }
 const BlockDefaultItem = ({ block }) =>{
-    //console.log(block);
     return(
-        <Block>
+        <>
             {block[block.type].rich_text.map(item => (
-                <RichText key={item.id} item={item}/>
+                <RichText item={item}/>
             ))}
             {block.has_children && <ChildrenItems children={block.children_items} /> }
-        </Block>
+        </>
     )
 }
 const SwitchRichText = ({ block }) => {
@@ -104,7 +109,7 @@ const ChildrenItems = ({ children }) => {
         <ChildrenItem>
             {children &&
                 children.map(block => (
-                    <SwitchRichText key={block.id} block={block} />
+                    <SwitchRichText block={block} />
                 ))
             }
         </ChildrenItem>
@@ -118,7 +123,9 @@ const Blocks = ({ blocks }) => {
     return (
         <Wrapper>
             {blocks && blocks.map(block => (
+                <Block>
                     <SwitchRichText block={block} />
+                </Block>
             ))}
         </Wrapper>
     )
