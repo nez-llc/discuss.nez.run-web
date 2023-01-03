@@ -35,7 +35,7 @@ const ChildrenItem = styled.div`
 `
 
 const RichText = ({ item }) => {
-    console.log(item);
+    //console.log(item);
     const annotations = item.annotations;
     return (
         <span key={item.id} style={{
@@ -45,7 +45,7 @@ const RichText = ({ item }) => {
             color: (annotations.color)
         }}>
             {item.text.link ?
-                <Link href={item.text.link}><a>{item.text.content}</a></Link> : item.text.content}
+                <Link href={item.text.link.url}><a>{item.text.content}</a></Link> : item.text.content}
         </span>
     )
 }
@@ -65,6 +65,7 @@ const BlockHeading1 = ({ block }) => {
     )
 }
 const BlockNumberedListItem = ({ block }) => {
+    //console.log(block);
     return (
         <NumberedListItem>
             {block[block.type].rich_text.map((item, index) => (
@@ -122,6 +123,8 @@ const Blocks = ({ blocks }) => {
     blocks = blocks.filter(block => {
        return block[block.type].rich_text.length > 0;
     });
+
+    //console.log(blocks);
 
     return (
         <Wrapper>
