@@ -35,10 +35,9 @@ const ChildrenItem = styled.div`
 `
 
 const RichText = ({ item }) => {
-    //console.log(item);
     const annotations = item.annotations;
     return (
-        <span key={item.id} style={{
+        <span style={{
             fontWeight: (annotations.bold ? 'bold' : ''),
             fontStyle: (annotations.italic ? 'italic' : ''),
             textDecoration: (annotations.strikethrough ? 'line-through' : ''),
@@ -51,7 +50,6 @@ const RichText = ({ item }) => {
 }
 
 const BlockHeading1 = ({ block }) => {
-    //console.log(block);
     return (
         <>
             <h1>
@@ -65,7 +63,6 @@ const BlockHeading1 = ({ block }) => {
     )
 }
 const BlockNumberedListItem = ({ block }) => {
-    //console.log(block);
     return (
         <NumberedListItem>
             {block[block.type].rich_text.map((item, index) => (
@@ -88,7 +85,6 @@ const BlockDefaultItem = ({ block }) =>{
     )
 }
 const SwitchRichText = ({ block }) => {
-
     return (
         <>
             {block
@@ -123,8 +119,6 @@ const Blocks = ({ blocks }) => {
     blocks = blocks.filter(block => {
        return block[block.type].rich_text.length > 0;
     });
-
-    //console.log(blocks);
 
     return (
         <Wrapper>
