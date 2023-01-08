@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 `
 
 
-const OrderSelect = (sort) => {
+const OrderSelect = ({sort}) => {
     const router = useRouter();
     const doSort = (sort) => {
         Router.push({
@@ -65,8 +65,8 @@ const List = ({ questions }) => {
   )
 }
 
-const QuestionList = ({tag, keyword, sort}) => {
-    const { questions, total, per_page } = useQuestions(tag, keyword, sort);
+const QuestionList = ({tag, keyword, sort, searchType}) => {
+    const { questions, total, per_page } = useQuestions(tag, keyword, sort, searchType);
 
     return (
       <Wrapper>

@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
-import {useApi} from "../utils/api";
+import {useApi} from 'utils/api';
 
-const useQuestions = (tag, keyword, sort) => {
+const useQuestions = (tag, keyword, sort, searchType) => {
   const { client } = useApi()
   const [questions, setQuestions] = useState([])
   const [total, setTotal] = useState(0)
@@ -22,6 +22,9 @@ const useQuestions = (tag, keyword, sort) => {
       if (sort) {
         param['sort'] = sort
       }
+      if (searchType) {
+        param['search_type'] = searchType
+      }
       const { code, data } = await client.get('/api/agendas/', param)
 
       switch (code) {
@@ -37,7 +40,7 @@ const useQuestions = (tag, keyword, sort) => {
       setPer_page(data.per_page)
     }
     fetchAgendas()
-  }, [tag, keyword, sort, client.token])
+  }, [tag, keyword, sort, searchType, client.token])
 
   return {
     questions,
