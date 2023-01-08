@@ -3,8 +3,6 @@ import {useAuth} from "auth/use-auth";
 import {useState} from "react";
 import styled from "@emotion/styled";
 
-const { API_ENDPOINT } = process.env
-
 const Image = styled.img`
   width: 100px;
   height: 100px;
@@ -14,18 +12,15 @@ const Image = styled.img`
 const Me = () => {
     const { client } = useApi()
     const { token, user, refreshUser } = useAuth()
-    console.log('user',user)
     const [nickname, setNickname] = useState(user.nickname)
-    const [picture_id, setPicture_id] = useState(user.picture_id)
-    const [picture, setPicture] = useState(user.picture)
+    const [picture, setPicture] = useState({url: user.picture, id: user.picture_id})
 
     const onEdited = async () => {
         alert('수정되었습니다.')
         await refreshUser(token)
     };
     const onUploaded = async (data) => {
-        setPicture(data.url)
-        setPicture_id(data.file_id)
+        setPicture({url:data.url, id: data.file_id})
     };
 
     const onUnauthorized = () => {
@@ -37,7 +32,7 @@ const Me = () => {
     const editProfile = async () => {
         const { code, data } = await client.put(`/api/members/my`, {
             nickname,
-            picture_id
+            picture_id: picture.id
         })
 
         switch (code) {
@@ -75,7 +70,7 @@ const Me = () => {
   return (
     <div>
       <h1>마이페이지</h1>
-        <Image src={picture}/>
+        <Image src={picture.url}/>
         <input type="file" onChange={onLoadFile} style={{display: 'block'}}/>
         <span>닉네임 : </span>
         <input value={nickname}
