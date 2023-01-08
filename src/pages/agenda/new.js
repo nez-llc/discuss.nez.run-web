@@ -32,7 +32,7 @@ const NewAgendaPage = () => {
     const onSaved = () => {
         alert('질문이 등록되었습니다.')
         setDesc('')
-        setDesc('')
+        setSummary('')
         setTitle('')
     }
 
@@ -73,7 +73,7 @@ const NewAgendaPage = () => {
           value={desc}
           onChange={e => setDesc(e.target.value)}
       />
-        <SubmitButton onClick={saveAgenda}>등록</SubmitButton>
+      <SubmitButton onClick={saveAgenda}>등록</SubmitButton>
     </div>
   )
 }
