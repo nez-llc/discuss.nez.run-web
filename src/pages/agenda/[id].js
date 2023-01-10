@@ -135,7 +135,7 @@ const getServerSideProps = async (context) => {
         return await response.json()
     }
 
-    const agenda = await fetchAgenda();
+    const agenda = await fetchAgenda()
 
   return {
     props: {
