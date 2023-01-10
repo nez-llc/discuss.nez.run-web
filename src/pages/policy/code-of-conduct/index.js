@@ -1,29 +1,21 @@
 import React from 'react'
-import { getBlocks, getBlocksChildren } from 'utils/notion-api';
+import { getBlocks, getBlocksChildren } from 'utils/notion-api'
 import Blocks from 'components/policy/Blocks'
 
-
-const CodeOfConductIndexPage = (props) => {
-    return (
-        <Blocks blocks={props.blocks} />
-    );
-}
+const CodeOfConductIndexPage = (props) => (
+  <Blocks blocks={props.blocks} />
+)
 
 export const getStaticProps = async () => {
-    const blocks = await getBlocks('862e30df258a4ea8863aa82f5e43ca90');
+  const blocks = await getBlocks(process.env.NOTION_API_POLICY_CODE_OF_CONDUCT_ID)
+  await getBlocksChildren(blocks)
 
-    await getBlocksChildren(blocks);
-
-    return {
-        props: {
-            // blocks: blocks,
-            blocks: blocks,
-        },
-        // Next.js will attempt to re-generate the page:
-        // - When a request comes in
-        // - At most once every second
-        revalidate: 1, // In seconds
-    };
-};
+  return {
+    props: {
+      blocks: blocks,
+    },
+    revalidate: 1,
+  }
+}
 
 export default CodeOfConductIndexPage
