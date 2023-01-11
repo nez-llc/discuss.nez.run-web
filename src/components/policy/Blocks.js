@@ -110,41 +110,44 @@ const BlockBulletedList = ({block}) => (
   </ul>
 )
 
-
 const BlockTableRow = ({block}) => (
   <TableRow>
-    {block.children_items?.map((item, index) => (
+    {block.table.has_column_header ?
       <>
-        {block.table.has_column_header && index == 0 ?
-          <thead key={item.id}>
-            <tr>
-              {item.table_row.cells?.map(row => (
-                <th key={uuid()}>
-                  {row.map(cell => (
-                    <RichText key={uuid()} item={cell}/>
-                  ))}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          :
-          <tbody key={item.id}>
-            <tr>
-              {item.table_row.cells?.map(row => (
-                <td key={uuid()}>
-                  {row.map(cell => (
-                    <RichText key={uuid()} item={cell}/>
-                  ))}
-                </td>
-              ))}
-            </tr>
-          </tbody>
-        }
+        <thead>
+          <tr>
+            {block.children_items[0].table_row.cells?.map(cells => (
+              <th key={uuid()}>
+                {cells.map(cell => (
+                  <RichText key={uuid()} item={cell}/>
+                ))}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <BlockTableBody key={uuid()} items={block.children_items?.filter((item, index) => (index !== 0))}/>
       </>
-    ))}
+      :
+      <BlockTableBody items={block.children_items}/>
+    }
   </TableRow>
 )
 
+const BlockTableBody = ({items}) => (
+  <tbody>
+    {items.map((item) => (
+      <tr key={uuid()}>
+        {item.table_row.cells?.map(cells => (
+          <td key={uuid()}>
+            {cells.map(cell => (
+              <RichText key={uuid()} item={cell}/>
+            ))}
+          </td>
+        ))}
+      </tr>
+    ))}
+  </tbody>
+)
 const BlockDefaultItem = ({block}) => (
   <div>
     {block[block.type].rich_text.map(item => (
@@ -154,23 +157,22 @@ const BlockDefaultItem = ({block}) => (
   </div>
 )
 
-const SwitchRichText = ({block}) => (
-  <>
-    {block?.type == 'heading_1' ?
-      <BlockHeading1 block={block}/>
-      : block?.type == 'heading_2' ?
-        <BlockHeading2 block={block}/>
-        : block?.type == 'numbered_list_item' ?
-          <BlockNumberedListItem block={block}/>
-          : block?.type == 'table' ?
-            <BlockTableRow block={block}/>
-            : block?.type == 'bulleted_list_item' ?
-              <BlockBulletedList block={block}/>
-              :
-              <BlockDefaultItem block={block}/>
-    }
-  </>
-)
+const SwitchRichText = ({block}) => {
+  switch(block?.type){
+    case 'heading_1':
+      return <BlockHeading1 block={block}/>
+    case 'heading_2':
+      return <BlockHeading2 block={block}/>
+    case 'numbered_list_item':
+      return <BlockNumberedListItem block={block}/>
+    case 'bulleted_list_item':
+      return <BlockBulletedList block={block}/>
+    case 'table':
+      return <BlockTableRow block={block}/>
+    default:
+      return <BlockDefaultItem block={block}/>
+  }
+}
 
 const ChildrenItems = ({childrenItems}) => (
   <div>
@@ -180,20 +182,14 @@ const ChildrenItems = ({childrenItems}) => (
   </div>
 )
 
-const Blocks = ({blocks}) => {
-  blocks = blocks.filter(block =>
-    (block[block.type].rich_text?.length > 0) || block.type == 'table'
-  )
-
-  return (
-    <Wrapper>
-      {blocks?.map(block => (
-        <Block key={block.id}>
-          <SwitchRichText block={block}/>
-        </Block>
-      ))}
-    </Wrapper>
-  )
-}
+const Blocks = ({blocks}) => (
+  <Wrapper>
+    {blocks?.filter(block => (block[block.type].rich_text?.length > 0) || block.type === 'table').map(block => (
+      <Block key={block.id}>
+        <SwitchRichText block={block}/>
+      </Block>
+    ))}
+  </Wrapper>
+)
 
 export default Blocks
