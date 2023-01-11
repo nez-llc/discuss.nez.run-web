@@ -67,7 +67,6 @@
         "react/prop-types": "warn",
         "react/no-unknown-property": ["error", { "ignore": ["css"] }],
         "react/no-array-index-key": "error",
-        "react/jsx-filename-extension": "error",
         "react/jsx-no-comment-textnodes": "warn"
     }
 }
