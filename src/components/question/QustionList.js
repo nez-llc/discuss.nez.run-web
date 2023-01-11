@@ -47,9 +47,7 @@ const List = ({ query }) => {
       {questions.map(question => (
         <li key={question.id}>
           <Link href={`/agenda/${question.id}`}>
-            <a>
               <QuestionPreview key={question.id} question={question} />
-            </a>
           </Link>
         </li>
       ))}
