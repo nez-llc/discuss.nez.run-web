@@ -24,6 +24,8 @@ const NewAgendaPage = () => {
     const [title, setTitle] = useState('')
     const [summary, setSummary] = useState('')
     const [desc, setDesc] = useState('')
+    const [picture, setPicture] = useState()
+    const [pictureImg, setPictureImg] = useState('')
 
     const onUnauthorized = () => {
         alert('로그인이 필요합니다.')
@@ -34,10 +36,20 @@ const NewAgendaPage = () => {
         setDesc('')
         setSummary('')
         setTitle('')
+        setPicture('')
+    }
+
+    const onLoadFile = async (e) => {
+        setPicture(e.target.files[0])
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onloadend = () => {
+            setPictureImg(reader.result);
+        };
     }
 
     const saveAgenda = async () => {
-        const { code, data } = await client.post(`/api/agendas/`, {
+        const { code, data } = await client.filePostUrl(`/api/agendas/`, picture, {
             title,
             summary,
             desc,
@@ -73,6 +85,11 @@ const NewAgendaPage = () => {
           value={desc}
           onChange={e => setDesc(e.target.value)}
       />
+      <p>아젠다 이미지</p>
+        {
+          pictureImg ? <img src={pictureImg} alt="아젠다 이미지" /> : <></>
+        }
+      <input type="file" onChange={onLoadFile} style={{display: 'block'}}/>
       <SubmitButton onClick={saveAgenda}>등록</SubmitButton>
     </div>
   )
