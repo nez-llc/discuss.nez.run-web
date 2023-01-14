@@ -9,11 +9,11 @@ const Li = styled.li`
   margin-bottom: 24px;
 `
 
-const CommentList = ({ comments }) => (
+const CommentList = ({ agendaId, comments, onDeleted }) => (
   <Ul>
     {comments.map(comment => (
       <Li key={comment.id}>
-        <Comment comment={comment} />
+        <Comment comment={comment} refresh={onDeleted} agendaId={agendaId}/>
       </Li>
     ))}
   </Ul>
