@@ -32,7 +32,7 @@ const Footer = () => (
         </Link>
       </NoticeItem>
       <NoticeItem>
-        <Link href="/policy/service">
+        <Link href="/policy/terms">
           이용약관
         </Link>
       </NoticeItem>

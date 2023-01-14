@@ -11,8 +11,9 @@ const Block = styled.div`
 
   > div > div {
     counter-reset: section;
+    padding-left: 1em;
   }
-
+  
   > div > div ol {
     padding-left: 1em;
     text-indent: -1em;
