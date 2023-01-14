@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import styled from '@emotion/styled'
-import {useAuth} from 'auth/use-auth'
+import { useAuth } from 'auth/use-auth'
 
 const Wrapper = styled.div`
   a {
@@ -38,11 +38,9 @@ const Account = () => {
         </>
       ) : (
         <Link href="/login">
-          <a>
-            <Button>
-              시작하기
-            </Button>
-          </a>
+          <Button>
+            시작하기
+          </Button>
         </Link>
       )}
     </Wrapper>

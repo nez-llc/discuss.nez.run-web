@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import Link from "next/link";
 
 const Wrapper = styled.footer`
   text-align: center;
@@ -26,14 +27,19 @@ const Footer = () => (
   <Wrapper>
     <Notices>
       <NoticeItem>
-        <a href="#_">
+        <Link href="/policy/privacy">
           개인정보 취급방침
-        </a>
+        </Link>
       </NoticeItem>
       <NoticeItem>
-        <a href="#_">
+        <Link href="/policy/service">
           이용약관
-        </a>
+        </Link>
+      </NoticeItem>
+      <NoticeItem>
+        <Link href="/policy/code-of-conduct">
+          행동강령
+        </Link>
       </NoticeItem>
     </Notices>
     <Copyright>Copyright. 2022</Copyright>

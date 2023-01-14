@@ -57,7 +57,7 @@ const Header = () => (
   <Wrapper>
     <Nav>
       <Link href="/">
-        <a><Logo /></a>
+        <Logo />
       </Link>
       <NavBox>
         <Link href="/agenda">
