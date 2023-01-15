@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { ThemeProvider } from '@emotion/react'
+import {ThemeProvider} from '@emotion/react'
 import Header from 'components/layout/Header'
 import Footer from 'components/layout/Footer'
 import theme from 'components/layout/theme'
@@ -11,7 +11,8 @@ const Wrapper = styled.div`
 
 const Main = styled.div`
   min-height: 800px;
-  max-width: 740px;
+  //max-width: 740px;
+  width: 100%;
   margin: 0 auto;
   padding: 16px 0;
 `

@@ -9,6 +9,19 @@ const Wrapper = styled.div`
   }
 `
 
+const Button = styled.button`
+  padding: 8px 24px;
+  border-radius: 50px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  margin-left: 15px;
+`
+
+const A = styled.a`
+  margin: 15px;
+`
+
 const Account = () => {
   const { isLogin, logout } = useAuth()
 
@@ -17,15 +30,17 @@ const Account = () => {
       {isLogin ? (
         <>
           <Link href="/me">
-            마이페이지
+            <A>마이페이지</A>
           </Link>
-          <button onClick={logout}>
+          <Button onClick={logout}>
             로그아웃
-          </button>
+          </Button>
         </>
       ) : (
         <Link href="/login">
-          로그인
+          <Button>
+            시작하기
+          </Button>
         </Link>
       )}
     </Wrapper>
