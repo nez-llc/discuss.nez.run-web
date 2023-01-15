@@ -1,12 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
 import styled from '@emotion/styled'
-import {css} from '@emotion/react'
+import { css } from '@emotion/react'
 import Pagination from 'components/ui/Pagination'
 import QuestionPreview from 'components/question/QuestionPreview'
-import {useQuestions} from 'data/questions'
-import Router, {useRouter} from 'next/router'
-import MainQuestionPreview from "./MainQuestionPreview";
+import { useQuestions } from 'data/questions'
+import Router, { useRouter } from 'next/router'
+import MainQuestionPreview from './MainQuestionPreview';
 
 const Wrapper = styled.div`
   padding: 16px 0;

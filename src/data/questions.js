@@ -40,7 +40,7 @@ const useQuestions = (tag, keyword, sort, searchType) => {
       setPer_page(data.per_page)
     }
     fetchAgendas()
-  }, [tag, keyword, sort, searchType, client.token])
+  }, [tag, keyword, client.token])
 
   return {
     questions,
