@@ -5,7 +5,7 @@ import {useRouter} from "next/router";
 
 const Ul = styled.ul`
   display: flex;
-  gap: 8px;
+  gap: 4px;
   //justify-content: flex-end;
 `
 
@@ -14,10 +14,11 @@ const Li = styled.li`
 `
 
 const Tag = styled.span`
-  background: #ececec;
-  border-radius: 5px;
+  background: #dbdbdb;
+  border-radius: 20px;
   padding: 2px 12px 4px;
-  opacity: 0.8;
+  font-size: small;
+  font-weight: bold;
 `
 
 const Tags = ({ tags }) => {
