@@ -1,4 +1,4 @@
-import { appendQueryString } from 'utils/url'
+import {appendQueryString} from 'utils/url'
 
 const SITE_URL = process.env.SITE_URL || 'http://localhost:3000'
 const BASE_CALLBACK = `${SITE_URL}/api/auth/callback`
@@ -29,10 +29,28 @@ const requestPost = async (url, params) => {
   })
 }
 
+const getToken = (context) => {
+  const readCookie = () => {
+    const cookies = context.req ? context.req.headers.cookie
+        .split(';')
+        .map(cookie => cookie.split('='))
+        .reduce((acc, [key, value]) => {
+          acc[key.trim()] = decodeURIComponent(value)
+          return acc
+        }, {}) : {}
+
+    return cookies
+  }
+
+  const cookies = readCookie()
+  return cookies['auth'];
+}
+
 export {
   getCallbackUrl,
   getAuthorizeUrl,
   requestGet,
   requestPost,
   parseToken,
+  getToken,
 }
