@@ -1,9 +1,15 @@
 import React from 'react'
+import styled from "@emotion/styled";
+
+
+const Div = styled.div`
+  font-size: 26px;
+`
 
 const Logo = () => (
-  <div>
-    로-고
-  </div>
+  <Div>
+    woodong.de
+  </Div>
 )
 
 export default Logo
