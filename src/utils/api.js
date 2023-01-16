@@ -63,7 +63,7 @@ class ApiClient {
     const response = await fetch(`${API_ENDPOINT}/api/members/files`, {
       method: 'POST',
       body: formData,
-      headers: {'Authorization' : this.headers.Authorization},
+      headers: {'Authorization': this.headers.Authorization},
     })
 
     const data = await response.json()
@@ -84,9 +84,9 @@ class ApiClient {
       method: 'POST',
       body: formData,
       headers: {
-        'Authorization' : this.headers.Authorization,
-        "Content-Type": "multipart/form-data",
-        "Accept": "application/json"
+        'Authorization': this.headers.Authorization,
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json'
       },
     })
 
