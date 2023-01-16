@@ -62,9 +62,9 @@ const Wrapper = styled(Pane)`
 
 const QuestionPreview = ({ question }) => (
   <Wrapper>
-    {/*<div>*/}
+    {/* <div>*/}
     {/*  <Recommended>{question.recommended}</Recommended>*/}
-    {/*</div>*/}
+    {/* </div>*/}
     <Info>
       <h3>{question.title}</h3>
       <Markdown>{question.desc}</Markdown>

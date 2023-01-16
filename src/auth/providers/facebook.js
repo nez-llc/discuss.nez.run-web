@@ -1,4 +1,4 @@
-import {getAuthorizeUrl as _getAuthorizeUrl, getCallbackUrl, requestGet,} from 'auth/commons'
+import {getAuthorizeUrl as _getAuthorizeUrl, getCallbackUrl, requestGet} from 'auth/commons'
 
 const { FB_CLIENT_ID } = process.env
 const FB_API_VERSION = 'v13.0'
