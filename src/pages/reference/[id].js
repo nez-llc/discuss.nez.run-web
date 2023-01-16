@@ -22,7 +22,7 @@ const ReferencePage = () => (
     </div>
     <hr />
     <div>
-      <a href={"ddd"}>수정 제안</a>
+      <a href={'ddd'}>수정 제안</a>
     </div>
   </div>
 )

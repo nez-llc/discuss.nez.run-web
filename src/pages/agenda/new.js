@@ -1,11 +1,9 @@
 import React from 'react'
 
-const NewAgendaPage = () => {
-  return (
-    <div>
+const NewAgendaPage = () => (
+  <div>
 
-    </div>
-  )
-}
+  </div>
+)
 
 export default NewAgendaPage

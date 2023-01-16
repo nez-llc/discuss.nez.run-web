@@ -5,7 +5,7 @@ import QuestionList from 'components/question/QustionList'
 const IndexPage = () => (
   <div>
     <Introduce />
-    {/*<QuestionStats />*/}
+    {/* <QuestionStats />*/}
     <QuestionList view={'main'}/>
   </div>
 )

@@ -12,46 +12,44 @@ const Title = styled.h2`
   margin-bottom: 8px;
 `
 
-const QuestionPage = ({ agenda }) => {
-  return (
-    <div>
-      <Pane>
-        <Title>{agenda.title}</Title>
-        <Markdown>{agenda.summary}</Markdown>
-        <hr />
-        <Markdown>{agenda.desc}</Markdown>
-        <Tags tags={agenda.tags} />
-      </Pane>
+const QuestionPage = ({ agenda }) => (
+  <div>
+    <Pane>
+      <Title>{agenda.title}</Title>
+      <Markdown>{agenda.summary}</Markdown>
+      <hr />
+      <Markdown>{agenda.desc}</Markdown>
+      <Tags tags={agenda.tags} />
+    </Pane>
 
-      <Pane>
-        <VoteBar votes={agenda.votes} />
-      </Pane>
+    <Pane>
+      <VoteBar votes={agenda.votes} />
+    </Pane>
 
-      <div
-        css={{
-          textAlign: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          maxWidth: '100px',
-          margin: '0 auto',
-        }}
-      >
-        <h3>123</h3>
-        <button>추천</button>
-      </div>
-
-      <Pane>
-        <Pane.Title>관련정책</Pane.Title>
-        <RelatedReferences />
-      </Pane>
-
-      <Pane>
-        <Pane.Title>의견</Pane.Title>
-        <Comments agendaId={agenda.id} />
-      </Pane>
+    <div
+      css={{
+        textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        maxWidth: '100px',
+        margin: '0 auto',
+      }}
+    >
+      <h3>123</h3>
+      <button>추천</button>
     </div>
-  )
-}
+
+    <Pane>
+      <Pane.Title>관련정책</Pane.Title>
+      <RelatedReferences />
+    </Pane>
+
+    <Pane>
+      <Pane.Title>의견</Pane.Title>
+      <Comments agendaId={agenda.id} />
+    </Pane>
+  </div>
+)
 
 export const getServerSideProps = async ({ query }) => {
   const { id } = query

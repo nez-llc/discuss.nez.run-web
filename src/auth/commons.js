@@ -19,15 +19,13 @@ const requestGet = async (url, params) => {
   return await fetch(`${url}?${qs}`)
 }
 
-const requestPost = async (url, params) => {
-  return await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(params)
-  })
-}
+const requestPost = async (url, params) => await fetch(url, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(params)
+})
 
 export {
   getCallbackUrl,

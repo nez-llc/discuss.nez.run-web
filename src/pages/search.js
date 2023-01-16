@@ -1,10 +1,8 @@
 
-const Search = () => {
-  return (
-    <div>
+const Search = () => (
+  <div>
 
-    </div>
-  )
-}
+  </div>
+)
 
 export default Search
