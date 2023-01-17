@@ -58,7 +58,31 @@ class ApiClient {
     const response = await fetch(`${API_ENDPOINT}/api/members/files`, {
       method: 'POST',
       body: formData,
-      headers: {'Authorization' : this.headers.Authorization},
+      headers: {'Authorization': this.headers.Authorization},
+    })
+
+    const data = await response.json()
+
+    return {
+      code: response.status,
+      data,
+    }
+  }
+
+  async filePostUrl (url, file, params) {
+    const formData = new FormData()
+    formData.append('file', file, file.name)
+    for (const [key, value] of Object.entries(params)) {
+      formData.append(key, value)
+    }
+    const response = await fetch(`${API_ENDPOINT}${url}`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Authorization': this.headers.Authorization,
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json'
+      },
     })
 
     const data = await response.json()

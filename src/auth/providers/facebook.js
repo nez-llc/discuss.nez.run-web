@@ -1,8 +1,4 @@
-import {
-  requestGet,
-  getCallbackUrl,
-  getAuthorizeUrl as _getAuthorizeUrl,
-} from 'auth/commons'
+import {getAuthorizeUrl as _getAuthorizeUrl, getCallbackUrl, requestGet} from 'auth/commons'
 
 const { FB_CLIENT_ID } = process.env
 const FB_API_VERSION = 'v13.0'
@@ -29,6 +25,7 @@ const getAuthorizeUrl = async () =>
   _getAuthorizeUrl('https://www.facebook.com/dialog/oauth', {
     client_id: FB_CLIENT_ID,
     redirect_uri: callback,
+    scope: 'email'
   })
 
 export default {

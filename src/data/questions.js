@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import {useApi} from 'utils/api';
+import {useApi} from 'utils/api'
 
 const useQuestions = (tag, keyword, sort, searchType) => {
   const { client } = useApi()
@@ -28,8 +28,8 @@ const useQuestions = (tag, keyword, sort, searchType) => {
       const { code, data } = await client.get('/api/agendas/', param)
 
       switch (code) {
-          // case 400: onBadRequest(data) break
-        case 401: onUnauthorized(); return;
+        // case 400: onBadRequest(data) break
+        case 401: onUnauthorized(); return
           // case 500:
           // default:
           //   onServerError(data)
@@ -40,7 +40,7 @@ const useQuestions = (tag, keyword, sort, searchType) => {
       setPer_page(data.per_page)
     }
     fetchAgendas()
-  }, [tag, keyword, sort, searchType, client.token])
+  }, [tag, keyword, client.token])
 
   return {
     questions,

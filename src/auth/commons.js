@@ -1,4 +1,4 @@
-import { appendQueryString } from 'utils/url'
+import {appendQueryString} from 'utils/url'
 
 const SITE_URL = process.env.SITE_URL || 'http://localhost:3000'
 const BASE_CALLBACK = `${SITE_URL}/api/auth/callback`
@@ -19,14 +19,29 @@ const requestGet = async (url, params) => {
   return await fetch(`${url}?${qs}`)
 }
 
-const requestPost = async (url, params) => {
-  return await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(params)
-  })
+const requestPost = async (url, params) => await fetch(url, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(params)
+})
+
+const getToken = (context) => {
+  const readCookie = () => {
+    const cookies = context.req ? context.req.headers.cookie
+      .split(';')
+      .map(cookie => cookie.split('='))
+      .reduce((acc, [key, value]) => {
+        acc[key.trim()] = decodeURIComponent(value)
+        return acc
+      }, {}) : {}
+
+    return cookies
+  }
+
+  const cookies = readCookie()
+  return cookies['auth']
 }
 
 export {
@@ -35,4 +50,5 @@ export {
   requestGet,
   requestPost,
   parseToken,
+  getToken,
 }
