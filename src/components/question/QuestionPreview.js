@@ -1,11 +1,9 @@
 import React from 'react'
-import ReactMarkdown from 'react-markdown'
 import styled from '@emotion/styled'
-import { css } from '@emotion/react'
+import {css} from '@emotion/react'
 import Pane from 'components/layout/Pane'
 import Tags from 'components/ui/Tags'
 import VoteBar from 'components/ui/VoteBar'
-import VoteButtons from 'components/ui/VoteButtons'
 import Markdown from 'components/ui/Markdown'
 
 const Recommended = styled.h2`
@@ -33,11 +31,11 @@ const Stat = ({ question }) => (
   >
     <dl>
       <dt>추천</dt>
-      <dd>{question.updown.total}</dd>
+      <dd>{question.updown?.total}</dd>
       <dt>투표</dt>
       <dd>{sum(Object.values(question.vote_count))}</dd>
       <dt>댓글</dt>
-      <dd>123</dd>
+      <dd>{question.comment_count}</dd>
     </dl>
   </div>
 )
@@ -72,7 +70,7 @@ const QuestionPreview = ({ question }) => (
       <Markdown>{question.desc}</Markdown>
     </Info>
     <Tags tags={question.tags} />
-    <VoteBar votes={question.votes} />
+    <VoteBar voteCount={question.vote_count} />
     <Stat question={question} />
   </Wrapper>
 )

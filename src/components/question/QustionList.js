@@ -1,11 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
 import styled from '@emotion/styled'
-import {css} from '@emotion/react'
+import { css } from '@emotion/react'
 import Pagination from 'components/ui/Pagination'
 import QuestionPreview from 'components/question/QuestionPreview'
-import {useQuestions} from 'data/questions'
-import Router, {useRouter} from 'next/router'
+import { useQuestions } from 'data/questions'
+import Router, { useRouter } from 'next/router'
 import MainQuestionPreview from './MainQuestionPreview'
 
 const Wrapper = styled.div`
@@ -80,19 +80,21 @@ const List = ({ questions }) => (
 )
 
 
-const MainList = ({ questions }) => (
-  <MainUl>
-    {questions.slice(0, 6).map((question, index) => (
-      <MainLi key={question.id}>
-        <Link href={`/agenda/${question.id}`}>
-          <a>
-            <MainQuestionPreview key={question.id} index={index + 1} question={question} />
-          </a>
-        </Link>
-      </MainLi>
-    ))}
-  </MainUl>
-)
+const MainList = ({ questions }) =>
+  // questions = questions.slice(0, 6)
+  (
+    <MainUl>
+      {questions.slice(0, 6).map((question, index) => (
+        <MainLi key={question.id}>
+          <Link href={`/agenda/${question.id}`}>
+            <a>
+              <MainQuestionPreview key={question.id} index={index + 1} question={question} />
+            </a>
+          </Link>
+        </MainLi>
+      ))}
+    </MainUl>
+  )
 
 const QuestionList = ({tag, keyword, sort, searchType, view}) => {
   const { questions, total, per_page } = useQuestions(tag, keyword, sort, searchType)
