@@ -96,7 +96,6 @@ const MainList = ({ questions }) =>
     </MainUl>
   )
 
-
 const QuestionList = ({tag, keyword, sort, searchType, view}) => {
   const { questions, total, per_page } = useQuestions(tag, keyword, sort, searchType)
 

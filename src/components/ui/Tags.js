@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import Link from 'next/link'
-import {useRouter} from "next/router";
+import {useRouter} from 'next/router'
 
 const Ul = styled.ul`
   display: flex;
@@ -22,8 +22,7 @@ const Tag = styled.span`
 `
 
 const Tags = ({ tags }) => {
-
-  const router = useRouter();
+  const router = useRouter()
   return (
     <Ul>
       {tags && tags.map(tag => (

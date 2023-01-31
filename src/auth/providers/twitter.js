@@ -18,13 +18,13 @@ const getOAuthToken = async () => {
   })
 }
 
-const getAccessToken = async ({ oauth_token, oauth_verifier }) => {
+const getAccessToken = async ({ oauth_token, oauth_verifier }) =>
   // TODO : 명시적으로 client에 expose안되게
-  return await accessToken('https://api.twitter.com/oauth/access_token', {
+  await accessToken('https://api.twitter.com/oauth/access_token', {
     oauth_token,
     oauth_verifier,
   })
-}
+
 
 const getAuthorizeUrl = async () => {
   const params = await startOAuth({

@@ -29,7 +29,7 @@ export const UserProvider = ({ children }) => {
     if (!cookies['auth']) return
 
     setToken(cookies['auth'])
-    refreshUser(cookies['auth']);
+    refreshUser(cookies['auth'])
   }, [])
 
   const refreshUser = async token => {
@@ -40,7 +40,7 @@ export const UserProvider = ({ children }) => {
       },
     })
 
-    if (response.status !== 200) return;
+    if (response.status !== 200) return
     const user = await response.json()
     setUser(user)
   }
@@ -67,5 +67,4 @@ export const UserProvider = ({ children }) => {
     </UserContext.Provider>
   )
 }
-
 
