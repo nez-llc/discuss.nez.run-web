@@ -87,9 +87,7 @@ const MainList = ({ questions }) =>
       {questions.slice(0, 6).map((question, index) => (
         <MainLi key={question.id}>
           <Link href={`/agenda/${question.id}`}>
-            <a>
-              <MainQuestionPreview key={question.id} index={index + 1} question={question} />
-            </a>
+            <MainQuestionPreview key={question.id} index={index + 1} question={question} />
           </Link>
         </MainLi>
       ))}

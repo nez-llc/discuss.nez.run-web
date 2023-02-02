@@ -30,7 +30,7 @@ const Account = () => {
       {isLogin ? (
         <>
           <Link href="/me">
-            <A>마이페이지</A>
+            마이페이지
           </Link>
           <Button onClick={logout}>
             로그아웃

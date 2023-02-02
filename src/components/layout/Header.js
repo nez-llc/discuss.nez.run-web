@@ -61,13 +61,13 @@ const Header = () => (
       </Link>
       <NavBox>
         <Link href="/agenda">
-          <A>질문 목록</A>
+          질문 목록
         </Link>
         <Link href="/reference">
-          <A>정책 정보</A>
+          정책 정보
         </Link>
         <Link href="/search">
-          <A>검색</A>
+          검색
         </Link>
       </NavBox>
     </Nav>
