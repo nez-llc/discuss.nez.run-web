@@ -40,13 +40,52 @@ Textarea.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.string
 }
+
+const CommentItem = styled.ul`
+  width: 100%;
+  padding: 5px 20px;
+  font-size: 15px;
+  border-bottom: 1px solid #F5F5F5;
+  > div {
+    height: 32px;
+    line-height: 32px;
+  }
+  > div:nth-child(3){
+    font-size: 12px;
+    color: #8c8c8c;
+  }
+  > div:nth-child(3) span {
+    margin-right: 10px;
+  }
+`
+
+const Profile = styled.div`
+  color: #8C8C8C;
+  > div:first-child{
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+  }
+`
+
+const ProfileBtn = styled.div`
+  display: inline-block;
+  float: right;
+  button {
+    border: 0;
+    font-size: 12px;
+    height: 20px;
+    margin-left: 10px;
+    background-color: #fff;
+  }
+`
 const Comment = ({ agendaId, comment, refresh }) => {
   const { client } = useApi()
   const { user } = useAuth()
 
   const [isEdit, setIsEdit] = useState(false)
   const [content, setContent] = useState('')
-
+  console.log(comment)
   const onUnauthorized = () => {
     alert('로그인이 필요합니다.')
   }
@@ -116,49 +155,46 @@ const Comment = ({ agendaId, comment, refresh }) => {
 
   return (
     <Wrapper>
-      {(comment.status === '1') ?
-        <div>삭제된 덧글입니다.</div>
-        :
-        <>
-          <ProfilePicture
-            url={comment.writer.picture}
-          />
-          <div>
-            <Name>{comment.writer.nickname}</Name>
-            {
-              isEdit ?
-                <Textarea
-                  value={content}
-                  onChange={e => setContent(e.target.value)}
-                />
-                :
-                <>
-                  <p>{comment.content}</p>
-                  <p>공감 {comment.agreement}</p>
-                </>
-            }
-          </div>
-          {
-            (user.id === comment.writer.id) ?
-              (
-                <>
+      <CommentItem>
+        {(comment.status === '1') ? <div>삭제 된 댓글입니다.</div>
+          :
+          <>
+            <Profile>
+              <ProfilePicture url={comment.writer.picture}/>
+              <span>{comment.writer?.nickname ? comment.writer.nickname : '닉네임 없음'}</span>
+              {(user.id === comment.writer.id) ?
+                <ProfileBtn>
                   {
                     isEdit ?
                       <>
-                        <EditBtn onClick={() => {editComment(content, agendaId, comment.id)}}>수정</EditBtn>
+                        <EditBtn onClick={() => {editComment(content, agendaId, comment.id)}}>저장</EditBtn>
                         <StartEditBtn onClick={toggleEdit}>수정 취소</StartEditBtn>
                       </>
                       :
                       <StartEditBtn onClick={toggleEdit}>수정</StartEditBtn>
                   }
                   <DeleteBtn onClick={() => {deleteComment(agendaId, comment.id)}}>삭제</DeleteBtn>
-                </>
-              )
-              :
-              <AgreeBtn onClick={() => {argeeComment(agendaId, comment.id)}}>공감</AgreeBtn>
-          }
-        </>
-      }
+                </ProfileBtn>
+                : ''
+              }
+            </Profile>
+            <div>
+              {isEdit ?
+                <Textarea
+                  value={content}
+                  onChange={e => setContent(e.target.value)}
+                />
+                : comment.content
+              }</div>
+            <div>
+              <span>{comment.created_time }</span>
+              <span onClick={() => {argeeComment(agendaId, comment.id)}}>공감 {comment.agreement}</span>
+              <span>비공감 3</span>
+              <span>대댓글</span>
+            </div>
+          </>
+        }
+      </CommentItem>
     </Wrapper>
   )
 }

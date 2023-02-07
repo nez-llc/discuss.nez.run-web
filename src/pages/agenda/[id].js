@@ -118,10 +118,7 @@ const QuestionPage = ({ agenda, agendaId, token}) => {
         <RelatedReferences />
       </Pane>
 
-      <Pane>
-        <Pane.Title>의견</Pane.Title>
-        <Comments agendaId={currentAgenda.id} />
-      </Pane>
+      <Comments agendaId={currentAgenda.id} />
     </div>
   )
 }
