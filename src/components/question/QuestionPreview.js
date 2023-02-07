@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import {css} from '@emotion/react'
 import Pane from 'components/layout/Pane'
 import Tags from 'components/ui/Tags'
-import VoteBar from 'components/ui/VoteBar'
+import VoteBar from 'components/vote/VoteBar'
 import Markdown from 'components/ui/Markdown'
 
 const Recommended = styled.h2`
