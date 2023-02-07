@@ -22,7 +22,6 @@ const QuestionPage = ({ agenda, agendaId, token}) => {
     <div>
       <Pane>
         <Title>{currentAgenda.title}</Title>
-        <AgendaMetaData />
         <Markdown>{currentAgenda.summary}</Markdown>
         <Markdown>{currentAgenda.desc}</Markdown>
         <img src={'https://static.dogmate.co.kr/blog/wp-content/uploads/2018/12/18171411/pasted_image_0.png'} />
