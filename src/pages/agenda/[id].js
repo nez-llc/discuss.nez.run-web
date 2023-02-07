@@ -9,6 +9,7 @@ import Comments from 'components/comment/Comments'
 import {useApi} from 'utils/api'
 import {useAgenda, useMyAgenda} from './agenda'
 import {getToken} from 'auth/commons'
+import AgendaMetaData from 'components/ui/AgendaMetaData'
 
 const Title = styled.h2`
   font-size: 24px;
@@ -59,6 +60,7 @@ const QuestionPage = ({ agenda, agendaId, token}) => {
     <div>
       <Pane>
         <Title>{currentAgenda.title}</Title>
+        <AgendaMetaData />
         <Markdown>{currentAgenda.summary}</Markdown>
         <hr />
         <Markdown>{currentAgenda.desc}</Markdown>
