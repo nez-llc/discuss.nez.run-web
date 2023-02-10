@@ -6,30 +6,7 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
-const Description = styled.div`
-  padding: 5px 10px;
-  line-height: 20px;
-  span{
-    display: inline-block;
-    font-size: small;
-  }
-  span:nth-child(1){
-    width: 20%;
-    color: #F97C7C;
-  }
-  span:nth-child(2){
-    width: 60%;
-    font-size: medium;
-    text-align: center;
-    font-weight: bold;
-  }
-  span:nth-child(3){
-    width: 20%;
-    text-align: right;
-    color: #538CE2;
-  }
-  
-`
+
 const Outer = styled.div`
   height: 30px;
   display: flex;
@@ -51,36 +28,53 @@ const Inner = styled.div`
 `
 
 const VoteBar = ({ voteCount }) => {
-  const votes = [
-    {'value' : voteCount?.not_agree, 'color' : '#F97C7C'},
-    {'value' : voteCount?.not_sure, 'color' : '#DADADA'},
-    {'value' : voteCount?.agree, 'color' : '#538CE2'}]
+  let voteTotCnt = 0
+  let voteAgreeCnt = 0
+  let voteDisagreeCnt = 0
 
-  let votesTotalCnt = 0
-  for (let key in voteCount) {
-    votesTotalCnt += voteCount[key]
+  for(const vote in voteCount) {
+    let voteCnt = voteCount[vote]
+    voteTotCnt += voteCnt
+    switch (vote){
+      case 'very_agree':
+      case 'agree':
+        voteAgreeCnt += voteCnt
+        break
+      case 'very_disagree':
+      case 'disagree':
+        voteDisagreeCnt += voteCnt
+        break
+    }
   }
+
+  const votes = [
+    {'value': voteDisagreeCnt, 'color': '#F97C7C'},
+    {'value': voteCount?.neutral, 'color': '#DADADA'},
+    {'value': voteAgreeCnt, 'color': '#538CE2'}]
 
   if (votes.every(vote => vote === 0)) {
     votes.fill(1)
   }
-
   return (
     <Wrapper>
-      <Description>
-        <span>반대</span>
-        <span>투표자 {votesTotalCnt}명</span>
-        <span>찬성</span>
-      </Description>
       <Outer>
-        {votes.map((vote, index) => (
-          <Inner key={vote.color}
-            style={{
-              width: `${vote.value / 0.3 * 100}%`,
-              background: `${vote.color}`,
-            }}
-          >{index === 1 ? '' : `${vote.value/votesTotalCnt * 100}%`}</Inner>
-        ))}
+        {voteTotCnt > 0 ?
+          <>
+            {votes.filter(vote => (vote.value > 0)).map((vote, index) => (
+              <Inner key={vote.color} style={{
+                width: `${vote.value/voteTotCnt * 100}%`,
+                background: `${vote.color}`,
+              }}>{index === 1 ? '' : `${vote.value/voteTotCnt * 100}%`}</Inner>
+            ))}
+          </>
+          :
+          <Inner style={{
+            width: '100%',
+            background: 'linear-gradient(90deg, #F97C7C, #DADADA, #538CE2)',
+            'text-align': 'center',
+            color: '#000',
+          }}>투표 없음</Inner>
+        }
       </Outer>
     </Wrapper>
   )

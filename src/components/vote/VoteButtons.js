@@ -81,11 +81,11 @@ const VoteButtons = ({ currentAgenda, refresh, myAgendaRefresh }) => { // my_upd
     <Wrapper>
       {voteActive ?
         <VoteButtonBar>
-          <button onClick={() => vote(currentAgenda.id, 'not_agree')} />
-          <button onClick={() => vote(currentAgenda.id, 'not_agree')} />
-          <button onClick={() => vote(currentAgenda.id, 'not_sure')} />
+          <button onClick={() => vote(currentAgenda.id, 'very_disagree')} />
+          <button onClick={() => vote(currentAgenda.id, 'disagree')} />
+          <button onClick={() => vote(currentAgenda.id, 'neutral')} />
           <button onClick={() => vote(currentAgenda.id, 'agree')} />
-          <button onClick={() => vote(currentAgenda.id, 'agree')} />
+          <button onClick={() => vote(currentAgenda.id, 'very_agree')} />
         </VoteButtonBar>
         :
         <VoteActiveBtn>
