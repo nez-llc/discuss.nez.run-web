@@ -2,15 +2,16 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 const Wrapper = styled.div`
-  width: 32px;
-  height: 32px;
+  width: inherit;
+  height: inherit;
   border-radius: 16px;
   background: #bbbbbb;
+  margin: 0;
 `
 
 const ProfilePicture = ({url}) => (
   <Wrapper>
-    {url}
+    <img src={url} />
   </Wrapper>
 )
 

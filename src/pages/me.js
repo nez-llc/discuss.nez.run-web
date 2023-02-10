@@ -2,8 +2,9 @@ import {useApi} from 'utils/api'
 import {useAuth} from 'auth/use-auth'
 import React, {useState} from 'react'
 import styled from '@emotion/styled'
+import ProfilePicture from '../components/ui/ProfilePicture'
 
-const Image = styled.img`
+const Image = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 16px;
@@ -85,7 +86,9 @@ const Me = () => {
       <div>
         <h2>프로필</h2>
         <div>
-          <Image src={picture.url}/>
+          <Image>
+            <ProfilePicture url={picture.url}/>
+          </Image>
           <p>활동지수({user.active_point})</p>
           { editBtnVisible ?
             <>
