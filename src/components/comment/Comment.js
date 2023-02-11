@@ -85,7 +85,7 @@ const Comment = ({ agendaId, comment, refresh }) => {
 
   const [isEdit, setIsEdit] = useState(false)
   const [content, setContent] = useState('')
-  console.log(comment)
+
   const onUnauthorized = () => {
     alert('로그인이 필요합니다.')
   }
@@ -137,8 +137,8 @@ const Comment = ({ agendaId, comment, refresh }) => {
     }
   }
 
-  const argeeComment = async (agendaId, commentId) => {
-    const { code, data } = await client.post(`/api/agendas/${agendaId}/comments/${commentId}/agreement`)
+  const agreeComment = async (agendaId, commentId, ballot) => {
+    const { code, data } = await client.post(`/api/agendas/${agendaId}/comments/${commentId}/agreement`, { ballot })
 
     switch (code) {
       case 201: refresh(); break
@@ -188,8 +188,8 @@ const Comment = ({ agendaId, comment, refresh }) => {
               }</div>
             <div>
               <span>{comment.created_time }</span>
-              <span onClick={() => {argeeComment(agendaId, comment.id)}}>공감 {comment.agreement}</span>
-              <span>비공감 3</span>
+              <span onClick={() => {agreeComment(agendaId, comment.id, 'agree')}}>공감 {comment.agreement.agree}</span>
+              <span onClick={() => {agreeComment(agendaId, comment.id, 'disagree')}}>비공감 {comment.agreement.disagree}</span>
               <span>대댓글</span>
             </div>
           </>
