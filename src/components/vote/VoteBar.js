@@ -6,6 +6,29 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
+const Description = styled.div`
+  padding: 5px 10px;
+  line-height: 20px;
+  span{
+    display: inline-block;
+    font-size: small;
+  }
+  span:nth-child(1){
+    width: 20%;
+    color: #F97C7C;
+  }
+  span:nth-child(2){
+    width: 60%;
+    font-size: medium;
+    text-align: center;
+    font-weight: bold;
+  }
+  span:nth-child(3){
+    width: 20%;
+    text-align: right;
+    color: #538CE2;
+  }
+`
 
 const Outer = styled.div`
   height: 30px;
@@ -27,7 +50,7 @@ const Inner = styled.div`
   height: 100%;
 `
 
-const VoteBar = ({ voteCount }) => {
+const VoteBar = ({ voteCount, view }) => {
   let voteTotCnt = 0
   let voteAgreeCnt = 0
   let voteDisagreeCnt = 0
@@ -57,6 +80,14 @@ const VoteBar = ({ voteCount }) => {
   }
   return (
     <Wrapper>
+      {view === 'detail' ?
+        <Description>
+          <span>반대</span>
+          <span>투표자 {voteTotCnt}명</span>
+          <span>찬성</span>
+        </Description>
+        : <></>
+      }
       <Outer>
         {voteTotCnt > 0 ?
           <>
