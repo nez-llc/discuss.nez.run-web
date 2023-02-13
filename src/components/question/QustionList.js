@@ -63,7 +63,7 @@ const List = ({ questions }) => (
     css={css`
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: 15px;
         a {
           text-decoration: none;
         }
