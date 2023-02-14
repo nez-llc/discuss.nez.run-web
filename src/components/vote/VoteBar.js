@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import React from 'react'
 
 
 const Wrapper = styled.div`
@@ -9,21 +10,19 @@ const Wrapper = styled.div`
 const Description = styled.div`
   padding: 5px 10px;
   line-height: 20px;
-  span{
-    display: inline-block;
-    font-size: small;
-  }
-  span:nth-child(1){
+  display: flex;
+  font-size: small;
+  span:nth-of-type(1){
     width: 20%;
     color: #F97C7C;
   }
-  span:nth-child(2){
+  span:nth-of-type(2){
     width: 60%;
     font-size: medium;
     text-align: center;
     font-weight: bold;
   }
-  span:nth-child(3){
+  span:nth-of-type(3){
     width: 20%;
     text-align: right;
     color: #538CE2;
@@ -69,7 +68,10 @@ const VoteBar = ({ voteCount, view }) => {
         break
     }
   }
-
+  // const votes = [
+  //   {'value': voteDisagreeCnt, 'color': 'linear-gradient(to right, #F97C7C 90%, #DADADA)'},
+  //   {'value': voteCount?.neutral, 'color': '#DADADA'},
+  //   {'value': voteAgreeCnt, 'color': 'linear-gradient(to left, #538CE2 90%, #DADADA)'}]
   const votes = [
     {'value': voteDisagreeCnt, 'color': '#F97C7C'},
     {'value': voteCount?.neutral, 'color': '#DADADA'},

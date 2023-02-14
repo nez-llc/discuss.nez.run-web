@@ -5,7 +5,7 @@ import {useRouter} from 'next/router'
 
 const Ul = styled.ul`
   display: flex;
-  gap: 4px;
+  gap: 10px;
   margin-bottom: 15px;
   //justify-content: flex-end;
   //margin-bottom: 15px;
@@ -15,7 +15,6 @@ const Ul = styled.ul`
 `
 
 const Li = styled.li`
-  margin-right: 15px;
 `
 
 const Tag = styled.span`
