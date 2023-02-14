@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import styled from '@emotion/styled'
 import {useApi} from '../../utils/api'
+import {useMyAgenda} from '../../pages/agenda/agenda'
 
 const Wrapper = styled.div`
   margin: 10px 0px;
@@ -34,9 +35,10 @@ const VoteActiveBtn = styled.div`
   }
 `
 
-const VoteButtons = ({ currentAgenda, refresh, myAgendaRefresh }) => { // my_updown
+const VoteButtons = ({ currentAgenda, refresh, token }) => { // my_updown
   const { client } = useApi()
   const [ voteActive, setVoteActive ] = useState(false)
+  const { my_updown, myAgendaRefresh } = useMyAgenda(token, currentAgenda.id)
 
   const onUnauthorized = () => {
     alert('로그인이 필요합니다.')

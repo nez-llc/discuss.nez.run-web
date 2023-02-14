@@ -16,7 +16,6 @@ const Title = styled.h2`
 
 const QuestionPage = ({ agenda, agendaId, token}) => {
   const { currentAgenda, refresh } = useAgenda(agenda, agendaId)
-  const { my_updown, myAgendaRefresh } = useMyAgenda(token, agendaId)
 
   return (
     <div>
@@ -28,8 +27,7 @@ const QuestionPage = ({ agenda, agendaId, token}) => {
         <Vote
           currentAgenda={currentAgenda}
           refresh={refresh}
-          my_updown={my_updown}
-          myAgendaRefresh={myAgendaRefresh} />
+          token={token} />
         <Tags tags={currentAgenda.tags} />
       </Pane>
       <Pane>

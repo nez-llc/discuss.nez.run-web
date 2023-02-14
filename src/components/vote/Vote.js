@@ -1,17 +1,20 @@
 import React from 'react'
 import VoteBar from 'components/vote/VoteBar'
 import VoteButtons from 'components/vote/VoteButtons'
-import styled from '@emotion/styled'
+import {useAgendaVote} from '../../pages/agenda/agenda'
+import {useAuth} from '../../auth/use-auth'
 
-const Vote = ({ currentAgenda, refresh, my_updown, myAgendaRefresh }) => {
+const Vote = ({ currentAgenda, refresh, token }) => {
+  // const { vote, voteRefresh } = useAgendaVote(currentAgenda.id)
+  // const { user } = useAuth()
+  // console.log(user.id)
   return (
     <>
-      <VoteBar voteCount={currentAgenda.vote_count} view={'detail'} />
+      <VoteBar voteCount={currentAgenda.vote_count} view={'detail'} agendaId={currentAgenda.id}/>
       <VoteButtons
         currentAgenda={currentAgenda}
         refresh={refresh}
-        my_updown={my_updown}
-        myAgendaRefresh={myAgendaRefresh}
+        token={token}
       />
     </>
   )

@@ -68,10 +68,6 @@ const VoteBar = ({ voteCount, view }) => {
         break
     }
   }
-  // const votes = [
-  //   {'value': voteDisagreeCnt, 'color': 'linear-gradient(to right, #F97C7C 90%, #DADADA)'},
-  //   {'value': voteCount?.neutral, 'color': '#DADADA'},
-  //   {'value': voteAgreeCnt, 'color': 'linear-gradient(to left, #538CE2 90%, #DADADA)'}]
   const votes = [
     {'value': voteDisagreeCnt, 'color': '#F97C7C'},
     {'value': voteCount?.neutral, 'color': '#DADADA'},
