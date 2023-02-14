@@ -18,6 +18,49 @@ const Info = styled.div`
 
 const sum = arr => arr.reduce((a, b) => a + b, 0)
 
+
+const detailDate = (a) => {
+  const milliSeconds = new Date() - new Date(a)
+  const seconds = milliSeconds / 1000
+
+  let result = ''
+
+  if (seconds < 60){
+    result = '방금 전'
+  }
+
+  const minutes = seconds / 60
+  if (minutes < 60){
+    result = `${Math.floor(minutes)}분 전`
+  }
+
+  const hours = minutes / 60
+  if (hours < 24){
+    result = `${Math.floor(hours)}시간 전`
+}
+
+  const days = hours / 24
+  if (days < 7){
+    result = `${Math.floor(days)}일 전`
+  }
+
+  const weeks = days / 7
+  if (weeks < 5){
+    result = `${Math.floor(weeks)}주 전`
+  }
+
+  const months = days / 30
+  if (months < 12){
+    result = `${Math.floor(months)}개월 전`
+  }
+  const years = days / 365
+  if(years.toFixed() > 0){
+    result = `${Math.floor(years)}년 전`
+  }
+
+  return result
+}
+
 const Stat = ({ question }) => {
   return (
     <div
@@ -38,7 +81,7 @@ const Stat = ({ question }) => {
         <dd>{sum(Object.values(question.vote_count))}</dd>
         <dt>댓글</dt>
         <dd>{question.comment_count}</dd>
-        <dt css={css`margin-left: auto;`}>3일 전</dt>
+        <dt css={css`margin-left: auto;`}>{detailDate(question.created_time)}</dt>
       </dl>
     </div>
   )
