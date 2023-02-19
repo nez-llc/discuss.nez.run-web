@@ -79,7 +79,6 @@ const Me = () => {
     }
   }
 
-
   return (
     <div>
       <h1>마이페이지</h1>
@@ -87,7 +86,7 @@ const Me = () => {
         <h2>프로필</h2>
         <div>
           <Image>
-            <ProfilePicture url={picture.url}/>
+            <ProfilePicture url={user.picture}/>
           </Image>
           <p>활동지수({user.active_point})</p>
           { editBtnVisible ?
