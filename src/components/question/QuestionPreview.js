@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import {css} from '@emotion/react'
-import Pane from 'components/layout/Pane'
 import Tags from 'components/ui/Tags'
 import VoteBar from 'components/ui/VoteBar'
-import Markdown from 'components/ui/Markdown'
+import dayjs from 'dayjs'
+import duration from 'dayjs/plugin/duration'
+
 
 const Recommended = styled.h2`
 `
@@ -19,43 +20,24 @@ const Info = styled.div`
 const sum = arr => arr.reduce((a, b) => a + b, 0)
 
 
-const detailDate = (a) => {
-  const milliSeconds = new Date() - new Date(a)
-  const seconds = milliSeconds / 1000
+const detailDate = (agendaDate) => {
+  dayjs.extend(duration)
 
+  let timeDiff = dayjs.duration(dayjs().diff(agendaDate))
   let result = ''
 
-  if (seconds < 60){
-    result = '방금 전'
-  }
-
-  const minutes = seconds / 60
-  if (minutes < 60){
-    result = `${Math.floor(minutes)}분 전`
-  }
-
-  const hours = minutes / 60
-  if (hours < 24){
-    result = `${Math.floor(hours)}시간 전`
-}
-
-  const days = hours / 24
-  if (days < 7){
-    result = `${Math.floor(days)}일 전`
-  }
-
-  const weeks = days / 7
-  if (weeks < 5){
-    result = `${Math.floor(weeks)}주 전`
-  }
-
-  const months = days / 30
-  if (months < 12){
-    result = `${Math.floor(months)}개월 전`
-  }
-  const years = days / 365
-  if(years.toFixed() > 0){
-    result = `${Math.floor(years)}년 전`
+  if(timeDiff.years() > 0){
+    result = `${timeDiff.years()}년 전`
+  }else if(timeDiff.months() > 0){
+    result = `${timeDiff.months()}개월 전`
+  }else if(timeDiff.days() > 0){
+    result = `${timeDiff.days()}일 전`
+  }else if(timeDiff.hours() > 0){
+    result = `${timeDiff.hours()}시간 전`
+  }else if(timeDiff.minutes() > 0){
+    result = `${timeDiff.minutes()}분 전`
+  }else if(timeDiff.seconds() > 0){
+    result = `${timeDiff.seconds()}초 전`
   }
 
   return result
