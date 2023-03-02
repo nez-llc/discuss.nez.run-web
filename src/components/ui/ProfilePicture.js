@@ -2,16 +2,21 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 const Wrapper = styled.div`
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-  background: #bbbbbb;
+  width: inherit;
+  height: inherit;
+  margin: 0;
+  img{
+    border-radius: 16px;
+  }
 `
 
-const ProfilePicture = ({url}) => (
-  <Wrapper>
-    {url}
-  </Wrapper>
-)
+const ProfilePicture = ({url}) => {
+  const imgUrl = process.env.API_ENDPOINT+url
+  return (
+    <Wrapper>
+      <img src={imgUrl}/>
+    </Wrapper>
+  )
+}
 
 export default ProfilePicture
