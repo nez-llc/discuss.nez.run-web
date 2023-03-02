@@ -18,10 +18,11 @@ import styled from '@emotion/styled'
 // }
 
 const Markdown = styled(ReactMarkdown)`
+  font-size: 15px;
+  margin-bottom: 30px;
   p {
     max-width: 460px;
-    padding: 6px 0;
-    line-height: 1.4;
+    line-height: 20px;
   }
 `
 
