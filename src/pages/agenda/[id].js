@@ -8,6 +8,7 @@ import RelatedReferences from 'components/question/RelatedReferences'
 import Comments from 'components/comment/Comments'
 import {useAgenda, useMyAgenda} from './agenda'
 import {getToken} from 'auth/commons'
+import AgendaMetaData from 'components/ui/AgendaMetaData'
 
 const Title = styled.h2`
   font-size: 24px;
@@ -21,6 +22,7 @@ const QuestionPage = ({ agenda, agendaId, token}) => {
     <div>
       <Pane>
         <Title>{currentAgenda.title}</Title>
+        <AgendaMetaData />
         <Markdown>{currentAgenda.summary}</Markdown>
         <Markdown>{currentAgenda.desc}</Markdown>
         <img src={'https://static.dogmate.co.kr/blog/wp-content/uploads/2018/12/18171411/pasted_image_0.png'} />
@@ -37,6 +39,7 @@ const QuestionPage = ({ agenda, agendaId, token}) => {
         <Pane.Title>관련정책</Pane.Title>
         <RelatedReferences />
       </Pane>
+      <Comments agendaId={currentAgenda.id} />
     </div>
   )
 }

@@ -7,15 +7,23 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 10px 20px;
 `
 
 const Textarea = styled.textarea`
   flex-shrink: 1;
   max-width: 100%;
+  width: 100%;
+  resize: none;
 `
 
 const SubmitButton = styled.button`
-  
+  background-color: #FF6861;
+  border: 0;
+  color: #fff;
+  font-size: 12px;
+  width: 50px;
+  height: 30px;
 `
 
 const CommentForm = ({ agendaId, onCreated }) => {
@@ -55,7 +63,7 @@ const CommentForm = ({ agendaId, onCreated }) => {
 
   return (
     <Wrapper>
-      <ProfilePicture />
+      {/* <ProfilePicture /> */}
       <Textarea
         value={content}
         onChange={e => setContent(e.target.value)}

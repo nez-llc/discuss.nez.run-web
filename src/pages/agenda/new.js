@@ -26,7 +26,18 @@ const NewAgendaPage = () => {
   const [desc, setDesc] = useState('')
   const [picture, setPicture] = useState()
   const [pictureImg, setPictureImg] = useState('')
+  const [textLength, setTextLength] = useState(0)
 
+  const textareaOnChange = (e, limit) => {
+    const text = e.target.value
+    const len = text.length
+    if(len > limit) {
+      alert(`제한 글자수를 초과하였습니다. (${limit}자)`)
+      return false
+    }
+    setTextLength(len)
+    setDesc(text)
+  }
   const onUnauthorized = () => {
     alert('로그인이 필요합니다.')
   }
@@ -83,8 +94,9 @@ const NewAgendaPage = () => {
       <p>내용</p>
       <Textarea
         value={desc}
-        onChange={e => setDesc(e.target.value)}
+        onChange={e => textareaOnChange(e, 560)}
       />
+      <p>{textLength} / 560</p>
       <p>아젠다 이미지</p>
       {
         pictureImg ? <img src={pictureImg} alt="아젠다 이미지" /> : <></>

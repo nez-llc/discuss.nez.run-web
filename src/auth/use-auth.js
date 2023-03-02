@@ -10,6 +10,7 @@ export const useAuth = () => useContext(UserContext)
 export const UserProvider = ({ children }) => {
   const [token, setToken] = useState('')
   const [user, setUser] = useState({})
+  const [activeLogs, setActiveLogs] = useState({})
 
   useEffect(() => {
     const readCookie = () => {
@@ -30,6 +31,7 @@ export const UserProvider = ({ children }) => {
 
     setToken(cookies['auth'])
     refreshUser(cookies['auth'])
+    refreshActiveLogs(cookies['auth'])
   }, [])
 
   const refreshUser = async token => {
@@ -45,11 +47,25 @@ export const UserProvider = ({ children }) => {
     setUser(user)
   }
 
+  const refreshActiveLogs = async token => {
+    const response = await fetch(`${API_ENDPOINT}/api/members/my/comments`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    if (response.status !== 200) return
+    const activeLogs = await response.json()
+    setActiveLogs(activeLogs)
+  }
+
   const isLogin = !!token
 
   const logout = () => {
     setToken('')
     setUser({})
+    setActiveLogs({})
     document.cookie = 'auth=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
   }
 
@@ -60,11 +76,11 @@ export const UserProvider = ({ children }) => {
         user,
         logout,
         isLogin,
-        refreshUser
+        refreshUser,
+        activeLogs,
       }}
     >
       {children}
     </UserContext.Provider>
   )
 }
-
