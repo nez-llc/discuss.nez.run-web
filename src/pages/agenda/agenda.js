@@ -44,7 +44,29 @@ const useMyAgenda = (token, agendaId) => {
   }
 }
 
+const useAgendaVote = (agendaId) => {
+  const { client } = useApi()
+  const [vote, setVote] = useState([])
+
+  const voteRefresh = useCallback(async () => {
+    const { code, data } = await client.get(`/api/agendas/${agendaId}/votes`)
+
+    switch (code) {
+      case 200: setVote(data); break
+    }
+  }, [agendaId])
+
+  useEffect(() => {
+    voteRefresh()
+  }, [agendaId])
+
+  return {
+    vote,
+    voteRefresh,
+  }
+}
 export {
   useAgenda,
   useMyAgenda,
+  useAgendaVote,
 }
