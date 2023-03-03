@@ -3,7 +3,8 @@ import styled from '@emotion/styled'
 import {css} from '@emotion/react'
 import Tags from 'components/ui/Tags'
 import Markdown from 'components/ui/Markdown'
-import VoteBar from 'components/ui/VoteBar'
+//import VoteBar from 'components/ui/VoteBar'
+import VoteBar from 'components/vote/Votebar'
 import {detailDate} from 'utils/dayjs'
 
 
