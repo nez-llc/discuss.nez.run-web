@@ -30,10 +30,10 @@ const Description = styled.div`
 `
 
 const Outer = styled.div`
-  height: 30px;
+  height: ${props => props.view === 'detail' ? '30px' : '16px'};
+  line-height: ${props => props.view === 'detail' ? '30px' : '16px'};
   display: flex;
   width: 100%;
-  line-height: 30px;
   font-size: small;
   color: #fff;
   > div {
@@ -42,7 +42,6 @@ const Outer = styled.div`
   > div:nth-child(3){
     text-align: right;
   }
-  
 `
 
 const Inner = styled.div`
@@ -86,7 +85,7 @@ const VoteBar = ({ voteCount, view }) => {
         </Description>
         : <></>
       }
-      <Outer>
+      <Outer view={view}>
         {voteTotCnt > 0 ?
           <>
             {votes.filter(vote => (vote.value > 0)).map((vote, index) => (
