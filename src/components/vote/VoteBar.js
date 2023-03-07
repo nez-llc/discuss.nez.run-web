@@ -3,8 +3,7 @@ import React from 'react'
 
 
 const Wrapper = styled.div`
-  position: relative;
-  align-items: center;
+  ${props => props.view === 'detail' ? 'align-items: center;' : 'display: flex;\nalign-items: self-end;'}
 `
 
 const Description = styled.div`
@@ -76,7 +75,7 @@ const VoteBar = ({ voteCount, view }) => {
     votes.fill(1)
   }
   return (
-    <Wrapper>
+    <Wrapper view={view}>
       {view === 'detail' ?
         <Description>
           <span>반대</span>
