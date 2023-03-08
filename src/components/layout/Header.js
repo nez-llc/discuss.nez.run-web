@@ -3,10 +3,11 @@ import Link from 'next/link'
 import styled from '@emotion/styled'
 import Logo from 'components/Logo'
 import Account from 'components/member/Account'
-import SearchImg from '../../assets/search.png'
-import MenuImg from '../../assets/menu.png'
-import FilterImg from '../../assets/filter_list.png'
-import AccountImg from '../../assets/person.png'
+import SearchImg from 'assets/search.png'
+import MenuImg from 'assets/menu.png'
+import FilterImg from 'assets/filter_list.png'
+import AccountImg from 'assets/person.png'
+import NavMenu from 'components/ui/NavMenu'
 
 const Wrapper = styled.header`
   background: white;
@@ -200,6 +201,7 @@ const Header = () => {
   const [isAgenda, setIsAgenda] = useState(false)
   const [isWdd, setIsWdd] = useState(false)
   const [isReference, setIsreference] = useState(false)
+  const [isMenu, setIsMenu] = useState(false)
 
   const onSearch = () => {
     setIsSearch(!isSearch)
@@ -218,11 +220,16 @@ const Header = () => {
       setIsreference(true)
     }
   }
+
+  const onChangeHeader = (state) => {
+    setHeaderView(state)
+    setIsMenu(false)
+  }
   return (
     <Wrapper>
       <Nav headerView={headerView}>
         {headerView === 3 ?
-          <NavButton2 margin={'left'}><BtnHeaderMenu2/></NavButton2>
+          <NavButton2 margin={'left'}><BtnHeaderMenu2 onClick={() => setIsMenu(true)}></BtnHeaderMenu2></NavButton2>
           : <></>
         }
         <Link href="/" onClick={() => onSelectedTab('main')}>
@@ -235,7 +242,7 @@ const Header = () => {
               <BtnHeaderSearch onClick={onSearch} />
               : <></>
             }
-            <BtnHeaderMenu />
+            <BtnHeaderMenu onClick={() => setIsMenu(true)} />
           </NavButton>
         }
         <NavBox>
@@ -297,6 +304,14 @@ const Header = () => {
         </MenuTab>
         : <></>
       }
+      {isMenu ?
+        <NavMenu
+          setIsMenu={setIsMenu}
+          onChangeHeader={onChangeHeader}
+          headerView={headerView}/>
+        : <></>
+      }
+
     </Wrapper>
   )
 }
