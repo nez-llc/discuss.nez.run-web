@@ -49,8 +49,8 @@ const ListView = ({ question }) => (
         <img css={css`width: 100%; height: 100%; object-fit: cover;
         `} src={'https://cdn.pixabay.com/photo/2019/07/23/13/51/shepherd-dog-4357790_1280.jpg'}/>
       </div>
-      <div css={css`width:70%; display: flex; flex-direction: column; gap: 10px;`}>
-        <div css={css`width: 100%; padding: 0px 10px; height: 134px;`}>
+      <div css={css`width:70%; display: grid; gap: 10px;`}>
+        <div css={css`width: 100%; padding: 0px 10px; height: 120px;`}>
           <h4 css={css`height: 80px; display: flex; align-items: self-end;`}>{question.title}</h4>
           <div css={css`padding-top: 10px;`}>
             {/* <Tags tags={question.tags}></Tags> */}
