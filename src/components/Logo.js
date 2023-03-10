@@ -8,7 +8,7 @@ const Div = styled.div`
 
 const Logo = () => (
   <Div>
-    woodong.de
+    WooDongD
   </Div>
 )
 
