@@ -98,7 +98,7 @@ const VoteBar = ({ voteCount, view }) => {
           <Inner style={{
             width: '100%',
             background: 'linear-gradient(90deg, #F97C7C, #DADADA, #538CE2)',
-            'text-align': 'center',
+            textAlign: 'center',
             color: '#000',
           }}>투표 없음</Inner>
         }

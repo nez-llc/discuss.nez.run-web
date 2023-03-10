@@ -1,8 +1,6 @@
 import React from 'react'
 import VoteBar from 'components/vote/VoteBar'
 import VoteButtons from 'components/vote/VoteButtons'
-import {useAgendaVote} from '../../pages/agenda/agenda'
-import {useAuth} from '../../auth/use-auth'
 
 const Vote = ({ currentAgenda, refresh, token }) => {
   // const { vote, voteRefresh } = useAgendaVote(currentAgenda.id)
