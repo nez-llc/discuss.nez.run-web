@@ -1,14 +1,13 @@
-import React from 'react'
 import styled from '@emotion/styled'
 import Pane from 'components/layout/Pane'
-import Markdown from 'components/ui/Markdown'
 import Tags from 'components/ui/Tags'
+import Markdown from 'components/ui/Markdown'
+import AgendaMetaData from 'components/ui/AgendaMetaData'
 import Vote from 'components/vote/Vote'
 import RelatedReferences from 'components/question/RelatedReferences'
 import Comments from 'components/comment/Comments'
-import {useAgenda, useMyAgenda} from './agenda'
 import {getToken} from 'auth/commons'
-import AgendaMetaData from 'components/ui/AgendaMetaData'
+import {useAgenda} from 'data/agenda'
 
 const Title = styled.h2`
   font-size: 24px;
@@ -44,7 +43,7 @@ const QuestionPage = ({ agenda, agendaId, token}) => {
   )
 }
 
-const getServerSideProps = async (context) => {
+export const getServerSideProps = async (context) => {
   const token = getToken(context)
   const fetchAgenda = async () => {
     const response = await fetch(`${process.env.API_ENDPOINT}/api/agendas/${context.query.id}`, {
@@ -66,7 +65,4 @@ const getServerSideProps = async (context) => {
   }
 }
 
-export {
-  getServerSideProps
-}
 export default QuestionPage

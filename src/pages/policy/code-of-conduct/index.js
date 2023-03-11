@@ -1,4 +1,3 @@
-import React from 'react'
 import { getBlocks, getBlocksChildren } from 'utils/notion-api'
 import Blocks from 'components/policy/Blocks'
 

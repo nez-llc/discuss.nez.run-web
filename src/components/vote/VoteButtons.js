@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import styled from '@emotion/styled'
-import {useApi} from '../../utils/api'
-import {useMyAgenda} from '../../pages/agenda/agenda'
+import {useApi} from 'utils/api'
+import {useMyAgenda} from 'data/agenda'
 
 const Wrapper = styled.div`
   margin: 10px 0px;

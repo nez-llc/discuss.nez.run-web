@@ -7,6 +7,7 @@ const notion = new Client({
 const getBlocksChildren = async (blocks) => await Promise.all(
   blocks.map(async (block) => await getBlockChildrenItems(block)),
 )
+
 const getBlockChildrenItems = async (block) => {
   if (block.has_children) {
     const children = await getBlocks(block.id)
@@ -14,6 +15,7 @@ const getBlockChildrenItems = async (block) => {
   }
   return block
 }
+
 const getBlocks = async (blockId) => {
   const response = await notion.blocks.children.list({
     block_id: blockId,

@@ -22,6 +22,7 @@ const useAgenda = (oldAgenda, agendaId) => {
     refresh,
   }
 }
+
 const useMyAgenda = (token, agendaId) => {
   const { client } = useApi(token)
   const [my_updown, setMy_updown] = useState('none')
@@ -65,6 +66,7 @@ const useAgendaVote = (agendaId) => {
     voteRefresh,
   }
 }
+
 export {
   useAgenda,
   useMyAgenda,
