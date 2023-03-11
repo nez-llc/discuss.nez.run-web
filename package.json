@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "dev": "next"
+    "dev": "next",
+    "build": "next build"
   },
   "dependencies": {
     "@babel/core": "^7.16.5",
