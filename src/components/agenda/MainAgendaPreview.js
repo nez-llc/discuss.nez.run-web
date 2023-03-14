@@ -28,19 +28,19 @@ const Updown = styled.div`
   margin-left: 20px;
 `
 
-const MainQuestionPreview = ({ question, index }) => (
+const MainAgendaPreview = ({ agenda, index }) => (
   <Wrapper>
     <Index>{('00' + index).slice(-2)}</Index>
     <Preview>
-      <Tags tags={question.tags} />
+      <Tags tags={agenda.tags} />
       <Info>
-        <h3>{question.title}</h3>
+        <h3>{agenda.title}</h3>
       </Info>
       <Updown>
-        {question.updown.total ? question.updown.total : ''}
+        {agenda.updown.total ? agenda.updown.total : ''}
       </Updown>
     </Preview>
   </Wrapper>
 )
 
-export default MainQuestionPreview
+export default MainAgendaPreview

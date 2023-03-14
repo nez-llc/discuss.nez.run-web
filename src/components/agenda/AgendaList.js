@@ -3,10 +3,10 @@ import Link from 'next/link'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 import Pagination from 'components/ui/Pagination'
-import QuestionPreview from 'components/question/QuestionPreview'
-import { useQuestions } from 'data/questions'
+import AgendaPreview from 'components/agenda/AgendaPreview'
+import { useAgendas } from 'data/agenda'
 import Router, { useRouter } from 'next/router'
-import MainQuestionPreview from './MainQuestionPreview'
+import MainAgendaPreview from './MainAgendaPreview'
 import Tags from '../ui/Tags'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/swiper.css'
@@ -72,7 +72,7 @@ const OrderSelect = ({sort}) => {
   )
 }
 
-const List = ({ questions, view }) => (
+const List = ({ agendas, view }) => (
   <ul
     css={css`
         display: flex;
@@ -83,24 +83,24 @@ const List = ({ questions, view }) => (
         }
       `}
   >
-    {questions.map(question => (
-      <li key={question.id}>
-        <Link href={`/agenda/${question.id}`}>
-          <QuestionPreview key={question.id} question={question} view={view} />
+    {agendas.map(agenda => (
+      <li key={agenda.id}>
+        <Link href={`/agenda/${agenda.id}`}>
+          <AgendaPreview key={agenda.id} agenda={agenda} view={view} />
         </Link>
       </li>
     ))}
   </ul>
 )
 
-const SwiperList = ({ questions, view }) => {
+const SwiperList = ({ agendas, view }) => {
   SwiperCore.use([Navigation])
   return (
     <Swiper>
-      {questions.map((question) => (
-        <SwiperSlide key={question.id}> {/* key 중복 error 발생으로 임시로 key 추가 */}
-          <Link href={`/agenda/${question.id}`} css={css`text-decoration: none;`}>
-            <QuestionPreview key={question.id} question={question} view={view}/>
+      {agendas.map((agenda) => (
+        <SwiperSlide key={agenda.id}> {/* key 중복 error 발생으로 임시로 key 추가 */}
+          <Link href={`/agenda/${agenda.id}`} css={css`text-decoration: none;`}>
+            <AgendaPreview key={agenda.id} agenda={agenda} view={view}/>
           </Link>
         </SwiperSlide>
       ))}
@@ -108,13 +108,13 @@ const SwiperList = ({ questions, view }) => {
   )
 }
 
-const MainList = ({ questions }) =>
+const MainList = ({ agendas }) =>
   (
     <MainUl>
-      {questions.slice(0, 6).map((question, index) => (
-        <MainLi key={question.id}>
-          <Link href={`/agenda/${question.id}`}>
-            <MainQuestionPreview key={question.id} index={index + 1} question={question} />
+      {agendas.slice(0, 6).map((agenda, index) => (
+        <MainLi key={agenda.id}>
+          <Link href={`/agenda/${agenda.id}`}>
+            <MainAgendaPreview key={agenda.id} index={index + 1} agenda={agenda} />
           </Link>
         </MainLi>
       ))}
@@ -122,7 +122,7 @@ const MainList = ({ questions }) =>
   )
 
 const QuestionList = ({tag, keyword, sort, searchType, view}) => {
-  const { questions, total, per_page } = useQuestions(tag, keyword, sort, searchType)
+  const { agendas, total, per_page } = useAgendas(tag, keyword, sort, searchType)
   const [ viewState, setViewState ] = useState('S01')
 
   const changeView = (state) => {
@@ -135,7 +135,7 @@ const QuestionList = ({tag, keyword, sort, searchType, view}) => {
         view === 'main' ?
           <MainWrapper>
             <Text>지금 이야기해야 하는 디지털 이슈</Text>
-            <MainList questions={questions}/>
+            <MainList agendas={agendas}/>
           </MainWrapper>
           :
           <>
@@ -151,10 +151,10 @@ const QuestionList = ({tag, keyword, sort, searchType, view}) => {
             <OrderSelect sort={sort} />
             {viewState === 'S01' || viewState === 'S02'
               ? <>
-                <SwiperList questions={questions} view={viewState} />
+                <SwiperList agendas={agendas} view={viewState} />
               </>
               : <>
-                <List questions={questions} view={viewState}/>
+                <List agendas={agendas} view={viewState}/>
                 <Pagination total={total} per_page={per_page}/>
               </>
             }
