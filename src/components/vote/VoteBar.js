@@ -109,9 +109,9 @@ const VoteBar = ({ voteCount, view }) => {
           <>
             {votes.map((vote, index) => (
               <Inner key={vote.type} vote={vote}>
-                {index === 1 ? '' :
+                {index !== 1 && view === 'detail' ?
                   <span>{vote.proportion}%</span>
-                }
+                  : <></> }
               </Inner>
             ))}
           </>
