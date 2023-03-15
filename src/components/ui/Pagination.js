@@ -1,24 +1,30 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import vector from 'assets/vector.png'
 
 const Wrapper = styled.ul`
-  padding: 8px;
+  padding: 15px;
   display: flex;
-  gap: 8px;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  
+  li {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 150%;
+    color: #2281F5;
+  }
 `
 
-const Item = styled.li`
-  border: 1px solid black;
-  padding: 8px;
-`
-
-const Pagination = () => (
-  <Wrapper>
-    <Item>1</Item>
-    <Item>2</Item>
-    <Item>3</Item>
-  </Wrapper>
-)
+const Pagination = (total, per_page, onChangePerPage) => {
+  return (
+    <Wrapper>
+      <li onClick={() => onChangePerPage(3)}>더보기</li>
+      <li><img src={vector.src} /></li>
+    </Wrapper>
+  )
+}
 
 export default Pagination
