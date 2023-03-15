@@ -16,11 +16,11 @@ const VoteButtonBar = styled.div`
     border-radius: 5px;
     border: 0;
   }
-  button:nth-child(1){ background-color: #F97C7C; }
-  button:nth-child(2){ background-color: #FFA9A9; }
-  button:nth-child(3){ background-color: #DADADA; }
-  button:nth-child(4){ background-color: #0088FF; }
-  button:nth-child(5){ background-color: #0088FF; }
+  buttonnth-of-type(1){ background-color: #F97C7C; }
+  buttonnth-of-type(2){ background-color: #FFA9A9; }
+  buttonnth-of-type(3){ background-color: #DADADA; }
+  buttonnth-of-type(4){ background-color: #0088FF; }
+  buttonnth-of-type(5){ background-color: #0088FF; }
 `
 
 const VoteActiveBtn = styled.div`
