@@ -27,8 +27,9 @@ const sum = arr => arr.reduce((a, b) => a + b, 0)
 
 const Stat = ({ question }) => {
   return (
-    <div css={css`font-size: small; dl {display: flex;} dd {margin-right: 16px;}`}>
-      <dl>
+    <div css={css`font-size: small; display: flex; dl {display: flex;} dd {margin-right: 16px;}`}>
+      <dl><dd>{detailDate(question.created_time)}</dd></dl>
+      <dl css={css`margin-left: auto;`}>
         <dt>추천</dt>
         <dd>{question.updown?.total}</dd>
         {/* <dt>투표</dt>
@@ -106,8 +107,7 @@ const ListView3 = ({ question }) => (
       <div css={css`width:70%; display: flex; flex-direction: column; gap: 10px;`}>
         <h4 css={css`height: 70px`}>{question.title}</h4>
         <ul css={css`display: flex; gap: 3px;`}>
-          <li css={css`width:20%; font-size: 11px; text-align: center;`}>{detailDate(question.created_time)}</li>
-          <li css={css`width: 60%;`}>
+          <li css={css`width: 80%;`}>
             <VoteBar voteCount={question.vote_count} />
           </li>
           <li css={css`width:20%; font-size: small; text-align: center;`}>{sum(Object.values(question.vote_count))}</li>
@@ -118,7 +118,7 @@ const ListView3 = ({ question }) => (
           src={'https://cdn.pixabay.com/photo/2019/07/23/13/51/shepherd-dog-4357790_1280.jpg'}/>
       </div>
     </div>
-    <div css={css`width: 100%; display: flex; flex-direction: column; gap: 10px;`}>
+    <div css={css`width: 100%; display: flex; flex-direction: column; gap: 30px;`}>
       {/* <Tags tags={question.tags}></Tags> */}
       <ul css={css`display: flex; gap: 5px;`}>
         {question.tags?.slice(0, 3).map(tag => (
@@ -160,7 +160,7 @@ const QuestionPreview = ({ question, view }) => {
     case 'S01':
       return (
         <div css={css`text-decoration: none;`}>
-          <div css={css`background-color: #bdbdbd; background-image: url("https://cdn.pixabay.com/photo/2019/07/23/13/51/shepherd-dog-4357790_1280.jpg"); background-repeat: none; background-size: cover;`}>
+          <div css={css`background: url("https://cdn.pixabay.com/photo/2019/07/23/13/51/shepherd-dog-4357790_1280.jpg") no-repeat center; background-size: cover;`}>
             <div
               css={css`
                   height: 250px;
@@ -201,7 +201,7 @@ const QuestionPreview = ({ question, view }) => {
     case 'S02':
       return(
         <div css={css`text-decoration: none;`}>
-          <div css={css`background-color: #bdbdbd; background-image: url("https://cdn.pixabay.com/photo/2019/07/23/13/51/shepherd-dog-4357790_1280.jpg"); background-repeat: none; background-size: cover;`}>
+          <div css={css`background: url("https://cdn.pixabay.com/photo/2019/07/23/13/51/shepherd-dog-4357790_1280.jpg") no-repeat center; background-size: cover;`}>
             <div
               css={css`
                   height: 300px;
