@@ -3,7 +3,7 @@ import React from 'react'
 
 
 const Wrapper = styled.div`
-  ${props => props.view === 'detail' ? 'align-items: center;' : 'display: flex;\nalign-items: self-end;'}
+  ${props => props.view === 'detail' ? 'align-items: center;' : 'display: flex;\nalign-items: self-end;'};
 `
 
 const Description = styled.div`
@@ -16,15 +16,10 @@ const Description = styled.div`
     color: #F97C7C;
   }
   span:nth-of-type(2){
-    width: 60%;
-    font-size: medium;
-    text-align: center;
-    font-weight: bold;
-  }
-  span:nth-of-type(3){
     width: 20%;
-    text-align: right;
     color: #538CE2;
+    margin-left: auto;
+    text-align: right;
   }
 `
 
@@ -36,6 +31,8 @@ const Outer = styled.div`
   width: 100%;
   font-size: small;
   color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
 `
 
 const Inner = styled.div`
@@ -70,36 +67,18 @@ const NoVote = styled.div`
 `
 
 const VoteBar = ({ voteCount, view }) => {
-  let voteTotCnt = 0
-  let voteAgreeCnt = 0
-  let voteDisagreeCnt = 0
-
-  for(const vote in voteCount) {
-    let voteCnt = voteCount[vote]
-    voteTotCnt += voteCnt
-    switch (vote){
-      case 'very_agree':
-      case 'agree':
-        voteAgreeCnt += voteCnt
-        break
-      case 'very_disagree':
-      case 'disagree':
-        voteDisagreeCnt += voteCnt
-        break
-    }
-  }
+  let voteTotCnt = Object.values(voteCount).reduce((acc, curr) => acc + curr, 0)
 
   const votes = [
-    {'type': 'disagree', 'proportion': voteDisagreeCnt/voteTotCnt * 100},
+    {'type': 'disagree', 'proportion': (voteCount.very_disagree + voteCount.disagree)/voteTotCnt * 100},
     {'type': 'neutral', 'proportion': voteCount.neutral/voteTotCnt * 100},
-    {'type': 'agree', 'proportion': voteAgreeCnt/voteTotCnt * 100}]
+    {'type': 'agree', 'proportion': (voteCount.very_agree + voteCount.agree)/voteTotCnt * 100}]
 
   return (
     <Wrapper view={view}>
       {view === 'detail' ?
         <Description>
           <span>반대</span>
-          <span>투표자 {voteTotCnt}명</span>
           <span>찬성</span>
         </Description>
         : <></>
