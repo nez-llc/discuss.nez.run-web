@@ -7,7 +7,6 @@ import AgendaPreview from 'components/agenda/AgendaPreview'
 import { useAgendas } from 'data/agenda'
 import Router, { useRouter } from 'next/router'
 import MainAgendaPreview from './MainAgendaPreview'
-import 'swiper/swiper.css'
 
 const Wrapper = styled.div`
   padding: 16px 0;
