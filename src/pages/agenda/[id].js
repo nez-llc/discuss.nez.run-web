@@ -33,7 +33,6 @@ const QuestionPage = ({ agenda, agendaId, token}) => {
         `}>{dayjs(new Date(agenda.created_time)).format('YYYY-MM-DD')}</div>
         <Title>{currentAgenda.title}</Title>
       </Pane>
-      <img alt={currentAgenda.title} src={'https://static.dogmate.co.kr/blog/wp-content/uploads/2018/12/18171411/pasted_image_0.png'} />
       <Pane>
         <Markdown>{currentAgenda.summary}</Markdown>
         <Markdown>{currentAgenda.desc}</Markdown>
