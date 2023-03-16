@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   margin: 0;
   img{
     border-radius: 16px;
+    height: 100%;
   }
 `
 
