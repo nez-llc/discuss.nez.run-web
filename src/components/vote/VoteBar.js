@@ -13,11 +13,11 @@ const Description = styled.div`
   font-size: small;
   span:nth-of-type(1){
     width: 20%;
-    color: #F97C7C;
+    color: #FF7E7E;
   }
   span:nth-of-type(2){
     width: 20%;
-    color: #538CE2;
+    color: #0088FF;
     margin-left: auto;
     text-align: right;
   }
@@ -41,12 +41,12 @@ const Inner = styled.div`
   
   ${props => props.vote.type === 'disagree' ?
     `
-    background: #F97C7C; 
+    background: #FF7E7E; 
     text-align: left;
     `
     : props.vote.type === 'agree' ?
       `
-      background: #538CE2; 
+      background: #0088FF; 
       text-align: right;
       `
       : `
@@ -61,7 +61,7 @@ const Inner = styled.div`
 
 const NoVote = styled.div`
   width: 100%;
-  background: linear-gradient(90deg, #F97C7C, #DADADA, #538CE2);
+  background: linear-gradient(90deg, #FF7E7E, #DADADA, #0088FF);
   text-align: center;
   color: #000;
 `

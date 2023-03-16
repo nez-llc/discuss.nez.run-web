@@ -110,27 +110,32 @@ const VoteButtons = ({ voteCount, currentAgenda, refresh, token }) => { // my_up
       color: '#8A8A8A',
     }
     let name = '중립'
+    let index = 2
 
     switch (key){
       case 'very_disagree':
         css.backgroundColor = '#F97C7C'
         css.color = '#EA0000'
         name = '강한 반대'
+        index = 0
         break
       case 'disagree':
         css.backgroundColor = '#FFA9A9'
         css.color = '#FF5B51'
         name = '약한 반대'
+        index = 1
         break
       case 'agree':
         css.backgroundColor = '#6EB4F1'
         css.color = '#1D95FE'
         name = '약한 찬성'
+        index = 3
         break
       case 'very_agree':
         css.backgroundColor = '#0088FF'
         css.color = '#005FCF'
         name = '강한 찬성'
+        index = 4
         break
     }
 
@@ -139,8 +144,13 @@ const VoteButtons = ({ voteCount, currentAgenda, refresh, token }) => { // my_up
       value: voteCount[key],
       css: css,
       name: name,
+      index: index,
     }
+  }).sort((a, b) => {
+    return a.index - b.index
   })
+
+  console.log(mappedVoteObj)
 
   const getVoteTextStyle = (value) => {
     const per = value/maxVoteValue * 100
