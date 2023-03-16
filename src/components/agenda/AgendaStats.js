@@ -21,7 +21,7 @@ const Value = styled.p`
   font-size: 16px;
 `
 
-const QuestionStats = () => {
+const AgendaStats = () => {
   const [loaded, setLoaded] = useState(false)
   const [stats, setStats] = useState({})
 
@@ -60,4 +60,4 @@ const QuestionStats = () => {
   )
 }
 
-export default QuestionStats
+export default AgendaStats

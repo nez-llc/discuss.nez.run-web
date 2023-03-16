@@ -1,6 +1,6 @@
-import QuestionList from 'components/question/QustionList'
+import QuestionList from 'components/agenda/AgendaList'
 import {useEffect, useState} from 'react'
-import QuestionSearch from 'components/question/QustionSearch'
+import QuestionSearch from 'components/agenda/AgendaSearch'
 import Router, {useRouter} from 'next/router'
 
 const QuestionListPage = ({tag, keyword, sort, searchType}) => {
