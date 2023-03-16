@@ -4,6 +4,7 @@ import Link from 'next/link'
 import {useRouter} from 'next/router'
 
 const Ul = styled.ul`
+  padding-top: 20px;
   display: flex;
   gap: 10px;
   margin-bottom: 15px;
@@ -15,14 +16,12 @@ const Ul = styled.ul`
 `
 
 const Li = styled.li`
-`
-
-const Tag = styled.span`
-  //background: #dbdbdb;
-  //border-radius: 20px;
-  //padding: 2px 12px 4px;
   font-size: small;
-  //font-weight: bold;
+  padding: 4px 12px;
+  height: 29px;
+  border: 2px solid #2F80ED;
+  color: #2F80ED;
+  border-radius: 24px;
 `
 
 const Tags = ({ tags }) => {
@@ -31,12 +30,11 @@ const Tags = ({ tags }) => {
     <Ul>
       {tags && tags.map((tag, index) => (
         <Li key={tag.id}>
-          {index === 0 ? <Tag>TAG. </Tag> : ''}
           <Link href={{
             pathname: router.pathname,
             query: { ...router.query, tag: tag.name },
           }}>
-            <Tag>{tag.name}</Tag>
+            {tag.name}
           </Link>
         </Li>
       ))}
