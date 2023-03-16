@@ -7,10 +7,7 @@ import AgendaPreview from 'components/agenda/AgendaPreview'
 import { useAgendas } from 'data/agenda'
 import Router, { useRouter } from 'next/router'
 import MainAgendaPreview from './MainAgendaPreview'
-import Tags from '../ui/Tags'
-import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/swiper.css'
-import SwiperCore, { Navigation } from 'swiper'
 
 const Wrapper = styled.div`
   padding: 16px 0;
@@ -35,14 +32,6 @@ const MainWrapper = styled.div`
 `
 const Text = styled.p`
   margin: 0 0 5px 65px;
-`
-
-const SetViewButtons = styled.div`
-  display: flex;
-  gap: 5px;
-  button{
-    flex-direction: column;
-  }
 `
 
 const OrderSelect = ({sort}) => {
@@ -93,21 +82,6 @@ const List = ({ agendas, view }) => (
   </ul>
 )
 
-const SwiperList = ({ agendas, view }) => {
-  SwiperCore.use([Navigation])
-  return (
-    <Swiper>
-      {agendas.map((agenda) => (
-        <SwiperSlide key={agenda.id}> {/* key 중복 error 발생으로 임시로 key 추가 */}
-          <Link href={`/agenda/${agenda.id}`} css={css`text-decoration: none;`}>
-            <AgendaPreview key={agenda.id} agenda={agenda} view={view}/>
-          </Link>
-        </SwiperSlide>
-      ))}
-    </Swiper>
-  )
-}
-
 const MainList = ({ agendas }) =>
   (
     <MainUl>
@@ -123,11 +97,6 @@ const MainList = ({ agendas }) =>
 
 const QuestionList = ({tag, keyword, sort, searchType, view}) => {
   const { agendas, total, per_page } = useAgendas(tag, keyword, sort, searchType)
-  const [ viewState, setViewState ] = useState('S01')
-
-  const changeView = (state) => {
-    setViewState(state)
-  }
 
   return (
     <Wrapper>
@@ -141,23 +110,9 @@ const QuestionList = ({tag, keyword, sort, searchType, view}) => {
           <>
             <a href="/agenda/new">새로운 질문 올리기</a>
             <hr />
-            <SetViewButtons>
-              <button onClick={() => changeView('S01')}>배너1</button>
-              <button onClick={() => changeView('S02')}>배너2</button>
-              <button onClick={() => changeView('L01')}>리스트1</button>
-              <button onClick={() => changeView('L02')}>리스트2</button>
-              <button onClick={() => changeView('L03')}>리스트3</button>
-            </SetViewButtons>
             <OrderSelect sort={sort} />
-            {viewState === 'S01' || viewState === 'S02'
-              ? <>
-                <SwiperList agendas={agendas} view={viewState} />
-              </>
-              : <>
-                <List agendas={agendas} view={viewState}/>
-                <Pagination total={total} per_page={per_page}/>
-              </>
-            }
+            <List agendas={agendas}/>
+            <Pagination total={total} per_page={per_page}/>
           </>
       }
     </Wrapper>
