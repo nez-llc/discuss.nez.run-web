@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { css } from '@emotion/react'
 import Pane from 'components/layout/Pane'
 import Tags from 'components/ui/Tags'
 import Markdown from 'components/ui/Markdown'
@@ -6,8 +7,9 @@ import AgendaMetaData from 'components/ui/AgendaMetaData'
 import Vote from 'components/vote/Vote'
 import RelatedReferences from 'components/question/RelatedReferences'
 import Comments from 'components/comment/Comments'
-import {getToken} from 'auth/commons'
-import {useAgenda} from 'data/agenda'
+import { getToken } from 'auth/commons'
+import { useAgenda } from 'data/agenda'
+import dayjs from 'dayjs'
 
 const Title = styled.h2`
   font-size: 24px;
@@ -18,27 +20,39 @@ const QuestionPage = ({ agenda, agendaId, token}) => {
   const { currentAgenda, refresh } = useAgenda(agenda, agendaId)
 
   return (
-    <div>
+    <div css={css`
+      display: flex;
+      flex-direction: column;
+      gap: 20px;`}>
       <Pane>
+        <div css={css`
+          font-size: 15px;
+          line-height: 22px;
+          letter-spacing: -0.03em;
+          margin-bottom: 30px;
+        `}>{dayjs(new Date(agenda.created_time)).format('YYYY-MM-DD')}</div>
         <Title>{currentAgenda.title}</Title>
-        <AgendaMetaData />
+      </Pane>
+      <img alt={currentAgenda.title} src={'https://static.dogmate.co.kr/blog/wp-content/uploads/2018/12/18171411/pasted_image_0.png'} />
+      <Pane>
         <Markdown>{currentAgenda.summary}</Markdown>
         <Markdown>{currentAgenda.desc}</Markdown>
-        <img src={'https://static.dogmate.co.kr/blog/wp-content/uploads/2018/12/18171411/pasted_image_0.png'} />
+      </Pane>
+      <Pane>
         <Vote
           currentAgenda={currentAgenda}
           refresh={refresh}
           token={token} />
-        <Tags tags={currentAgenda.tags} />
-      </Pane>
-      <Pane>
-        <Comments agendaId={currentAgenda.id} />
       </Pane>
       <Pane>
         <Pane.Title>관련정책</Pane.Title>
         <RelatedReferences />
+        <Tags tags={currentAgenda.tags} />
+        <AgendaMetaData />
       </Pane>
-      <Comments agendaId={currentAgenda.id} />
+      <Pane>
+        <Comments agendaId={currentAgenda.id} />
+      </Pane>
     </div>
   )
 }
