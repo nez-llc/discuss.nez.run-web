@@ -1,83 +1,87 @@
-import {createContext, useContext, useEffect, useState} from 'react'
-
-
-const { API_ENDPOINT } = process.env
+import { createContext, useContext, useEffect, useState } from 'react'
+import { getCookie,removeCookies } from 'cookies-next'
+import { useApi } from 'utils/api'
 
 const UserContext = createContext({})
 
 export const useAuth = () => useContext(UserContext)
 
+const signInPopup = async provider => new Promise(resolve => {
+  provider.getAuthorizeUrl().then(authorizeUrl => {
+    const popup = window.open(authorizeUrl, 'newwindow', 'width=500,height=600')
+    const timer = setInterval(() => {
+      if (popup.closed) {
+        clearInterval(timer)
+        // TODO : 지금은 유저 토큰이지만 이후엔 refresh 토큰만 쿠키에서 읽고 유저 토큰은 exchange후 메모리만 저장
+        const token = getCookie('auth')
+        resolve({
+          token,
+        })
+      }
+    }, 1000)
+  })
+})
+
 export const UserProvider = ({ children }) => {
+  const { client } = useApi()
+  const [loading, setLoading] = useState(true)
   const [token, setToken] = useState('')
   const [user, setUser] = useState({})
-  const [activeLogs, setActiveLogs] = useState({})
 
-  useEffect(() => {
-    const readCookie = () => {
-      const cookies = document.cookie
-        .split(';')
-        .map(cookie => cookie.split('='))
-        .reduce((acc, [key, value]) => {
-          acc[key.trim()] = decodeURIComponent(value)
-          return acc
-        }, {})
+  const readToken = () => {
+    const token = getCookie('auth')
+    if (!token) {
+      setLoading(false)
+      return
+    }
+    setToken(token)
+  }
 
-      return cookies
+  const fetchUser = async () => {
+    const { code, data } = await client.get('/api/members/my')
+
+    if (code !== 200) {
+      // TODO : 적절한 오류 표시
     }
 
-    const cookies = readCookie()
+    setUser(data)
+    setLoading(false)
+  }
 
-    if (!cookies['auth']) return
-
-    setToken(cookies['auth'])
-    refreshUser(cookies['auth'])
-    refreshActiveLogs(cookies['auth'])
+  useEffect(() => {
+    readToken()
   }, [])
 
-  const refreshUser = async token => {
-    const response = await fetch(`${API_ENDPOINT}/api/members/my`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+  useEffect(() => {
+    if (!token) return
+    client.setToken(token)
+    fetchUser(token)
+  }, [token])
 
-    if (response.status !== 200) return
-    const user = await response.json()
-    setUser(user)
-  }
-
-  const refreshActiveLogs = async token => {
-    const response = await fetch(`${API_ENDPOINT}/api/members/my/comments`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-
-    if (response.status !== 200) return
-    const activeLogs = await response.json()
-    setActiveLogs(activeLogs)
-  }
-
-  const isLogin = !!token
+  const loggedIn = !!token
 
   const logout = () => {
     setToken('')
-    setUser({})
-    setActiveLogs({})
-    document.cookie = 'auth=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+    setUser(null)
+    removeCookies('auth')
+  }
+
+  const onUnauthorized = () => {
+    // TODO : 로그인 필요하다는 안내 띄움
+    // TODO : 로그인 모달 띄움
   }
 
   return (
     <UserContext.Provider
       value={{
+        onUnauthorized,
+        signInPopup,
+        logout,
+        loading,
         token,
         user,
-        logout,
-        isLogin,
-        refreshUser,
-        activeLogs,
+        loggedIn,
+        refresh: fetchUser,
       }}
     >
       {children}

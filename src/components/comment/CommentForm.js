@@ -1,29 +1,21 @@
-import React, {useState} from 'react'
+import { useState } from 'react'
 import styled from '@emotion/styled'
+import Button from 'components/ui/Button'
 import ProfilePicture from 'components/ui/ProfilePicture'
-import {useApi} from 'utils/api'
+import { useApi } from 'utils/api'
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
 `
 
 const Textarea = styled.textarea`
-  flex-shrink: 1;
-  max-width: 100%;
-  width: 100%;
-  resize: none;
+  
 `
 
-const SubmitButton = styled.button`
-  background-color: #FF6861;
-  border: 0;
-  color: #fff;
-  font-size: 12px;
-  width: 50px;
-  height: 30px;
+const SubmitButton = styled(Button)`
+  flex-shrink: 0;
 `
 
 const CommentForm = ({ agendaId, onCreated }) => {
@@ -63,7 +55,7 @@ const CommentForm = ({ agendaId, onCreated }) => {
 
   return (
     <Wrapper>
-      {/* <ProfilePicture /> */}
+      <ProfilePicture />
       <Textarea
         value={content}
         onChange={e => setContent(e.target.value)}

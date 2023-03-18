@@ -1,27 +1,26 @@
-import {useApi} from 'utils/api'
-import {useAuth} from 'auth/use-auth'
-import React, {useState} from 'react'
+import { useState } from 'react'
 import styled from '@emotion/styled'
-import ProfilePicture from '../components/ui/ProfilePicture'
+import Container from 'components/layout/Container'
+import ProfilePicture from 'components/ui/ProfilePicture'
+import UserComments from 'components/member/UserComments'
+import UserVotes from 'components/member/UserVotes'
+import { useAuth } from 'auth/use-auth'
+import { useApi } from 'utils/api'
+import { fromNow } from 'utils/date'
 
-const Image = styled.div`
-  width: 100px;
-  height: 100px;
-  border-radius: 16px;
+const Nickname = styled.p`
 `
 
-const Me = () => {
-  const { client } = useApi()
-  const { token, user, refreshUser, activeLogs } = useAuth()
-  const [nickname, setNickname] = useState(user.nickname)
-  const [picture, setPicture] = useState({url: user.picture, id: user.picture_id})
-  const [editBtnVisible, setEditBtnVisible] = useState(false)
+const EditButton = styled.button`
+`
 
-  const onEdited = async () => {
-    alert('수정 되었습니다.')
-    setEditBtnVisible(!editBtnVisible)
-    await refreshUser(token)
-  }
+const Profile = ({ user }) => {
+  const { client } = useApi()
+  const [nickname, setNickname] = useState(user.nickname)
+  const [picture, setPicture] = useState({
+    url: user.picture,
+    id: user.picture_id,
+  })
 
   const onUploaded = async (data) => {
     setPicture({url: data.url, id: data.file_id})
@@ -35,34 +34,6 @@ const Me = () => {
     alert('권한이 없습니다.')
   }
 
-  const editProfile = () => {
-    setEditBtnVisible(!editBtnVisible)
-  }
-
-  const saveProfile = async () => {
-    const { code, data } = await client.put('/api/members/my', {
-      nickname,
-      picture_id: picture.id
-    })
-
-    switch (code) {
-      case 201: onEdited(); break
-      // case 400: onBadRequest(data) break
-      case 401: onUnauthorized(); break
-      case 403: onForbidden()
-        break
-      // case 500:
-      // default:
-      //   onServerError(data)
-      //   break
-    }
-  }
-
-  const cancelEditProfile = () => {
-    setNickname(user.nickname)
-    setEditBtnVisible(!editBtnVisible)
-  }
-
   const onLoadFile = async (e) => {
     const { code, data } = await client.filePost(e.target.files[0])
 
@@ -72,51 +43,48 @@ const Me = () => {
       case 401: onUnauthorized(); break
       case 403: onForbidden()
         break
-      // case 500:
-      // default:
-      //   onServerError(data)
-      //   break
     }
   }
 
   return (
     <div>
-      <h1>마이페이지</h1>
+      <EditButton>수정</EditButton>
+      <ProfilePicture url={user.picture} />
       <div>
-        <h2>프로필</h2>
+        <Nickname>{user.nickname}</Nickname>
+      </div>
+      <p>활동 점수 : {user.active_point}</p>
+      <p>가입일 : {fromNow(user.date_joined)}</p>
+    </div>
+  )
+}
+
+const ActivityLogs = ({ userId }) => {
+  // TODO : tab으로 나눔
+  return (
+    <div>
+      <UserComments userId={userId} />
+      <UserVotes userId={userId} />
+    </div>
+  )
+}
+
+const Me = () => {
+  const { user, refresh } = useAuth()
+
+  return (
+    <div>
+      <Container>
+        <h1>마이페이지</h1>
         <div>
-          <Image>
-            <ProfilePicture url={user.picture}/>
-          </Image>
-          <p>활동지수({user.active_point})</p>
-          { editBtnVisible ?
-            <>
-              <input value={nickname} onChange={e => setNickname(e.target.value)}/> 님 (가입일시 : {user.date_joined})
-              <input type="file" onChange={onLoadFile} style={{display: 'block'}}/>
-            </>
-            : <span>{user.nickname ? user.nickname : 'none' } 님 (가입일시 : {user.date_joined})</span>
-          }
+          <h2>프로필</h2>
+          <Profile user={user} onUpdated={refresh} />
         </div>
-        { editBtnVisible ?
-          <>
-            <button onClick={saveProfile}>저장</button>
-            <button onClick={cancelEditProfile}>취소</button>
-          </> :
-          <button onClick={editProfile}>프로필 수정</button>
-        }
-      </div>
-      <div>
-        <h2>활동 로그</h2>
-        {activeLogs.length > 0 ? activeLogs.map(log => (
-          <div key={log.id}>
-            <ul>
-              <li>{log.agenda_title}</li>
-              <li>{log.content}</li>
-              <li>{log.created_time}</li>
-            </ul>
-          </div>
-        )) : ''}
-      </div>
+        <div>
+          <h2>활동 로그</h2>
+          <ActivityLogs userId={user.id} />
+        </div>
+      </Container>
     </div>
   )
 }

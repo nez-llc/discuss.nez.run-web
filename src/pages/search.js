@@ -1,8 +1,8 @@
 
-const Search = () => (
+const SearchPage = () => (
   <div>
 
   </div>
 )
 
-export default Search
+export default SearchPage

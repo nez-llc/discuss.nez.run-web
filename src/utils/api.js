@@ -1,10 +1,10 @@
-import {useAuth} from 'auth/use-auth'
-import {useMemo} from 'react'
+import { useMemo } from 'react'
+import { useAuth } from 'auth/use-auth'
 
 const { API_ENDPOINT } = process.env
 
 class ApiClient {
-  constructor () {
+  constructor() {
     this.headers = {
       'Content-Type': 'application/json',
     }
@@ -14,17 +14,17 @@ class ApiClient {
     return this.headers.Authorization
   }
 
-  setToken (token) {
+  setToken(token) {
     this.headers = {
       ...this.headers,
       Authorization: `Bearer ${token}`,
     }
   }
 
-  async get(url, params) {
+  async get(path, params) {
     const qs = new URLSearchParams(params)
 
-    const response = await fetch(`${API_ENDPOINT}${url}${qs.toString() ? `?${qs.toString()}` : ''}`, {
+    const response = await fetch(`${API_ENDPOINT}${path}?${qs.toString()}`, {
       method: 'GET',
       headers: this.headers,
     })
@@ -37,8 +37,8 @@ class ApiClient {
     }
   }
 
-  async post (url, params) {
-    const response = await fetch(`${API_ENDPOINT}${url}`, {
+  async post(path, params) {
+    const response = await fetch(`${API_ENDPOINT}${path}`, {
       method: 'POST',
       body: JSON.stringify(params),
       headers: this.headers,
@@ -52,7 +52,7 @@ class ApiClient {
     }
   }
 
-  async filePost (file) {
+  async filePost(file) {
     const formData = new FormData()
     formData.append('file', file, file.name)
     const response = await fetch(`${API_ENDPOINT}/api/members/files`, {
@@ -69,13 +69,13 @@ class ApiClient {
     }
   }
 
-  async filePostUrl (url, file, params) {
+  async filePostUrl(path, file, params) {
     const formData = new FormData()
     formData.append('file', file, file.name)
     for (const [key, value] of Object.entries(params)) {
       formData.append(key, value)
     }
-    const response = await fetch(`${API_ENDPOINT}${url}`, {
+    const response = await fetch(`${API_ENDPOINT}${path}`, {
       method: 'POST',
       body: formData,
       headers: {
@@ -93,8 +93,8 @@ class ApiClient {
     }
   }
 
-  async put (url, params) {
-    const response = await fetch(`${API_ENDPOINT}${url}`, {
+  async put(path, params) {
+    const response = await fetch(`${API_ENDPOINT}${path}`, {
       method: 'PUT',
       body: JSON.stringify(params),
       headers: this.headers,
@@ -108,7 +108,7 @@ class ApiClient {
     }
   }
 
-  async delete (url, params) {
+  async delete(url, params) {
     const response = await fetch(`${API_ENDPOINT}${url}`, {
       method: 'DELETE',
       headers: this.headers,
@@ -131,14 +131,10 @@ const useApi = (_token) => {
   const client = useMemo(() => {
     const client = new ApiClient()
 
-    if (token) {
-      client.setToken(token)
-    } else if (_token) {
-      client.setToken(_token)
-    }
+    client.setToken(_token || token)
 
     return client
-  }, [token])
+  }, [token, _token])
 
   return {
     client,

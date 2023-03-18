@@ -1,34 +1,31 @@
-import React, {useState} from 'react'
+import { useState } from 'react'
 import styled from '@emotion/styled'
+import Button from 'components/ui/Button'
 import ProfilePicture from 'components/ui/ProfilePicture'
-import {useApi} from 'utils/api'
-import {useAuth} from 'auth/use-auth'
-import * as PropTypes from 'prop-types'
-import {detailDate} from 'utils/dayjs'
+import { useAuth } from 'auth/use-auth'
+import { useApi } from 'utils/api'
+import { fromNow } from 'utils/date'
 
 const Wrapper = styled.div`
-  display: flex;
-  gap: 8px;
+  
 `
 
-const Name = styled.h3`
-  padding: 2px 0;
-  font-size: 16px;
+const Nickname = styled.h3`
+`
+
+const Created = styled.h4`
+  
 `
 
 const Content = styled.div`
+  
 `
 
-const DeleteBtn = styled.button`
+const Actions = styled.div`
   
 `
-const StartEditBtn = styled.button`
-  
-`
-const EditBtn = styled.button`
-  
-`
-const AgreeBtn = styled.button`
+
+const AgreementButton = styled.button`
   
 `
 
@@ -37,165 +34,121 @@ const Textarea = styled.textarea`
   max-width: 100%;
 `
 
-Textarea.propTypes = {
-  onChange: PropTypes.func,
-  value: PropTypes.string
-}
-
-const CommentItem = styled.ul`
-  width: 100%;
-  padding: 5px 20px;
-  font-size: 15px;
-  border-bottom: 1px solid #F5F5F5;
-  > div {
-    height: 32px;
-    line-height: 32px;
-  }
-  > div:nth-child(3){
-    font-size: 12px;
-    color: #8c8c8c;
-  }
-  > div:nth-child(3) span {
-    margin-right: 10px;
-  }
-`
-
 const Profile = styled.div`
-  color: #8C8C8C;
-  > div:first-child{
-    display: inline-block;
-    float: left;
-    margin-right: 10px;
-  }
+  
 `
 
-const ProfileBtn = styled.div`
-  display: inline-block;
-  float: right;
-  button {
-    border: 0;
-    font-size: 12px;
-    height: 20px;
-    margin-left: 10px;
-    background-color: #fff;
-  }
-`
-const Comment = ({ agendaId, comment, refresh }) => {
+const DeletedComment = () => (
+  <div>삭제 된 댓글입니다.</div>
+)
+
+const CommentEditor = ({ comment, onEnd }) => {
   const { client } = useApi()
-  const { user } = useAuth()
+  const [content, setContent] = useState(comment.content)
 
-  const [isEdit, setIsEdit] = useState(false)
-  const [content, setContent] = useState('')
+  const cancel = () => onEnd()
 
-  const onUnauthorized = () => {
-    alert('로그인이 필요합니다.')
-  }
-  const onForbidden = () => {
-    alert('자신의 덧글만 지울 수 있습니다.')
-  }
-
-  const onEdited = () => {
-    setIsEdit(false)
-    refresh()
-  }
-
-  const deleteComment = async (agendaId, commentId) => {
-    const { code, data } = await client.delete(`/api/agendas/${agendaId}/comments/${commentId}`)
-
-    switch (code) {
-      case 201: refresh(); break
-        // case 400: onBadRequest(data) break
-      case 401: onUnauthorized(); break
-      case 403: onForbidden()
-        break
-            // case 500:
-            // default:
-            //   onServerError(data)
-            //   break
-    }
-  }
-
-  const toggleEdit = () => {
-    setIsEdit(!isEdit)
-    console.log(isEdit)
-  }
-
-  const editComment = async (content, agendaId, commentId) => {
-    const { code, data } = await client.put(`/api/agendas/${agendaId}/comments/${commentId}`, {
-      content
+  const save = async () => {
+    const result = await client.put(`/api/agendas/${comment.agenda_id}/comments/${comment.id}`, {
+      content,
     })
-
-    switch (code) {
-      case 201: onEdited(); break
-        // case 400: onBadRequest(data) break
-      case 401: onUnauthorized(); break
-      case 403: onForbidden()
-        break
-            // case 500:
-            // default:
-            //   onServerError(data)
-            //   break
-    }
-  }
-
-  const agreeComment = async (agendaId, commentId, ballot) => {
-    const { code, data } = await client.post(`/api/agendas/${agendaId}/comments/${commentId}/agreement`, { ballot })
-
-    switch (code) {
-      case 201: refresh(); break
-        // case 400: onBadRequest(data) break
-      case 401: onUnauthorized(); break
-      case 403: onForbidden()
-        break
-            // case 500:
-            // default:
-            //   onServerError(data)
-            //   break
-    }
+    onEnd()
   }
 
   return (
+    <div>
+      <Textarea value={content} onChange={e => setContent(e.target.value)} />
+      <Actions>
+        <Button onClick={save}>
+          저장
+        </Button>
+        <Button onClick={cancel}>
+          수정 취소
+        </Button>
+      </Actions>
+    </div>
+  )
+}
+
+const CommentViewer = ({ comment, startEdit, refresh }) => {
+  const { user } = useAuth()
+  const { client } = useApi()
+
+  const startDelete = async () => {
+    if (!confirm('정말 삭제하시겠습니까?')) return
+    await client.delete(`/api/agendas/${comment.agenda_id}/comments/${comment.id}`)
+    refresh()
+    // TODO : 삭제됨 안내
+  }
+
+  const agreement = async ballot => {
+    const { code } = await client.post(`/api/agendas/${comment.agenda_id}/comments/${comment.id}/agreement`, {
+      ballot,
+    })
+
+    const onUnauthorized = () => {
+      // TODO : 조금 더 예쁜 alert 띄우기
+      alert('로그인이 필요합니다.')
+    }
+
+    switch (code) {
+      case 201: refresh(); break
+      case 401: onUnauthorized(); break
+        break
+      // case 500:
+      // default:
+      //   onServerError(data)
+      //   break
+    }
+  }
+  const agree = () => agreement('agree')
+  const disagree = () => agreement('disagree')
+
+  const owned = user.id === comment.writer.id
+
+  return (
+    <div>
+      <Content>
+        {comment.content}
+      </Content>
+      <Actions>
+        {owned ? <>
+          <Button onClick={startDelete}>삭제</Button>
+          <Button onClick={startEdit}>수정</Button>
+        </> : <>
+          <span>{comment.agreement}</span>
+          <AgreementButton onClick={agree}>공감</AgreementButton>
+          <AgreementButton onClick={disagree}>비공감</AgreementButton>
+        </>}
+      </Actions>
+    </div>
+  )
+}
+
+const Comment = ({ comment, refresh }) => {
+  const [editing, setEditing] = useState(false)
+
+  const startEdit = () => setEditing(true)
+  const endEdit = () => {
+    setEditing(false)
+    refresh()
+  }
+
+  if (comment.deleted) return <DeletedComment comment={comment} />
+
+  return (
     <Wrapper>
-      <CommentItem>
-        {(comment.status === '1') ? <div>삭제 된 댓글입니다.</div>
-          :
-          <>
-            <Profile>
-              <ProfilePicture url={comment.writer.picture}/>
-              <span>{comment.writer?.nickname ? comment.writer.nickname : '닉네임 없음'}</span>
-              {(user.id === comment.writer.id) ?
-                <ProfileBtn>
-                  {
-                    isEdit ?
-                      <>
-                        <EditBtn onClick={() => {editComment(content, agendaId, comment.id)}}>저장</EditBtn>
-                        <StartEditBtn onClick={toggleEdit}>수정 취소</StartEditBtn>
-                      </>
-                      :
-                      <StartEditBtn onClick={toggleEdit}>수정</StartEditBtn>
-                  }
-                  <DeleteBtn onClick={() => {deleteComment(agendaId, comment.id)}}>삭제</DeleteBtn>
-                </ProfileBtn>
-                : ''
-              }
-            </Profile>
-            <div>
-              {isEdit ?
-                <Textarea
-                  value={content}
-                  onChange={e => setContent(e.target.value)}
-                />
-                : comment.content
-              }</div>
-            <div>
-              <span>{detailDate(comment.created_time)}</span>
-              <span onClick={() => {agreeComment(agendaId, comment.id, 'agree')}}>공감 {comment.agreement.agree}</span>
-              <span onClick={() => {agreeComment(agendaId, comment.id, 'disagree')}}>비공감 {comment.agreement.disagree}</span>
-              <span>대댓글</span>
-            </div>
-          </>
+      <Profile>
+        <ProfilePicture url={comment.writer.picture} />
+        <Nickname>{comment.writer?.nickname || comment.writer?.id}</Nickname>
+        <Created>{fromNow(comment.created_time)}</Created>
+      </Profile>
+      <div>
+        {editing
+          ? <CommentEditor comment={comment} onEnd={endEdit} />
+          : <CommentViewer comment={comment} startEdit={startEdit} refresh={refresh} />
         }
-      </CommentItem>
+      </div>
     </Wrapper>
   )
 }

@@ -1,7 +1,8 @@
+import { useEffect, useState } from 'react'
+import Container from 'components/layout/Container'
 import AgendaList from 'components/agenda/AgendaList'
-import {useEffect, useState} from 'react'
 import AgendaSearch from 'components/agenda/AgendaSearch'
-import Router, {useRouter} from 'next/router'
+import Router, { useRouter } from 'next/router'
 
 const QuestionListPage = ({tag, keyword, sort, searchType}) => {
   const router = useRouter()
@@ -19,10 +20,10 @@ const QuestionListPage = ({tag, keyword, sort, searchType}) => {
   }
 
   return (
-    <div>
+    <Container>
       <AgendaSearch searchValue={searchValue} setSearchValue={setSearchValue} setSearchType={setType} searchType={type} search={search}/>
       <AgendaList tag={tag} keyword={keyword} sort={sort} searchType={searchType}/>
-    </div>
+    </Container>
   )
 }
 

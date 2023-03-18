@@ -1,21 +1,21 @@
-import React from 'react'
 import styled from '@emotion/styled'
 
 const Wrapper = styled.div`
   width: inherit;
   height: inherit;
   margin: 0;
-  img{
+
+  img {
     border-radius: 16px;
     height: 100%;
   }
 `
 
-const ProfilePicture = ({url}) => {
-  const imgUrl = process.env.API_ENDPOINT+url
+const ProfilePicture = ({ url }) => {
+  const imgUrl = process.env.API_ENDPOINT + url
   return (
     <Wrapper>
-      <img src={imgUrl}/>
+      <img src={imgUrl} />
     </Wrapper>
   )
 }

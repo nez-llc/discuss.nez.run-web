@@ -1,15 +1,14 @@
-import {useComments} from 'data/comments'
-import CommentList from 'components/comment/CommentList'
+import { useComments } from 'data/comments'
 import CommentForm from 'components/comment/CommentForm'
+import CommentList from 'components/comment/CommentList'
 
 const Comments = ({ agendaId }) => {
   const { comments, mutate } = useComments(agendaId)
 
-
   return (
     <>
-      <CommentList agendaId={agendaId} comments={comments} onDeleted={mutate} />
       <CommentForm agendaId={agendaId} onCreated={mutate} />
+      <CommentList comments={comments} refresh={mutate} />
     </>
   )
 }

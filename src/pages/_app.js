@@ -1,7 +1,7 @@
-import React from 'react'
 import Layout from 'components/layout/Layout'
 import { UserProvider } from 'auth/use-auth'
-import 'components/layout/reset.css'
+import 'modern-normalize/modern-normalize.css'
+import './_global.scss'
 
 const CustomApp = ({ Component, pageProps }) => (
   <UserProvider>

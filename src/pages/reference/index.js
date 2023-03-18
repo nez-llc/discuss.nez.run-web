@@ -1,6 +1,6 @@
-import React from 'react'
 import Link from 'next/link'
 import styled from '@emotion/styled'
+import Container from 'components/layout/Container'
 
 const Group = styled.div`
   display: grid;
@@ -8,8 +8,8 @@ const Group = styled.div`
 `
 
 const ReferenceIndexPage = () => (
-  <div>
-    <h2>정책</h2>
+  <Container>
+    <h1>정책</h1>
     <Group>
       <div>
         <h3>카테고리</h3>
@@ -224,7 +224,7 @@ const ReferenceIndexPage = () => (
     <button>더보기</button>
 
     <hr />
-  </div>
+  </Container>
 )
 
 export default ReferenceIndexPage

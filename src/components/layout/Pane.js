@@ -1,11 +1,8 @@
 import styled from '@emotion/styled'
 
 const Pane = styled.div`
-  //margin: 8px;
   padding: 0 20px;
   background: white;
-  //border-radius: 8px;
-  //box-shadow: ${({ theme }) => theme.shadow}
 `
 
 const Title = styled.h3`

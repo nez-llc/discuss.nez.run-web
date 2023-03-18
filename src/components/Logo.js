@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import LogoImg from 'assets/logo_dark.png'
-import MainLogoImg from 'assets/logo_white.png'
 import Image from 'next/image'
+import logoDark from 'assets/logo_dark.png'
+import logoLight from 'assets/logo_white.png'
 
 const Div = styled.div`
   font-size: 26px;
@@ -11,19 +11,19 @@ const Div = styled.div`
   display: flex;
   align-items: center;
   
-  img{
+  img {
+    width: 100%;
     height: fit-content;
   }
 `
 
-const Logo = (props) => {
-  const isMain = props.isMain
-  return (
-    <Div>
-      <Image
-        src={isMain ? MainLogoImg : LogoImg} alt={'우동디 로고'}/>
-    </Div>
-  )
-}
+const Logo = ({ dark=false }) => (
+  <Div>
+    <Image
+      src={dark ? logoLight : logoDark}
+      alt="우동디"
+    />
+  </Div>
+)
 
 export default Logo

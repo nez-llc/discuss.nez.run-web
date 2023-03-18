@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from '@emotion/styled'
 import Link from 'next/link'
+import styled from '@emotion/styled'
+import Container from 'components/layout/Container'
 
 const Wrapper = styled.footer`
   text-align: center;
@@ -25,24 +25,28 @@ const Copyright = styled.p`
 
 const Footer = () => (
   <Wrapper>
-    <Notices>
-      <NoticeItem>
-        <Link href="/policy/privacy">
-          개인정보 취급방침
-        </Link>
-      </NoticeItem>
-      <NoticeItem>
-        <Link href="/policy/terms">
-          이용약관
-        </Link>
-      </NoticeItem>
-      <NoticeItem>
-        <Link href="/policy/code-of-conduct">
-          행동강령
-        </Link>
-      </NoticeItem>
-    </Notices>
-    <Copyright>Copyright. 2022</Copyright>
+    <Container>
+      <Notices>
+        <NoticeItem>
+          <Link href="/policy/privacy">
+            개인정보 취급방침
+          </Link>
+        </NoticeItem>
+        <NoticeItem>
+          <Link href="/policy/terms">
+            이용약관
+          </Link>
+        </NoticeItem>
+        <NoticeItem>
+          <Link href="/policy/code-of-conduct">
+            행동강령
+          </Link>
+        </NoticeItem>
+      </Notices>
+      <Copyright>
+        Copyright. {new Date().getFullYear()}
+      </Copyright>
+    </Container>
   </Wrapper>
 )
 
