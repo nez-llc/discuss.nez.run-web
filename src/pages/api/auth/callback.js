@@ -22,11 +22,6 @@ const setCookie = (res, name, value) => {
 }
 
 const exchangeToken = async (provider, tokens) => {
-  console.log({
-    provider,
-    tokens,
-  })
-
   const { data } = await client.post('/api/auth/token', {
     provider,
     tokens,
@@ -41,9 +36,6 @@ export default async function handler (req, res) {
   const { provider: providerId } = req.query
 
   const provider = providers[providerId]
-
-  console.log(providerId)
-  console.log(provider)
 
   const providerTokens = await provider.getAccessToken(req.query)
   const apiToken = await exchangeToken(providerId, providerTokens)
