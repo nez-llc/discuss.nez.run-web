@@ -1,6 +1,6 @@
-import QuestionList from 'components/agenda/AgendaList'
+import AgendaList from 'components/agenda/AgendaList'
 import {useEffect, useState} from 'react'
-import QuestionSearch from 'components/agenda/AgendaSearch'
+import AgendaSearch from 'components/agenda/AgendaSearch'
 import Router, {useRouter} from 'next/router'
 
 const QuestionListPage = ({tag, keyword, sort, searchType}) => {
@@ -20,8 +20,8 @@ const QuestionListPage = ({tag, keyword, sort, searchType}) => {
 
   return (
     <div>
-      <QuestionSearch searchValue={searchValue} setSearchValue={setSearchValue} setSearchType={setType} searchType={type} search={search}/>
-      <QuestionList tag={tag} keyword={keyword} sort={sort} searchType={searchType}/>
+      <AgendaSearch searchValue={searchValue} setSearchValue={setSearchValue} setSearchType={setType} searchType={type} search={search}/>
+      <AgendaList tag={tag} keyword={keyword} sort={sort} searchType={searchType}/>
     </div>
   )
 }
