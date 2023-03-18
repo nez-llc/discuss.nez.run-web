@@ -4,6 +4,7 @@ import ProfilePicture from 'components/ui/ProfilePicture'
 import {useApi} from 'utils/api'
 import {useAuth} from 'auth/use-auth'
 import * as PropTypes from 'prop-types'
+import {detailDate} from 'utils/dayjs'
 
 const Wrapper = styled.div`
   display: flex;
@@ -187,7 +188,7 @@ const Comment = ({ agendaId, comment, refresh }) => {
                 : comment.content
               }</div>
             <div>
-              <span>{comment.created_time }</span>
+              <span>{detailDate(comment.created_time)}</span>
               <span onClick={() => {agreeComment(agendaId, comment.id, 'agree')}}>공감 {comment.agreement.agree}</span>
               <span onClick={() => {agreeComment(agendaId, comment.id, 'disagree')}}>비공감 {comment.agreement.disagree}</span>
               <span>대댓글</span>
