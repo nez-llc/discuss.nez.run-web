@@ -6,7 +6,7 @@ const IndexPage = () => (
   <div>
     <Introduce />
     {/* <AgendaStats />*/}
-    <QuestionList view={'main'}/>
+    <QuestionList/>
   </div>
 )
 
