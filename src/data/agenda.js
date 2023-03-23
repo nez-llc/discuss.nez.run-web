@@ -13,7 +13,6 @@ const useAgendas = query => {
   useEffect(() => {
     const fetchAgendas = async () => {
       const { code, data } = await client.get('/api/agendas/', query)
-      console.log(data)
 
       switch (code) {
         // case 400: onBadRequest(data) break

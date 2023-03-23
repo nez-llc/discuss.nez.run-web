@@ -35,8 +35,6 @@ const SocialButton = styled(Button)`
 const TwitterLoginButton = () => {
   const { signInPopup } = useAuth()
 
-  console.log('TwitterLoginButton')
-
   const start = async () => {
     const result = await signInPopup(TwitterProvider)
     handleSignin(result)
