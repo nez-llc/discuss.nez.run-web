@@ -5,12 +5,15 @@ import ProfilePicture from 'components/ui/ProfilePicture'
 import { useApi } from 'utils/api'
 
 const Wrapper = styled.div`
+  padding: 0 20px;
   display: flex;
   align-items: center;
   gap: 8px;
 `
 
 const Textarea = styled.textarea`
+  border-radius: 16px;
+  border: 1px solid #EBEEF2;
   
 `
 

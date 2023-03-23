@@ -8,7 +8,55 @@ import { useAuth } from 'auth/use-auth'
 import { useApi } from 'utils/api'
 import { fromNow } from 'utils/date'
 
+const UserProfile = styled.ul`
+  padding: 35px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  
+  p {
+    margin: 0;
+  }
+`
+
+const ProfileInfo = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  
+  padding: 0;
+`
+
 const Nickname = styled.p`
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 150%;
+
+  color: #09101D;
+`
+
+const JoinDate = styled.p`
+  font-weight: 400;
+  font-size: 12px;
+
+  color: #828282;
+
+`
+
+const ActivityPoint = styled.p`
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 140%;
+
+  color: #09101D;
+`
+
+const ActivityLabel = styled.p`
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 150%;
 `
 
 const EditButton = styled.button`
@@ -47,15 +95,21 @@ const Profile = ({ user }) => {
   }
 
   return (
-    <div>
-      <EditButton>수정</EditButton>
-      <ProfilePicture url={user.picture} />
-      <div>
+    <UserProfile>
+      {/* <EditButton>수정</EditButton> */}
+      {/* <ProfilePicture url={user.picture} /> */}
+      <ProfileInfo>
+        <ProfilePicture url={'/profile-pictures/pochaco.jpeg'} size={{width: '120px', height: '120px'}} />
+      </ProfileInfo>
+      <ProfileInfo>
         <Nickname>{user.nickname}</Nickname>
-      </div>
-      <p>활동 점수 : {user.active_point}</p>
-      <p>가입일 : {fromNow(user.date_joined)}</p>
-    </div>
+        <JoinDate>{fromNow(user.date_joined)}부터 활동</JoinDate>
+      </ProfileInfo>
+      <ProfileInfo>
+        <ActivityPoint>{user?.active_point ? user.active_point : 0}</ActivityPoint>
+        <ActivityLabel>받은 공감수</ActivityLabel>
+      </ProfileInfo>
+    </UserProfile>
   )
 }
 
@@ -75,9 +129,7 @@ const Me = () => {
   return (
     <div>
       <Container>
-        <h1>마이페이지</h1>
         <div>
-          <h2>프로필</h2>
           <Profile user={user} onUpdated={refresh} />
         </div>
         <div>

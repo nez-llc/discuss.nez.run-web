@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styled from '@emotion/styled'
 import Button from 'components/ui/Button'
-import SearchImg from 'assets/search.png'
+import SearchImg from 'assets/search.svg'
 
 const SearchButton = styled(Button)`
   margin-left: auto;

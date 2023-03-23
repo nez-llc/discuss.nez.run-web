@@ -6,6 +6,23 @@ import FacebookProvider from 'auth/providers/facebook'
 import GitHubProvider from 'auth/providers/github'
 import { useAuth } from 'auth/use-auth'
 
+const Description = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  
+  margin: 0;
+  padding: 0;
+`
+
+const LoginButtons = styled.ul`
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+`
+
 const handleSignin = () => {
   // TODO ...
   // 원래 보던 곳으로 이동
@@ -17,6 +34,8 @@ const SocialButton = styled(Button)`
 
 const TwitterLoginButton = () => {
   const { signInPopup } = useAuth()
+
+  console.log('TwitterLoginButton')
 
   const start = async () => {
     const result = await signInPopup(TwitterProvider)
@@ -54,12 +73,24 @@ const GitHubLoginButton = () => {
   )
 }
 
-const Ul = styled.ul`
-`
-
 const Signin = () => (
   <Container>
-    <Ul>
+    <Description>
+      <li>
+        <h1>우리가 동의하는</h1>
+        <h1>디지털 정책</h1>
+      </li>
+      <li>
+        <h3>미래를 위한 디지털 정책</h3>
+        <h3>같이 만들어가요</h3>
+      </li>
+    </Description>
+    <Description>
+      <li>
+        <h5>소셜미디어로 3초만에 시작하기!</h5>
+      </li>
+    </Description>
+    <LoginButtons>
       <li>
         <TwitterLoginButton />
       </li>
@@ -69,7 +100,7 @@ const Signin = () => (
       <li>
         <GitHubLoginButton />
       </li>
-    </Ul>
+    </LoginButtons>
   </Container>
 )
 

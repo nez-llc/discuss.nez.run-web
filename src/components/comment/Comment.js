@@ -5,28 +5,87 @@ import ProfilePicture from 'components/ui/ProfilePicture'
 import { useAuth } from 'auth/use-auth'
 import { useApi } from 'utils/api'
 import { fromNow } from 'utils/date'
+import UpButton from 'assets/up_button.svg'
+import DownButton from 'assets/down_button.svg'
+import CommentImg from 'assets/comment.svg'
+
+import Image from 'next/image'
 
 const Wrapper = styled.div`
-  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 20px;
+  gap: 16px;
+
+  background: #FFFFFF;
+  border: 1px solid #828282;
+  border-radius: 12px;
+
 `
 
 const Nickname = styled.h3`
+  margin: 0;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 100%;
+
+  color: #09101D;
 `
 
 const Created = styled.h4`
-  
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 100%;
+
+  color: #09101D;
 `
 
 const Content = styled.div`
-  
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 150%;
+
+  display: flex;
+  align-items: center;
+
+  color: #394452;
 `
 
 const Actions = styled.div`
-  
+  width: 100%;
+  display: flex;
+`
+
+const ReComment = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 5px;
+  font-weight: 400;
+  font-size: 12px;
+  color: #828282;
+  line-height: inherit;
+
+  border: 0;
+  background-color: transparent;
 `
 
 const AgreementButton = styled.button`
-  
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 400;
+  font-size: 12px;
+  color: #828282;
+  line-height: inherit;
+
+  border: 0;
+  background-color: transparent;
 `
 
 const Textarea = styled.textarea`
@@ -35,11 +94,27 @@ const Textarea = styled.textarea`
 `
 
 const Profile = styled.div`
-  
+  width: 100%;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #828282;
+`
+
+const ProfileUser = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 `
 
 const DeletedComment = () => (
-  <div>삭제 된 댓글입니다.</div>
+  <Wrapper>
+    <Content>
+      삭제 된 댓글입니다.
+    </Content>
+  </Wrapper>
 )
 
 const CommentEditor = ({ comment, onEnd }) => {
@@ -107,7 +182,7 @@ const CommentViewer = ({ comment, startEdit, refresh }) => {
   const owned = user.id === comment.writer.id
 
   return (
-    <div>
+    <>
       <Content>
         {comment.content}
       </Content>
@@ -116,12 +191,21 @@ const CommentViewer = ({ comment, startEdit, refresh }) => {
           <Button onClick={startDelete}>삭제</Button>
           <Button onClick={startEdit}>수정</Button>
         </> : <>
-          <span>{comment.agreement}</span>
-          <AgreementButton onClick={agree}>공감</AgreementButton>
-          <AgreementButton onClick={disagree}>비공감</AgreementButton>
+          <AgreementButton onClick={agree}>
+            <Image src={UpButton} />
+            <span>{comment.agreement}</span>
+          </AgreementButton>
+          <AgreementButton onClick={disagree}>
+            <Image src={DownButton} />
+          </AgreementButton>
+          <ReComment>
+            <Image src={CommentImg} />
+            <span>0</span>
+          </ReComment>
         </>}
       </Actions>
-    </div>
+
+    </>
   )
 }
 
@@ -140,15 +224,17 @@ const Comment = ({ comment, refresh }) => {
     <Wrapper>
       <Profile>
         <ProfilePicture url={comment.writer.picture} />
-        <Nickname>{comment.writer?.nickname || comment.writer?.id}</Nickname>
-        <Created>{fromNow(comment.created_time)}</Created>
+        <ProfileUser>
+          <Nickname>{comment.writer?.nickname || comment.writer?.id}</Nickname>
+          <Created>{fromNow(comment.created_time)}</Created>
+        </ProfileUser>
       </Profile>
-      <div>
+      <>
         {editing
           ? <CommentEditor comment={comment} onEnd={endEdit} />
           : <CommentViewer comment={comment} startEdit={startEdit} refresh={refresh} />
         }
-      </div>
+      </>
     </Wrapper>
   )
 }

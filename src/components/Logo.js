@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import Image from 'next/image'
-import logoDark from 'assets/logo_dark.png'
-import logoLight from 'assets/logo_white.png'
+import LogoLight from 'assets/logo_light.svg'
+import LogoDark from 'assets/logo_dark.svg'
 
 const Div = styled.div`
   font-size: 26px;
@@ -20,7 +20,7 @@ const Div = styled.div`
 const Logo = ({ dark=false }) => (
   <Div>
     <Image
-      src={dark ? logoLight : logoDark}
+      src={dark ? LogoDark : LogoLight}
       alt="우동디"
     />
   </Div>
