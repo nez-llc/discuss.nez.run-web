@@ -6,8 +6,8 @@ const UserContext = createContext({})
 
 export const useAuth = () => useContext(UserContext)
 
-const signInPopup = async provider => new Promise(resolve => {
-  provider.getAuthorizeUrl().then(authorizeUrl => {
+const signInPopup = async getAuthorizeUrl => new Promise(resolve => {
+  getAuthorizeUrl().then(authorizeUrl => {
     const popup = window.open(authorizeUrl, 'newwindow', 'width=500,height=600')
     const timer = setInterval(() => {
       if (popup.closed) {
@@ -56,7 +56,7 @@ export const UserProvider = ({ children }) => {
     if (!token) return
     client.setToken(token)
     fetchUser(token)
-  }, [token])
+  }, [token, fetchUser])
 
   const loggedIn = !!token
 

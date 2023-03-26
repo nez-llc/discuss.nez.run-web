@@ -4,7 +4,7 @@ import Container from 'components/layout/Container'
 import ProfilePicture from 'components/ui/ProfilePicture'
 import UserComments from 'components/member/UserComments'
 import UserVotes from 'components/member/UserVotes'
-import { useAuth } from 'auth/use-auth'
+import { useAuth } from 'auth/client'
 import { useApi } from 'utils/api'
 import { fromNow } from 'utils/date'
 

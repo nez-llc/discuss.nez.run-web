@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useAuth } from 'auth/use-auth'
+import { useAuth } from 'auth/client'
 
 const { API_ENDPOINT } = process.env
 

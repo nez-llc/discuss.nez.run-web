@@ -1,20 +1,10 @@
 import styled from '@emotion/styled'
 import Button from 'components/ui/Button'
 import Container from 'components/layout/Container'
-import TwitterProvider from 'auth/providers/twitter'
-import FacebookProvider from 'auth/providers/facebook'
-import GitHubProvider from 'auth/providers/github'
-import { useAuth } from 'auth/use-auth'
-
-const Description = styled.ul`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  
-  margin: 0;
-  padding: 0;
-`
+import { useAuth } from 'auth/client'
+import * as twitter from 'auth/providers/twitter/client'
+import * as facebook from 'auth/providers/facebook/client'
+import * as github from 'auth/providers/github/client'
 
 const LoginButtons = styled.ul`
   display: flex;
@@ -33,23 +23,25 @@ const SocialButton = styled(Button)`
 `
 
 const TwitterLoginButton = () => {
-  const { signInPopup } = useAuth()
+  const { signInPopup, refresh } = useAuth()
 
-  const start = async () => {
-    const result = await signInPopup(TwitterProvider)
+  const startLogin = async () => {
+    const result = await signInPopup(twitter.getAuthorizeUrl)
+    refresh()
     handleSignin(result)
   }
 
   return (
-    <SocialButton onClick={start}>트위터</SocialButton>
+    <SocialButton onClick={startLogin}>트위터</SocialButton>
   )
 }
 
 const FacebookLoginButton = () => {
-  const { signInPopup } = useAuth()
+  const { signInPopup, refresh } = useAuth()
 
   const startLogin = async () => {
-    const result = await signInPopup(FacebookProvider)
+    const result = await signInPopup(facebook.getAuthorizeUrl)
+    refresh()
     handleSignin(result)
   }
 
@@ -59,10 +51,11 @@ const FacebookLoginButton = () => {
 }
 
 const GitHubLoginButton = () => {
-  const { signInPopup } = useAuth()
+  const { signInPopup, refresh } = useAuth()
 
   const startLogin = async () => {
-    const result = await signInPopup(GitHubProvider)
+    const result = await signInPopup(github.getAuthorizeUrl)
+    refresh()
     handleSignin(result)
   }
 

@@ -1,5 +1,6 @@
 import { createHmac, randomBytes } from 'crypto'
-import { parseToken, requestPost } from 'auth/commons'
+import { parseToken } from 'auth/utils'
+import { post } from 'utils/http'
 
 const percent = s => encodeURIComponent(s)
 
@@ -78,7 +79,7 @@ const authorizedRequest = async (method, url, params = {}) => {
 }
 
 const startOAuth = async ({ provider }) => {
-  const response = await requestPost('/api/auth/start', {
+  const response = await post('/api/auth/start', {
     provider,
   })
   return await response.json()

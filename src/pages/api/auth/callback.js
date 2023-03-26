@@ -1,5 +1,5 @@
-import providers from 'auth/providers'
-import {client} from 'utils/api'
+import { providers } from 'auth/server'
+import { client } from 'utils/api'
 
 const html = `
 <!DOCTYPE html>

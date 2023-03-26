@@ -1,6 +1,5 @@
 import Layout from 'components/layout/Layout'
-import { UserProvider } from 'auth/use-auth'
-import 'modern-normalize/modern-normalize.css'
+import { UserProvider } from 'auth/client'
 import './_global.scss'
 
 const CustomApp = ({ Component, pageProps }) => (
