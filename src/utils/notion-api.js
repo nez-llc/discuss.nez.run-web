@@ -1,30 +1,27 @@
-import {Client} from '@notionhq/client'
+import { Client } from '@notionhq/client'
+
+const NOTION_API_KEY = process.env.NOTION_API_KEY
 
 const notion = new Client({
-  auth: process.env.NOTION_API_KEY,
+  auth: NOTION_API_KEY,
 })
 
-const getBlocksChildren = async (blocks) => await Promise.all(
-  blocks.map(async (block) => await getBlockChildrenItems(block)),
-)
-
-const getBlockChildrenItems = async (block) => {
-  if (block.has_children) {
-    const children = await getBlocks(block.id)
-    block.children_items = await getBlocksChildren(children)
-  }
-  return block
-}
-
-const getBlocks = async (blockId) => {
-  const response = await notion.blocks.children.list({
+const getBlocks = async blockId => {
+  const { results } = await notion.blocks.children.list({
     block_id: blockId,
     page_size: 50,
   })
-  return response.results
+
+  return Promise.all(
+    results.map(async block => {
+      if (block.has_children) {
+        block.children_items = await getBlocks(block.id)
+      }
+      return block
+    })
+  )
 }
 
 export {
   getBlocks,
-  getBlocksChildren,
 }

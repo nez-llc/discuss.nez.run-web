@@ -1,6 +1,6 @@
 import Container from 'components/layout/Container'
 import Blocks from 'components/policy/Blocks'
-import { getBlocks, getBlocksChildren } from 'utils/notion-api'
+import { getBlocks } from 'utils/notion-api'
 
 const PrivacyIndexPage = ({ blocks }) => (
   <Container>
@@ -10,7 +10,6 @@ const PrivacyIndexPage = ({ blocks }) => (
 
 export const getStaticProps = async () => {
   const blocks = await getBlocks('ece19c3efec24e6a935f69adfede199a')
-  await getBlocksChildren(blocks)
 
   return {
     props: {
