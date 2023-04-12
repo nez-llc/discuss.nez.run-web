@@ -1,11 +1,12 @@
 import styled from '@emotion/styled'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 const Ul = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 15px;
+  padding: 0;
   a {
     text-decoration: none;
   }

@@ -10,20 +10,41 @@ import VoteBar from 'components/vote/VoteBar'
 import VoteButtons from 'components/vote/VoteButtons'
 import { format } from 'utils/date'
 import { useVoteData } from 'data/votes'
+import { mq } from 'theme'
 
 const Wrapper = styled.div`
+  display: grid;
+  gap: 24px;
+`
+
+const Summary = styled.div`
+  border-left: 3px solid #828282;
+  padding-left: 24px;
+  font-size: 18px;
+  line-height: 29px;
+  letter-spacing: -0.028em;
+  
+  ${mq.mobile} {
+    padding-left: 12px;
+  }
 `
 
 const Title = styled.h2`
-  font-size: 24px;
-  margin-bottom: 8px;
+  margin-bottom: 24px;
+
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 38px;
+  color: #000000;
+
 `
 
 const Date = styled.div`
-  font-size: 15px;
-  line-height: 22px;
-  letter-spacing: -0.03em;
-  margin-bottom: 30px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+
 `
 
 const QuestionPage = ({ agenda }) => {
@@ -37,9 +58,9 @@ const QuestionPage = ({ agenda }) => {
             {format('YYYY-MM-DD', agenda.created_time)}
           </Date>
           <Title>{agenda.title}</Title>
-        </Pane>
-        <Pane>
-          <Markdown>{agenda.summary}</Markdown>
+          <Summary>
+            <Markdown>{agenda.summary}</Markdown>
+          </Summary>
           <Markdown>{agenda.desc}</Markdown>
         </Pane>
         <Pane>
@@ -48,8 +69,14 @@ const QuestionPage = ({ agenda }) => {
           <VoteButtons agendaId={agenda.id} onVote={refreshVotes} />
         </Pane>
         <Pane>
-          <Pane.Title>관련정책</Pane.Title>
+          <Pane.Title>관련 뉴스</Pane.Title>
           <RelatedReferences agendaId={agenda.id} />
+        </Pane>
+        <Pane>
+          <Pane.Title>관련 정책</Pane.Title>
+          <RelatedReferences agendaId={agenda.id} />
+        </Pane>
+        <Pane>
           <Tags tags={agenda.tags} />
           <AgendaMetaData />
         </Pane>

@@ -6,7 +6,14 @@ const Pane = styled.div`
 `
 
 const Title = styled.h3`
-  margin-bottom: 16px;
+  margin: 0;
+  font-size: 18px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  text-align: justify;
+  letter-spacing: -0.03em;
+  color: #4D4D4D;
 `
 
 Pane.Title = Title
