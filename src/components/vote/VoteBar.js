@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import styled from '@emotion/styled'
 import { COLORS, useVoteData } from 'data/votes'
+import Image from 'next/image'
+import ExpandMore from 'assets/icons/expand_more.svg'
 
 const Wrapper = styled.div`
-  
+  display: grid;
+  gap: 10px;
 `
 
 const Empty = styled.div`
@@ -13,6 +16,29 @@ const Empty = styled.div`
   color: #000;
 `
 
+const Expandable = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  font-size: 14px;
+  color: #828282;
+  gap: 5px;
+`
+
+const ShowDetailButton = styled.button`
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 14px;
+  color: #828282;
+  gap: 7px;
+`
+
 const Labels = styled.div`
   display: flex;
   justify-content: space-between;
@@ -20,14 +46,15 @@ const Labels = styled.div`
 
 const Label = styled.div`
   color: ${({ color }) => color};
+  font-size: 14px;
+  line-height: 17px;
 `
 
 const Bars = styled.div`
   display: flex;
-  border-radius: 8px;
-  overflow: hidden;
-  position: relative;
+  align-items: end;
   height: ${({ showDetail }) => showDetail ? '100px' : '30px'};
+  margin-bottom: ${({ showDetail }) => showDetail ? '0' : '10px'};
 `
 
 const Bar = styled.div`
@@ -35,13 +62,17 @@ const Bar = styled.div`
   height: ${({ detail, value }) => detail ? value : 100}%;
   background: ${({ color }) => color};
   color: #fff;
-  overflow: hidden;
+
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 100%;
+  text-align: center;
 `
 
 const Value = styled.div`
-  position: absolute;
-  color: #fff;
-  top: 0;
+  padding-bottom: 4px;
 `
 
 const VoteBar = ({
@@ -49,36 +80,61 @@ const VoteBar = ({
     strongly_agree, agree, neither, disagree, strongly_disagree, total,
   },
   expandable,
+  isSticky,
 }) => {
   const [showDetail, setShowDetail] = useState(false)
+
+  useEffect(() => {
+    setShowDetail(!isSticky)
+  }, [isSticky])
 
   if (total === 0) {
     return <Empty>투표 없음</Empty>
   }
+
   return (
     <Wrapper>
-      {expandable && (
-        <button onClick={() => setShowDetail(!showDetail)}>
-          {showDetail ? '닫기' : '자세히보기'}
-        </button>
-      )}
-      <Bars showDetail={showDetail}>
-        <Value style={{ left: 0 }}>
-          {((strongly_disagree + disagree) / total * 100).toFixed()}%
-        </Value>
-        <Value style={{ right: 0 }}>
-          {((strongly_agree + agree) / total * 100).toFixed()}%
-        </Value>
-        <Bar detail={showDetail} color={COLORS.strongly_disagree} value={strongly_disagree / total * 100} />
-        <Bar detail={showDetail} color={COLORS.disagree} value={disagree / total * 100} />
-        <Bar detail={showDetail} color={COLORS.neither} value={neither / total * 100} />
-        <Bar detail={showDetail} color={COLORS.agree} value={agree / total * 100} />
-        <Bar detail={showDetail} color={COLORS.strongly_agree} value={strongly_agree / total * 100} />
-      </Bars>
+      {isSticky ? (
+        <Expandable>
+          <ShowDetailButton onClick={() => setShowDetail(!showDetail)}>
+            <Image src={ExpandMore} alt="결과 보기" />
+            <span>{showDetail ? '닫기' : '결과 보기'}</span>
+          </ShowDetailButton>
+          <span>({total}명 투표중)</span>
+        </Expandable>
+      ):
+        <Expandable>{total}명 투표중</Expandable>
+      }
       <Labels>
-        <Label color={COLORS.strongly_disagree}>반대</Label>
-        <Label color={COLORS.strongly_agree}>찬성</Label>
+        <Label color={COLORS.strongly_disagree}>반대 {((strongly_disagree + disagree) / total * 100).toFixed()}%</Label>
+        <Label color={COLORS.strongly_agree}>찬성 {((strongly_agree + agree) / total * 100).toFixed()}%</Label>
       </Labels>
+      <Bars>
+        <Bar color={COLORS.strongly_disagree} value={strongly_disagree / total * 100} />
+        <Bar color={COLORS.disagree} value={disagree / total * 100} />
+        <Bar color={COLORS.neither} value={neither / total * 100} />
+        <Bar color={COLORS.agree} value={agree / total * 100} />
+        <Bar color={COLORS.strongly_agree} value={strongly_agree / total * 100} />
+      </Bars>
+      {(showDetail) && (
+        <Bars showDetail={showDetail}>
+          <Bar detail color={COLORS.strongly_disagree} value={strongly_disagree / total * 100}>
+            <Value>{(strongly_disagree / total * 100).toFixed()}%</Value>
+          </Bar>
+          <Bar detail color={COLORS.disagree} value={disagree / total * 100}>
+            <Value>{(disagree / total * 100).toFixed()}%</Value>
+          </Bar>
+          <Bar detail color={COLORS.neither} value={neither / total * 100}>
+            <Value>{(neither / total * 100).toFixed()}%</Value>
+          </Bar>
+          <Bar detail color={COLORS.agree} value={agree / total * 100}>
+            <Value>{(agree / total * 100).toFixed()}%</Value>
+          </Bar>
+          <Bar detail color={COLORS.strongly_agree} value={strongly_agree / total * 100}>
+            <Value>{(strongly_agree / total * 100).toFixed()}%</Value>
+          </Bar>
+        </Bars>
+      )}
     </Wrapper>
   )
 }

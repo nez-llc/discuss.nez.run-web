@@ -4,15 +4,21 @@ import { useApi } from 'utils/api'
 
 const VoteButton = styled(Button)`
   color : ${props => props.color};
+  background: #fff;
 `
 
 const Wrapper = styled.div`
   display: flex;
+  gap: 1px;
+  
   ${VoteButton} {
     flex: 1;
   }
-  ${VoteButton}:first-of-type, ${VoteButton}:last-of-type {
+  ${VoteButton}:first-of-type {
     border-radius: 10px 4px 4px 10px;
+  }
+  ${VoteButton}:last-of-type{
+    border-radius: 4px 10px 10px 4px;
   }
 `
 

@@ -1,3 +1,4 @@
+import React, {useEffect, useRef, useState} from 'react'
 import styled from '@emotion/styled'
 import Container from 'components/layout/Container'
 import Pane from 'components/layout/Pane'
@@ -36,7 +37,6 @@ const Title = styled.h2`
   font-size: 25px;
   line-height: 38px;
   color: #000000;
-
 `
 
 const Date = styled.div`
@@ -44,16 +44,55 @@ const Date = styled.div`
   font-size: 14px;
   line-height: 17px;
   color: #000000;
+`
 
+const StickyLine = styled.div`
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  
+`
+
+const Vote = styled(Pane)`
+  background-color: #EBEEF2;
+  padding: 10px 20px;
+
+  position: ${({ isSticky }) => isSticky ? 'sticky' : 'block'};
+  bottom: 0;
+  top: 0;
 `
 
 const QuestionPage = ({ agenda }) => {
   const { refresh: refreshVotes, votes } = useVoteData(agenda.id)
+  const stickyRef = useRef(null)
+  const checkRef = useRef(null)
+
+  const [isSticky, setIsSticky] = useState(true)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const { bottom } = checkRef.current.getBoundingClientRect()
+      const scrolledHeight = window.scrollY
+      const targetHeight = bottom - window.innerHeight + 275
+
+      if (scrolledHeight >= targetHeight) {
+        setIsSticky(false)
+      } else {
+        setIsSticky(true)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   return (
     <Container>
       <Wrapper>
-        <Pane>
+        <Pane ref={checkRef}>
           <Date>
             {format('YYYY-MM-DD', agenda.created_time)}
           </Date>
@@ -62,12 +101,12 @@ const QuestionPage = ({ agenda }) => {
             <Markdown>{agenda.summary}</Markdown>
           </Summary>
           <Markdown>{agenda.desc}</Markdown>
+          <StickyLine ref={stickyRef} />
         </Pane>
-        <Pane>
-          {/* TODO : 투표 후 업데이트 */}
-          <VoteBar agendaId={agenda.id} votes={votes} expandable />
+        <Vote isSticky={isSticky}>
+          <VoteBar agendaId={agenda.id} votes={votes} expandable isSticky={isSticky} />
           <VoteButtons agendaId={agenda.id} onVote={refreshVotes} />
-        </Pane>
+        </Vote>
         <Pane>
           <Pane.Title>관련 뉴스</Pane.Title>
           <RelatedReferences agendaId={agenda.id} />
