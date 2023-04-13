@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import styled from '@emotion/styled'
 import Button from 'components/ui/Button'
-import { useAuth } from 'auth/use-auth'
+import { useAuth } from 'auth/client'
 
 const Wrapper = styled.div`
 `
