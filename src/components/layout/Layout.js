@@ -3,7 +3,7 @@ import Header from 'components/layout/Header'
 import Footer from 'components/layout/Footer'
 
 const Wrapper = styled.div`
-  
+  background-color: #fff;
 `
 
 const Main = styled.div`

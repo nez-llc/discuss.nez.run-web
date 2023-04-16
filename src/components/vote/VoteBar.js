@@ -71,6 +71,19 @@ const Bar = styled.div`
   text-align: center;
 `
 
+const PrevVoteCount = styled.span`
+  font-weight: 500;
+  font-size: 14px;
+  color: rgba(12, 12, 12, 0.65);
+`
+
+const PrevBars = styled(Bars)`
+  height: 24px;
+`
+
+const PrevBar = styled(Bar)`
+`
+
 const Value = styled.div`
   padding-bottom: 4px;
 `
@@ -85,56 +98,72 @@ const VoteBar = ({
   const [showDetail, setShowDetail] = useState(false)
 
   useEffect(() => {
-    setShowDetail(!isSticky)
+    if(expandable){
+      setShowDetail(!isSticky)
+    }
   }, [isSticky])
 
   if (total === 0) {
     return <Empty>투표 없음</Empty>
   }
 
+  if(expandable){
+    return (
+      <Wrapper>
+        {isSticky ?
+          <Expandable>
+            <ShowDetailButton onClick={() => setShowDetail(!showDetail)}>
+              <Image src={ExpandMore} alt="결과 보기" />
+              <span>{showDetail ? '닫기' : '결과 보기'}</span>
+            </ShowDetailButton>
+            <span>({total}명 투표중)</span>
+          </Expandable>
+          :
+          <Expandable>{total}명 투표중</Expandable>
+        }
+        <Labels>
+          <Label color={COLORS.strongly_disagree}>반대 {((strongly_disagree + disagree) / total * 100).toFixed()}%</Label>
+          <Label color={COLORS.strongly_agree}>찬성 {((strongly_agree + agree) / total * 100).toFixed()}%</Label>
+        </Labels>
+
+        <Bars>
+          <Bar color={COLORS.strongly_disagree} value={strongly_disagree / total * 100} />
+          <Bar color={COLORS.disagree} value={disagree / total * 100} />
+          <Bar color={COLORS.neither} value={neither / total * 100} />
+          <Bar color={COLORS.agree} value={agree / total * 100} />
+          <Bar color={COLORS.strongly_agree} value={strongly_agree / total * 100} />
+        </Bars>
+        {(showDetail) && (
+          <Bars showDetail={showDetail}>
+            <Bar detail color={COLORS.strongly_disagree} value={strongly_disagree / total * 100}>
+              <Value>{(strongly_disagree / total * 100).toFixed()}%</Value>
+            </Bar>
+            <Bar detail color={COLORS.disagree} value={disagree / total * 100}>
+              <Value>{(disagree / total * 100).toFixed()}%</Value>
+            </Bar>
+            <Bar detail color={COLORS.neither} value={neither / total * 100}>
+              <Value>{(neither / total * 100).toFixed()}%</Value>
+            </Bar>
+            <Bar detail color={COLORS.agree} value={agree / total * 100}>
+              <Value>{(agree / total * 100).toFixed()}%</Value>
+            </Bar>
+            <Bar detail color={COLORS.strongly_agree} value={strongly_agree / total * 100}>
+              <Value>{(strongly_agree / total * 100).toFixed()}%</Value>
+            </Bar>
+          </Bars>
+        )}
+      </Wrapper>
+    )
+  }
+
   return (
     <Wrapper>
-      {isSticky ? (
-        <Expandable>
-          <ShowDetailButton onClick={() => setShowDetail(!showDetail)}>
-            <Image src={ExpandMore} alt="결과 보기" />
-            <span>{showDetail ? '닫기' : '결과 보기'}</span>
-          </ShowDetailButton>
-          <span>({total}명 투표중)</span>
-        </Expandable>
-      ):
-        <Expandable>{total}명 투표중</Expandable>
-      }
-      <Labels>
-        <Label color={COLORS.strongly_disagree}>반대 {((strongly_disagree + disagree) / total * 100).toFixed()}%</Label>
-        <Label color={COLORS.strongly_agree}>찬성 {((strongly_agree + agree) / total * 100).toFixed()}%</Label>
-      </Labels>
-      <Bars>
-        <Bar color={COLORS.strongly_disagree} value={strongly_disagree / total * 100} />
-        <Bar color={COLORS.disagree} value={disagree / total * 100} />
-        <Bar color={COLORS.neither} value={neither / total * 100} />
-        <Bar color={COLORS.agree} value={agree / total * 100} />
-        <Bar color={COLORS.strongly_agree} value={strongly_agree / total * 100} />
-      </Bars>
-      {(showDetail) && (
-        <Bars showDetail={showDetail}>
-          <Bar detail color={COLORS.strongly_disagree} value={strongly_disagree / total * 100}>
-            <Value>{(strongly_disagree / total * 100).toFixed()}%</Value>
-          </Bar>
-          <Bar detail color={COLORS.disagree} value={disagree / total * 100}>
-            <Value>{(disagree / total * 100).toFixed()}%</Value>
-          </Bar>
-          <Bar detail color={COLORS.neither} value={neither / total * 100}>
-            <Value>{(neither / total * 100).toFixed()}%</Value>
-          </Bar>
-          <Bar detail color={COLORS.agree} value={agree / total * 100}>
-            <Value>{(agree / total * 100).toFixed()}%</Value>
-          </Bar>
-          <Bar detail color={COLORS.strongly_agree} value={strongly_agree / total * 100}>
-            <Value>{(strongly_agree / total * 100).toFixed()}%</Value>
-          </Bar>
-        </Bars>
-      )}
+      <PrevVoteCount>{total}명 투표중</PrevVoteCount>
+      <PrevBars>
+        <PrevBar color={COLORS.strongly_disagree} value={(strongly_disagree + disagree) / total * 100} />
+        <PrevBar color={COLORS.neither} value={neither / total * 100} />
+        <PrevBar color={COLORS.strongly_agree} value={(strongly_agree + agree) / total * 100} />
+      </PrevBars>
     </Wrapper>
   )
 }

@@ -22,13 +22,20 @@ const useAgendas = query => {
         //   onServerError(data)
         //   break
       }
+
       setAgendas(data.items)
+      setPagination({
+        'total': data.total,
+        'per_page': data.per_page,
+        'current_page': data.current_page,
+      })
     }
     fetchAgendas()
   }, [client.token, query.featured])
 
   return {
     agendas,
+    pagination,
   }
 }
 
