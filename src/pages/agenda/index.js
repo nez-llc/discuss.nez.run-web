@@ -7,8 +7,7 @@ import Pane from 'components/layout/Pane'
 import Image from 'next/image'
 import Sort from 'assets/icons/sort.svg'
 import styled from '@emotion/styled'
-import Tags from 'components/ui/Tags'
-import {useTagsData} from 'data/tags'
+import FeaturedTags from 'components/ui/FetuasTags'
 
 const Wrapper = styled.div`
   display: grid;
@@ -55,15 +54,6 @@ const SortFilters = styled.div`
   }
 `
 
-const FeaturedTags = styled(Pane)`
-  display: grid;
-  gap: 10px;
-  
-  p{
-    margin: 0;
-  }
-`
-
 const QuestionListPage = ({tag, keyword, sort, searchType}) => {
   const router = useRouter()
   const [searchValue, setSearchValue] = useState(keyword)
@@ -71,7 +61,6 @@ const QuestionListPage = ({tag, keyword, sort, searchType}) => {
   const [showFilters, setShowFilters] = useState(false)
   const [filtersTop, setFiltersTop] = useState(0)
   const [filtersLeft, setFilterLeft] = useState(0)
-  const {tags} = useTagsData()
 
   useEffect(() => {
   }, [router.query])
@@ -83,7 +72,7 @@ const QuestionListPage = ({tag, keyword, sort, searchType}) => {
     })
   }
 
-  function handleClick(event) {
+  const handleClick = (event) => {
     const rect = event.target.getBoundingClientRect()
 
     setFiltersTop(rect.top + 20)
@@ -105,10 +94,7 @@ const QuestionListPage = ({tag, keyword, sort, searchType}) => {
           )}
         </AgendaSort>
         {/* <AgendaSearch searchValue={searchValue} setSearchValue={setSearchValue} setSearchType={setType} searchType={type} search={search}/> */}
-        <FeaturedTags>
-          <p>추천태그</p>
-          <Tags tags={tags}/>
-        </FeaturedTags>
+        <FeaturedTags />
         <Pane>
           <AgendaList tag={tag} keyword={keyword} sort={sort} searchType={searchType}/>
         </Pane>
