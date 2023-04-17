@@ -17,7 +17,7 @@ const Div = styled.div`
   }
 `
 
-const Logo = ({ dark=false }) => (
+const Logo = ({ dark=true }) => (
   <Div>
     <Image
       src={dark ? LogoDark : LogoLight}

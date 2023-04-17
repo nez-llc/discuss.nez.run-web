@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 
 const Pane = styled.div`
-  padding: 0 20px;
   background: white;
 `
 
