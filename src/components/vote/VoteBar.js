@@ -103,7 +103,7 @@ const VoteBar = ({
     }
   }, [isSticky])
 
-  if (total === 0) {
+  if (total === 0 || total === undefined) {
     return <Empty>투표 없음</Empty>
   }
 
