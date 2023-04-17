@@ -5,8 +5,8 @@ import ProfilePicture from 'components/ui/ProfilePicture'
 import { useAuth } from 'auth/client'
 import { useApi } from 'utils/api'
 import { fromNow } from 'utils/date'
-import UpButton from 'assets/up_button.svg'
-import DownButton from 'assets/down_button.svg'
+import UpButton from 'assets/up_button.svg?inline'
+import DownButton from 'assets/down_button.svg?inline'
 import CommentImg from 'assets/comment.svg'
 
 import Image from 'next/image'
@@ -192,14 +192,14 @@ const CommentViewer = ({ comment, startEdit, refresh }) => {
           <Button onClick={startEdit}>수정</Button>
         </> : <>
           <AgreementButton onClick={agree}>
-            <Image src={UpButton} />
+            <UpButton />
             <span>{comment.agreement}</span>
           </AgreementButton>
           <AgreementButton onClick={disagree}>
-            <Image src={DownButton} />
+            <DownButton />
           </AgreementButton>
           <ReComment>
-            <Image src={CommentImg} />
+            <Image src={CommentImg} alt="대댓글" />
             <span>0</span>
           </ReComment>
         </>}
