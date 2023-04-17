@@ -14,12 +14,11 @@ const Wrapper = styled.div`
 const List = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 24px;
   width: 100%;
   
   a { 
-    max-width: 380px;
+    max-width: 398px;
     width: 100%;
     text-decoration: none;
   }
@@ -50,7 +49,7 @@ const PageItem = styled.ul`
   }
 `
 
-const QuestionList = ({ query }) => {
+const QuestionList = ({ query, isMain }) => {
   const { agendas, pagination } = useAgendas({
     query,
   })
@@ -71,25 +70,27 @@ const QuestionList = ({ query }) => {
           </Link>
         ))}
       </List>
-      <Pagination>
-        <li>
-          <button>
-            <PrevPage fill={pagination.current_page === 1 ? '#D9D9D9' : '#000000'}/>
-          </button>
-        </li>
-        {pages.map((page) => (
-          <PageItem key={page} active={page === pagination.current_page}>
-            <Link href={`?page=${page}`}>
-              {page}
-            </Link>
-          </PageItem>
-        ))}
-        <li>
-          <button>
-            <NextPage fill={pagination.current_page === totalPages ? '#D9D9D9' : '#000000'}/>
-          </button>
-        </li>
-      </Pagination>
+      {!isMain &&
+        <Pagination>
+          <li>
+            <button>
+              <PrevPage fill={pagination.current_page === 1 ? '#D9D9D9' : '#000000'}/>
+            </button>
+          </li>
+          {pages.map((page) => (
+            <PageItem key={page} active={page === pagination.current_page}>
+              <Link href={`?page=${page}`}>
+                {page}
+              </Link>
+            </PageItem>
+          ))}
+          <li>
+            <button>
+              <NextPage fill={pagination.current_page === totalPages ? '#D9D9D9' : '#000000'}/>
+            </button>
+          </li>
+        </Pagination>
+      }
     </Wrapper>
   )
 }

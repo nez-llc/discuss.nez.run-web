@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import Container from 'components/layout/Container'
 import bg from 'assets/main_bg.png'
+import { mq } from 'theme'
 
 const Wrapper = styled.div`
   background: url(${bg.src}) no-repeat;
@@ -9,18 +10,32 @@ const Wrapper = styled.div`
 
 const Description = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 70px;
-  max-width: 330px;
-  padding: 8px 0;
+  padding: 120px 18px;
+  color: #fff;
 `
 
 const Title = styled.p`
-  font-size: 28px;
+  max-width: 330px;
+  font-weight: 700;
+  font-size: 27px;
+  line-height: 32px;
 `
 
 const Desc = styled.div`
-  font-size: 20px;
+  max-width: 330px;
+ 
+  p{
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: -0.03em;
+
+    ${mq.mobile} {
+      font-size: 17px;
+    }
+  }
 `
 
 const Meta = styled.div`
@@ -70,18 +85,6 @@ const Introduce = () => (
           <p>우리가 동의하는 디지털 정책을 위해 함께 고민하고 이야기해요.</p>
         </Desc>
       </Description>
-      <Meta>
-        <Stat>
-          <dl>
-            <dt>논의중인 토론</dt>
-            <dd>123,321</dd>
-          </dl>
-          <dl>
-            <dt>투표수</dt>
-            <dd>132,113</dd>
-          </dl>
-        </Stat>
-      </Meta>
     </Container>
   </Wrapper>
 )
