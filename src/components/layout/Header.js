@@ -5,11 +5,21 @@ import Container from 'components/layout/Container'
 import Account from 'components/member/Account'
 import Search from 'components/search/Search'
 import MenuIcon from 'assets/icons/menu.svg?inline'
+import Close from 'assets/icons/close.svg?inline'
 import { mq } from 'theme'
-import React from 'react'
+import React, {useState} from 'react'
+import FeaturedTags from 'components/ui/FetuasTags'
 
 const Wrapper = styled.div`
   background: #253362;
+  
+  ${({isNav}) => isNav && `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  `}
 `
 
 const Root = styled.header`
@@ -17,7 +27,6 @@ const Root = styled.header`
   align-items: center;
   gap: 32px;
   height: 80px;
-  padding: 0 20px;
   
   ${mq.mobile} {
     height: 64px;
@@ -64,18 +73,75 @@ const Utils = styled.div`
 
 const NavMenu = styled.div`
   display: none;
+  
   ${mq.mobile} {
     display: flex;
     align-items: center;  
   }
 `
 
+const MobileNavMenu = styled.div`
+  background: #fff;
+  position: absolute;
+  width: 100%;
+  height: ${({ height }) => height}px;
+  padding: 20px;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  
+  overflow-y: scroll;
+  
+  dl{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  dt{
+    font-weight: 500;
+    font-size: 15px;
+    color: #828282;
+  }
+  
+  dd{
+    padding-left: 20px;
+  }
+`
+
+const NavLinks = styled(Links)`
+  display: block;
+  font-weight: 700;
+  font-size: 20px;
+  color: #09101D;
+
+  ${mq.mobile} {
+    display: flex;
+    flex-direction: column;
+  }
+`
+
 const Header = () => {
   // const { current } = useNavigation()
   // TODO : active 처리
+  const [isNav, setisNav] = useState(false)
+  const [navHeight, setNavHeight] = useState(0)
+
+  const openNavMenu = () => {
+    document.body.style.overflow = 'hidden'
+    const windowHeight = window.innerHeight
+    setNavHeight(windowHeight)
+    setisNav(true)
+  }
+
+  const closeNavMenu = () => {
+    document.body.style.overflow = 'auto'
+    setisNav(false)
+  }
 
   return (
-    <Wrapper>
+    <Wrapper isNav={isNav} height={navHeight}>
       <Container>
         <Root>
           <Link href="/">
@@ -88,15 +154,38 @@ const Header = () => {
               <Link href="/reference">정책위키</Link>
             </Links>
             <Utils>
-              <Search />
-              <Account />
-              <NavMenu>
-                <MenuIcon />
-              </NavMenu>
+              {isNav ?
+                <NavMenu>
+                  <Close onClick={closeNavMenu}/>
+                </NavMenu>
+                :
+                <>
+                  <Search />
+                  <Account />
+                  <NavMenu>
+                    <MenuIcon onClick={openNavMenu} />
+                  </NavMenu>
+                </>
+              }
             </Utils>
           </Menu>
         </Root>
       </Container>
+      {isNav &&
+        <MobileNavMenu height={navHeight}>
+          <dl>
+            <dt>마이페이지</dt>
+            <dd><Account isNav={isNav}/></dd>
+          </dl>
+          <dl>
+            <dt>토론 살펴보기</dt>
+            <dd><FeaturedTags view={'nav'}/></dd>
+          </dl>
+          <NavLinks>
+            <Link href="/about">우동디 소개</Link>
+          </NavLinks>
+        </MobileNavMenu>
+      }
     </Wrapper>
   )
 }

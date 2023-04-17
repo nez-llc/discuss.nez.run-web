@@ -16,11 +16,21 @@ const Wrapper = styled.div`
   gap: 15px;
   
   ${mq.mobile} {
-    display: none;
+    display: ${({ isNav }) => isNav ? 'block' : 'none'};
   }
 `
 
-const LinkButton = HeaderButton.withComponent(Link)
+const NavButton = styled(HeaderButton)`
+  ${mq.mobile} {
+    border: 0;
+    font-weight: 400;
+    font-size: 20px;
+    color: #09101D;
+  }
+`
+
+const LinkButton = styled(NavButton.withComponent(Link))`
+`
 
 const MyMenu = styled.div`
   padding: 13px;
@@ -48,7 +58,7 @@ const MyMenu = styled.div`
   } 
 `
 
-const Account = () => {
+const Account = ({ isNav }) => {
   const { loggedIn, logout } = useAuth()
   const [showMyMenu, setShowMyMenu] = useState(false)
   const [myMenuLeft, setMyMenuLeft] = useState(0)
@@ -75,21 +85,31 @@ const Account = () => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper isNav={isNav}>
       {loggedIn ? (
         <>
-          <HeaderButton onClick={handleClick}>
-            <MyProfile /> userName
-          </HeaderButton>
-          {showMyMenu && (
-            <MyMenu left={myMenuLeft}>
+          {isNav ?
+            <>
               <LinkButton href="/me">프로필</LinkButton>
-              <hr />
               <LinkButton href="/me">계정 설정</LinkButton>
-              <hr />
-              <HeaderButton>로그아웃</HeaderButton>
-            </MyMenu>
-          )}
+              <NavButton>로그아웃</NavButton>
+            </>
+            :
+            <>
+              <HeaderButton onClick={handleClick}>
+                <MyProfile /> userName
+              </HeaderButton>
+              {showMyMenu && (
+                <MyMenu left={myMenuLeft}>
+                  <LinkButton href="/me">프로필</LinkButton>
+                  <hr />
+                  <LinkButton href="/me">계정 설정</LinkButton>
+                  <hr />
+                  <HeaderButton>로그아웃</HeaderButton>
+                </MyMenu>
+              )}
+            </>
+          }
         </>
       ) :(
         <>

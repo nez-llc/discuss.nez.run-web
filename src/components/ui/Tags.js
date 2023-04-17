@@ -3,11 +3,17 @@ import Link from 'next/link'
 
 const Ul = styled.ul`
   display: flex;
-  gap: 10px;
-  overflow-x: scroll;
   padding: 10px 0;
-  height: 40px;
   
+  ${({ view }) => view === 'nav' ? `
+  gap: 15px 5px;
+    flex-wrap: wrap;
+  `
+    : `
+    overflow-x: scroll;
+    gap: 10px;
+  `}
+
   a {
     text-decoration: none;
     flex: 0 0 auto;
@@ -33,7 +39,7 @@ const Tag = styled.span`
 `
 
 const Tags = ({ tags, view }) => (
-  <Ul>
+  <Ul view={view}>
     {JSON.stringify(tags) !== '{}' && tags.map(tag => (
       <li key={tag.id}>
         <Link href={`/agenda?tag=${tag.name}`}>

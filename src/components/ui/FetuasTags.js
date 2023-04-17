@@ -13,13 +13,13 @@ const FeaturedTag = styled(Pane)`
   }
 `
 
-const FeaturedTags = () => {
+const FeaturedTags = ({ view }) => {
   const {tags} = useTagsData()
 
   return (
     <FeaturedTag>
-      <p>추천태그</p>
-      <Tags tags={tags}/>
+      {view !== 'nav' && <p>추천태그</p> }
+      <Tags tags={tags} view={view}/>
     </FeaturedTag>
   )
 }
