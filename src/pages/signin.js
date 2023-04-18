@@ -13,6 +13,9 @@ const LoginButtons = styled.ul`
   padding: 0;
 `
 
+const Description = styled.div`
+`
+
 const handleSignin = () => {
   // TODO ...
   // 원래 보던 곳으로 이동
